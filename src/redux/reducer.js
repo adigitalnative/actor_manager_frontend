@@ -22,7 +22,8 @@ const loadingReducer = (state = false, action) => {
 
 const rootReducer = combineReducers(
   {
-    auditions: auditionsReducer
+    auditions: auditionsReducer,
+    loading: loadingReducer
   }
 )
 
