@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Modal, Form, Button, Select } from 'semantic-ui-react'
+import RSelect from 'react-select'
 import { connect } from 'react-redux'
 import { fetchingCategories, fetchingProjects, creatingAudition } from '../redux/actions'
 
@@ -44,7 +45,8 @@ class AuditionForm extends Component {
       prepare: "",
       auditionCategory: null,
       project: null,
-      modalOpen: false
+      modalOpen: false,
+      selectedProject: null
     })
     // push to history so it stays in the URL
   }
@@ -59,14 +61,17 @@ class AuditionForm extends Component {
     })
   }
 
-  formattedProjectsForSelect = () => {
+  formattedProjectsForRSelect = () => {
     return this.props.projects.map(project => {
       return {
-        key: project.id,
-        text: project.name,
-        value: project.id
+        value: project.id,
+        label: project.name
       }
     })
+  }
+
+  handleRProjectChange = (selectedProject) => {
+    this.setState({ project: selectedProject.value })
   }
 
   render() {
@@ -82,13 +87,17 @@ class AuditionForm extends Component {
         <Modal.Header>Create an Audition</Modal.Header>
         <Modal.Content>
           <Form onSubmit={event => this.handleSubmit(event)}>
+            <RSelect
+              value={this.state.selectedProject}
+              onChange={this.handleRProjectChange}
+              options={this.formattedProjectsForRSelect()}
+              placeholder="Project"
+              name="project"
+            />
+            <Form.Field control={Select} label='Category' options={this.formattedCategoriesForSelect()} placeholder='Audition Category' value={this.state.auditionCategory} name='auditionCategory' onChange={this.handleChange}/>
             <Form.Group widths="equal">
-              <Form.Field control={Select} label='Project' options={this.formattedProjectsForSelect()} placeholder='Project' value={this.state.project} name="project" onChange={this.handleChange} />
-              <Form.Field control={Select} label='Category' options={this.formattedCategoriesForSelect()} placeholder='Audition Category' value={this.state.auditionCategory} name='auditionCategory' onChange={this.handleChange}/>
-            </Form.Group>
-            <Form.Group widths="equal">
-              <Form.Input label="Bring" type="text" name="bring" onChange={this.handleChange} value={this.state.bring}/>
-              <Form.Input label="Prepare" type="text" name="prepare" onChange={this.handleChange} value={this.state.prepare}/>
+              <Form.Input label="Bring" type="text" name="bring" onChange={this.handleChange} value={this.state.bring} placeholder="To Bring"/>
+              <Form.Input label="Prepare" type="text" name="prepare" onChange={this.handleChange} value={this.state.prepare} placeholder="To Prepare"/>
             </Form.Group>
             <Button type="submit">Save Audition</Button>
           </Form>
