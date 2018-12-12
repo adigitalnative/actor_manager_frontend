@@ -20,8 +20,7 @@ class AuditionsContainer extends Component {
             <Header as="h2">Auditions</Header>
           </Grid.Column>
           <Grid.Column floated='right' width={4}>
-
-              <AuditionForm />
+            <AuditionForm />
           </Grid.Column>
         </Grid>
         {this.props.loading ? <LoadingSpinner message="Loading your auditions..."/> : (

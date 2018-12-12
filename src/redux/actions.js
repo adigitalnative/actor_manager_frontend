@@ -72,6 +72,26 @@ function creatingAudition(audition) {
   }
 }
 
+function deleteAudition(audition_id) {
+  const str = URL + '/auditions/' + audition_id
+  return(dispatch) => {
+    fetch(str, {
+      method: "DELETE",
+      headers: {
+        'Accept':'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(audition => {
+      dispatch(deletedAudition(audition))
+    })
+  }
+}
+
+function deletedAudition(audition) {
+  return {type: "DELETED_AUDITION", audition}
+}
+
 export { fetchingAuditions, loadingAuditions, fetchedAuditions,
   fetchingCategories, loadingCategories, fetchedCategories, fetchingProjects,
-  fetchedProjects, creatingAudition}
+  fetchedProjects, creatingAudition, deleteAudition, deletedAudition}

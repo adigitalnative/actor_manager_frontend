@@ -1,7 +1,14 @@
 import React from 'react'
 import { Item, Grid, Button } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { deleteAudition } from '../redux/actions'
 
-const Audition = ({audition}) => {
+const Audition = ({audition, deleteAudition}) => {
+
+  const handleDeleteClick = () => {
+    deleteAudition(audition.id)
+  }
+
   return(
     <Item>
       <Item.Content>
@@ -17,7 +24,7 @@ const Audition = ({audition}) => {
               <Grid.Column>
                 <Button.Group fluid size="mini">
                   <Button>Edit</Button>
-                  <Button color="red">Delete</Button>
+                  <Button color="red" onClick={handleDeleteClick}>Delete</Button>
                 </Button.Group>
               </Grid.Column>
             </Grid.Row>
@@ -28,4 +35,10 @@ const Audition = ({audition}) => {
   )
 }
 
-export default Audition
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteAudition: audition => {dispatch(deleteAudition(audition))}
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Audition)
