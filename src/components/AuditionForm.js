@@ -1,14 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { Modal, Form, Button, Select } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { fetchingCategories } from '../redux/actions'
+import { fetchingCategories, fetchingProjects, creatingAudition } from '../redux/actions'
 
-
-const categoryOptions = [
-  {key: "1", text: "Open Call", value: "1"},
-  {key: "2", text: "EPA", value: "2"},
-  {key: "4", text: "Callback", value: "4"},
-]
 
 class AuditionForm extends Component {
 
@@ -17,21 +11,42 @@ class AuditionForm extends Component {
     this.state = {
       bring: "",
       prepare: "",
-      auditionCategory: null
+      auditionCategory: null,
+      project: null,
+      modalOpen: false
     }
   }
+
+  handleOpen = () => this.setState({modalOpen: true})
+  handleClose = () => this.setState({modalOpen: false})
 
 
   componentDidMount() {
     this.props.fetchingCategories()
+    this.props.fetchingProjects()
   }
 
   handleChange = (e, {name, value }) => {
     this.setState({ [name] : value })
   }
 
-  handleSubmit = () => {
-    console.log(this.state)
+  handleSubmit = event => {
+    event.preventDefault()
+    let audition = {
+      bring: this.state.bring,
+      prepare: this.state.prepare,
+      category_id: this.state.auditionCategory,
+      project_id: this.state.project
+    };
+    this.props.createAudition(audition)
+    this.setState({
+      bring: "",
+      prepare: "",
+      auditionCategory: null,
+      project: null,
+      modalOpen: false
+    })
+    // push to history so it stays in the URL
   }
 
   formattedCategoriesForSelect = () => {
@@ -44,14 +59,33 @@ class AuditionForm extends Component {
     })
   }
 
-  render() {
+  formattedProjectsForSelect = () => {
+    return this.props.projects.map(project => {
+      return {
+        key: project.id,
+        text: project.name,
+        value: project.id
+      }
+    })
+  }
 
+  render() {
     return(
       <Fragment>
+      <Modal
+        trigger={<Button primary basic fluid size="small" onClick={this.handleOpen}>Add Audition</Button>}
+        centered={false}
+        dimmer='blurring'
+        open={this.state.modalOpen}
+        onClose={this.handleClose}
+      >
         <Modal.Header>Create an Audition</Modal.Header>
         <Modal.Content>
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Field control={Select} label='Category' options={this.formattedCategoriesForSelect()} placeholder='Audition Category' value={this.state.auditionCategory} name='auditionCategory' onChange={this.handleChange}/>
+          <Form onSubmit={event => this.handleSubmit(event)}>
+            <Form.Group widths="equal">
+              <Form.Field control={Select} label='Project' options={this.formattedProjectsForSelect()} placeholder='Project' value={this.state.project} name="project" onChange={this.handleChange} />
+              <Form.Field control={Select} label='Category' options={this.formattedCategoriesForSelect()} placeholder='Audition Category' value={this.state.auditionCategory} name='auditionCategory' onChange={this.handleChange}/>
+            </Form.Group>
             <Form.Group widths="equal">
               <Form.Input label="Bring" type="text" name="bring" onChange={this.handleChange} value={this.state.bring}/>
               <Form.Input label="Prepare" type="text" name="prepare" onChange={this.handleChange} value={this.state.prepare}/>
@@ -59,6 +93,7 @@ class AuditionForm extends Component {
             <Button type="submit">Save Audition</Button>
           </Form>
         </Modal.Content>
+      </Modal>
       </Fragment>
     )
   }
@@ -66,13 +101,16 @@ class AuditionForm extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchingCategories: () => {dispatch(fetchingCategories())}
+    fetchingCategories: () => {dispatch(fetchingCategories())},
+    fetchingProjects: () => {dispatch(fetchingProjects())},
+    createAudition: audition => {dispatch(creatingAudition(audition))}
   }
 }
 
 const mapStateToProps = state => {
   return {
-    categories: state.categories
+    categories: state.categories,
+    projects: state.projects
   }
 }
 

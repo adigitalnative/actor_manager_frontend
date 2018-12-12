@@ -38,5 +38,40 @@ function loadingCategories() {
   return {type: "LOADING_CATEGORIES"}
 }
 
+function fetchingProjects() {
+  return(dispatch) => {
+    fetch(URL + '/projects')
+    .then(response => response.json())
+    .then(projects => {
+      dispatch(fetchedProjects(projects))
+    })
+  }
+}
+
+function fetchedProjects(projects) {
+  return {type: "FETCHED_PROJECTS", projects}
+}
+
+function addedAudition(audition) {
+  return {type: "ADDED_AUDITION", audition}
+}
+
+function creatingAudition(audition) {
+  return(dispatch) => {
+    fetch(URL + '/auditions', {
+      method: "POST",
+      headers: {
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify({audition: audition})
+    })
+    .then(response => response.json())
+    .then(audition => {
+      dispatch(addedAudition(audition))
+    })
+  }
+}
+
 export { fetchingAuditions, loadingAuditions, fetchedAuditions,
-  fetchingCategories, loadingCategories, fetchedCategories}
+  fetchingCategories, loadingCategories, fetchedCategories, fetchingProjects,
+  fetchedProjects, creatingAudition}
