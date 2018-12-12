@@ -20,10 +20,20 @@ const loadingReducer = (state = false, action) => {
   }
 }
 
+const categoriesReducer = (state=[], action) => {
+  switch(action.type) {
+    case "FETCHED_CATEGORIES":
+      return action.categories
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers(
   {
     auditions: auditionsReducer,
-    loading: loadingReducer
+    loading: loadingReducer,
+    categories: categoriesReducer
   }
 )
 

@@ -19,4 +19,24 @@ function fetchedAuditions(auditions) {
   return {type: "FETCHED_AUDITIONS", auditions}
 }
 
-export { fetchingAuditions, loadingAuditions, fetchedAuditions}
+function fetchingCategories() {
+  return(dispatch) => {
+    dispatch(loadingCategories())
+    fetch(URL + '/categories')
+    .then(response => response.json())
+    .then(categories => {
+      dispatch(fetchedCategories(categories))
+    })
+  }
+}
+
+function fetchedCategories(categories) {
+  return {type: "FETCHED_CATEGORIES", categories}
+}
+
+function loadingCategories() {
+  return {type: "LOADING_CATEGORIES"}
+}
+
+export { fetchingAuditions, loadingAuditions, fetchedAuditions,
+  fetchingCategories, loadingCategories, fetchedCategories}
