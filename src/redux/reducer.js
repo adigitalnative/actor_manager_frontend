@@ -1,25 +1,6 @@
 import { combineReducers } from 'redux'
 
-const placeholder_auditions = [
-  {
-    "id": 1,
-    "bring": "Headshot and resume",
-    "prepare": "1 classical 3-5 m monologue",
-    "project": "King John",
-    "company": "Folger Shakespeare Library",
-    "category": "Invited Audition"
-  },
-  {
-    "id": 2,
-    "bring": "Headshot and resume",
-    "prepare": "1 classical 3-5 m monologue",
-    "project": "King John",
-    "company": "Folger Shakespeare Library",
-    "category": "Callback"
-  }
-]
-
-const auditionsReducer = (state=placeholder_auditions, action) => {
+const auditionsReducer = (state=[], action) => {
   switch (action.type) {
     case "FETCHED_AUDITIONS":
       return action.auditions
