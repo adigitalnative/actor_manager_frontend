@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from 'react'
-import { Header, Item, Button, Grid, Modal } from 'semantic-ui-react'
+import { Header, Item, Grid } from 'semantic-ui-react'
 import Audition from '../components/Audition'
 import { connect } from 'react-redux'
 import { fetchingAuditions } from '../redux/actions'
