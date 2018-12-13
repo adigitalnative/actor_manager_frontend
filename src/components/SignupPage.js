@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Form, Button, Header } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { signupUser } from '../redux/actions'
 
 class SignupPage extends Component {
   constructor() {
@@ -9,12 +11,23 @@ class SignupPage extends Component {
       firstName: "",
       lastName: "",
       email: "",
-      password: ""
+      password: "",
+      redirectToReferrer: false
     }
   }
 
   handleSubmit = () => {
-    console.log(this.state)
+    const user = {
+      first_name: this.state.firstName,
+      last_name: this.state.lastName,
+      email: this.state.email,
+      password: this.state.password
+    }
+    this.props.signup(user)
+    this.setState({
+      redirectToReferrer: true
+    })
+    // Will need to redirect similar to in LoginPage
   }
 
   handleChange = (e, { name, value }) => {
@@ -22,6 +35,11 @@ class SignupPage extends Component {
   }
 
   render() {
+    let { from } = { from: { pathname: "/"  } }
+    let { redirectToReferrer } = this.state
+
+    if (redirectToReferrer) return <Redirect to={from} />
+
     return(
       <div>
         <Header as='h2'>Sign Up</Header>
@@ -41,4 +59,10 @@ class SignupPage extends Component {
   }
 }
 
-export default SignupPage
+const mapDispatchToProps = dispatch => {
+  return {
+    signup: user => {dispatch(signupUser(user))}
+  }
+}
+
+export default connect(null, mapDispatchToProps)(SignupPage)

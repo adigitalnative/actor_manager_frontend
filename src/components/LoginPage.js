@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Form, Button, Header } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signInAction } from '../redux/actions'
 
@@ -9,7 +9,8 @@ class LoginPage extends Component {
     super()
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      redirectToReferrer: false
     }
   }
 
@@ -22,7 +23,8 @@ class LoginPage extends Component {
     this.props.login(user)
     this.setState({
       email: "",
-      password: ""
+      password: "",
+      redirectToReferrer: true
     })
   }
 
@@ -31,6 +33,14 @@ class LoginPage extends Component {
   }
 
   render() {
+    // This should really go to /auditions, but since the request is asynch it
+    // ends up going to Auditions and then being redirected to /login because
+    // currentUser is not yet set.
+    let { from } = { from: { pathname: "/"  } }
+    let { redirectToReferrer } = this.state
+
+    if (redirectToReferrer) return <Redirect to={from} />
+
     return(
       <div>
         <Header as='h2'>Sign In</Header>

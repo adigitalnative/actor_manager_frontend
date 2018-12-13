@@ -158,6 +158,7 @@ function authenticationError(message) {
 }
 
 function authenticatedUser(user) {
+  console.log("Authenticated")
   return {type: "AUTHENTICATED_USER", user}
 }
 
@@ -166,7 +167,31 @@ function logoutUser() {
   return {type: "LOGOUT_USER"}
 }
 
+function signupUser(user) {
+  console.log("From Action: User", user)
+  return(dispatch) => {
+    fetch(URL + "/users", {
+      method: "POST",
+      headers: {
+        'Content-Type':'application/json',
+        'Accept':'application/json'
+       },
+      body: JSON.stringify({ user: user})
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (!data.error) {
+        localStorage.setItem('token', data.token)
+        dispatch(authenticatedUser(data.user))
+      } else {
+        dispatch(authenticationError(data.message))
+      }
+    })
+  }
+}
+
 export { fetchingAuditions, loadingAuditions, fetchedAuditions,
   fetchingCategories, loadingCategories, fetchedCategories, fetchingProjects,
   fetchedProjects, creatingAudition, deleteAudition, deletedAudition,
-  fetchingCompanies, fetchedCompanies, signInAction, authenticatedUser, logoutUser }
+  fetchingCompanies, fetchedCompanies, signInAction, authenticatedUser,
+  logoutUser, signupUser }
