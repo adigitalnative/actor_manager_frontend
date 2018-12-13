@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Modal, Form, Button, Select } from 'semantic-ui-react'
-import RSelect from 'react-select'
+import CreatableSelect from 'react-select/lib/Creatable'
 import { connect } from 'react-redux'
 import { fetchingCategories, fetchingProjects, creatingAudition } from '../redux/actions'
 
@@ -13,8 +13,8 @@ class AuditionForm extends Component {
       bring: "",
       prepare: "",
       auditionCategory: null,
-      project: null,
-      modalOpen: false
+      selectedProject: [],
+      modalOpen: false,
     }
   }
 
@@ -37,16 +37,16 @@ class AuditionForm extends Component {
       bring: this.state.bring,
       prepare: this.state.prepare,
       category_id: this.state.auditionCategory,
-      project_id: this.state.project
+      project_id: this.state.selectedProject.__isNew__ ? null : parseInt(this.state.selectedProject.value),
+      new_project_title: this.state.selectedProject.__isNew__ ? this.state.selectedProject.value : null
     };
     this.props.createAudition(audition)
     this.setState({
       bring: "",
       prepare: "",
       auditionCategory: null,
-      project: null,
-      modalOpen: false,
-      selectedProject: null
+      selectedProject: [],
+      modalOpen: false
     })
     // push to history so it stays in the URL
   }
@@ -64,15 +64,15 @@ class AuditionForm extends Component {
   formattedProjectsForRSelect = () => {
     return this.props.projects.map(project => {
       return {
-        value: project.id,
-        label: project.name
+        value: String(project.id),
+        label: project.company ? project.name + " (" + project.company.name + ")" : project.name
       }
     })
   }
 
-  handleRProjectChange = (selectedProject) => {
-    this.setState({ project: selectedProject.value })
-  }
+  handleCreatableChange = (newValue: any, actionMeta: any) => {
+    this.setState({selectedProject: newValue})
+  };
 
   render() {
     return(
@@ -87,12 +87,11 @@ class AuditionForm extends Component {
         <Modal.Header>Create an Audition</Modal.Header>
         <Modal.Content>
           <Form onSubmit={event => this.handleSubmit(event)}>
-            <RSelect
-              value={this.state.selectedProject}
-              onChange={this.handleRProjectChange}
+
+            <CreatableSelect
+              isClearable
+              onChange={this.handleCreatableChange}
               options={this.formattedProjectsForRSelect()}
-              placeholder="Project"
-              name="project"
             />
             <Form.Field control={Select} label='Category' options={this.formattedCategoriesForSelect()} placeholder='Audition Category' value={this.state.auditionCategory} name='auditionCategory' onChange={this.handleChange}/>
             <Form.Group widths="equal">
