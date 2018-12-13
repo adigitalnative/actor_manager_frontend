@@ -52,6 +52,20 @@ function fetchedProjects(projects) {
   return {type: "FETCHED_PROJECTS", projects}
 }
 
+function fetchingCompanies() {
+  return(dispatch) => {
+    fetch(URL + '/companies')
+    .then(response => response.json())
+    .then(companies => {
+      dispatch(fetchedCompanies(companies))
+    })
+  }
+}
+
+function fetchedCompanies(companies) {
+  return {type: "FETCHED_COMPANIES", companies}
+}
+
 function addedAudition(audition) {
   return {type: "ADDED_AUDITION", audition}
 }
@@ -94,4 +108,5 @@ function deletedAudition(audition) {
 
 export { fetchingAuditions, loadingAuditions, fetchedAuditions,
   fetchingCategories, loadingCategories, fetchedCategories, fetchingProjects,
-  fetchedProjects, creatingAudition, deleteAudition, deletedAudition}
+  fetchedProjects, creatingAudition, deleteAudition, deletedAudition,
+  fetchingCompanies, fetchedCompanies }

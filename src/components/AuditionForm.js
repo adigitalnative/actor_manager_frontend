@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Modal, Form, Button, Select } from 'semantic-ui-react'
 import CreatableSelect from 'react-select/lib/Creatable'
 import { connect } from 'react-redux'
-import { fetchingCategories, fetchingProjects, creatingAudition } from '../redux/actions'
+import { fetchingCategories, fetchingProjects, creatingAudition, fetchingCompanies } from '../redux/actions'
 
 
 class AuditionForm extends Component {
@@ -15,16 +15,22 @@ class AuditionForm extends Component {
       auditionCategory: null,
       selectedProject: [],
       modalOpen: false,
+      selectedCompany: []
     }
   }
 
-  handleOpen = () => this.setState({modalOpen: true})
+  handleOpen = () => {
+    this.props.fetchingProjects()
+    this.setState({modalOpen: true})
+  }
+
   handleClose = () => this.setState({modalOpen: false})
 
 
   componentDidMount() {
     this.props.fetchingCategories()
     this.props.fetchingProjects()
+    this.props.fetchingCompanies()
   }
 
   handleChange = (e, {name, value }) => {
@@ -33,20 +39,33 @@ class AuditionForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
+
+    const hasCompany = this.state.selectedCompany !== []
+    const hasNewCompany = this.state.selectedCompany ? !!this.state.selectedCompany.__isNew__ : false
+
     let audition = {
       bring: this.state.bring,
       prepare: this.state.prepare,
       category_id: this.state.auditionCategory,
-      project_id: this.state.selectedProject.__isNew__ ? null : parseInt(this.state.selectedProject.value),
-      new_project_title: this.state.selectedProject.__isNew__ ? this.state.selectedProject.value : null
+      project_id: this.projectIsNew ? null : parseInt(this.state.selectedProject.value),
+      new_project_title: this.projectIsNew ? this.state.selectedProject.value : null,
     };
+
+    if (hasCompany && hasNewCompany) {
+      audition.new_company_title = this.state.selectedCompany.value
+    } else if (hasCompany) {
+      audition.company_id = this.state.selectedCompany.value
+    }
+
     this.props.createAudition(audition)
+
     this.setState({
       bring: "",
       prepare: "",
       auditionCategory: null,
       selectedProject: [],
-      modalOpen: false
+      modalOpen: false,
+      selectedCompany: []
     })
     // push to history so it stays in the URL
   }
@@ -70,9 +89,24 @@ class AuditionForm extends Component {
     })
   }
 
+  formattedCompaniesForRSelect = () => {
+    return this.props.companies.map(company => {
+      return {
+        value: String(company.id),
+        label: company.name
+      }
+    })
+  }
+
   handleCreatableChange = (newValue: any, actionMeta: any) => {
     this.setState({selectedProject: newValue})
   };
+
+  handleCompanyCreatableChange = (newValue: any, actionMeta: any) => {
+    this.setState({selectedCompany: newValue})
+  };
+
+  projectIsNew = () => this.state.selectedProject ? !!this.state.selectedProject.__isNew__ : false
 
   render() {
     return(
@@ -87,12 +121,23 @@ class AuditionForm extends Component {
         <Modal.Header>Create an Audition</Modal.Header>
         <Modal.Content>
           <Form onSubmit={event => this.handleSubmit(event)}>
-
+            <label>Project</label>
             <CreatableSelect
               isClearable
               onChange={this.handleCreatableChange}
               options={this.formattedProjectsForRSelect()}
             />
+            {this.projectIsNew() ? (
+              <div>
+                <label>Company</label>
+                <CreatableSelect isClearable onChange={this.handleCompanyCreatableChange} options={this.formattedCompaniesForRSelect()} />
+              </div>
+            ) : (
+              <div className="disabled field">
+                <label>Company</label>
+                <CreatableSelect isClearable onChange={this.handleCompanyCreatableChange} options={this.formattedCompaniesForRSelect()} />
+              </div>
+            )}
             <Form.Field control={Select} label='Category' options={this.formattedCategoriesForSelect()} placeholder='Audition Category' value={this.state.auditionCategory} name='auditionCategory' onChange={this.handleChange}/>
             <Form.Group widths="equal">
               <Form.Input label="Bring" type="text" name="bring" onChange={this.handleChange} value={this.state.bring} placeholder="To Bring"/>
@@ -111,6 +156,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchingCategories: () => {dispatch(fetchingCategories())},
     fetchingProjects: () => {dispatch(fetchingProjects())},
+    fetchingCompanies: () => {dispatch(fetchingCompanies())},
     createAudition: audition => {dispatch(creatingAudition(audition))}
   }
 }
@@ -118,7 +164,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     categories: state.categories,
-    projects: state.projects
+    projects: state.projects,
+    companies: state.companies
   }
 }
 
