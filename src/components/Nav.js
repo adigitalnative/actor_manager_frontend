@@ -1,24 +1,41 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Menu, Button, Image } from 'semantic-ui-react'
 import logo_v1 from '../images/Logo_V1.png'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { logoutUser } from '../redux/actions'
 
-const Nav = () => {
+const Nav = props => {
+  const renderUserLinks = () => {
+    return (
+      <Fragment>
+        <Menu.Item name="auditions" as={Link} to='/auditions' />
+        <Menu.Item position="right">
+          <Button basic color="red" onClick={props.logout}>Sign Out</Button>
+        </Menu.Item>
+      </Fragment>
+    )
+  }
   return(
     <Menu>
       <Menu.Item>
         <Image src={logo_v1} size="tiny" as={Link} to='/'/>
       </Menu.Item>
-      <Menu.Item
-        name="auditions"
-        as={Link}
-        to='/auditions'
-        />
-      <Menu.Item position="right">
-        <Button basic color="red">Sign Out</Button>
-      </Menu.Item>
+      { props.currentUser ? renderUserLinks() : null }
     </Menu>
   )
 }
 
-export default Nav
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => {dispatch(logoutUser())}
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    currentUser: state.currentUser
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Nav)

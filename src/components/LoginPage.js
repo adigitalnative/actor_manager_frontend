@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Form, Button, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { signInAction } from '../redux/actions'
 
 class LoginPage extends Component {
   constructor() {
@@ -13,7 +15,15 @@ class LoginPage extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    console.log(this.state)
+    const user = {
+      email: this.state.email,
+      password: this.state.password
+    }
+    this.props.login(user)
+    this.setState({
+      email: "",
+      password: ""
+    })
   }
 
   handleChange = (e, { name, value }) => {
@@ -38,4 +48,10 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage
+const mapDispatchToProps = dispatch => {
+  return {
+    login: user => {dispatch(signInAction(user))}
+  }
+}
+
+export default connect(null, mapDispatchToProps)(LoginPage)
