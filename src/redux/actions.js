@@ -153,12 +153,12 @@ function signInAction(user, history) {
 }
 
 function authenticationError(message) {
+  localStorage.removeItem('token')
   return {type: "AUTHENTICATION_ERROR", message: message}
   // this should probably do something else... set something in state to display to user perhaps?
 }
 
 function authenticatedUser(user) {
-  console.log("Authenticated")
   return {type: "AUTHENTICATED_USER", user}
 }
 
@@ -168,7 +168,6 @@ function logoutUser() {
 }
 
 function signupUser(user) {
-  console.log("From Action: User", user)
   return(dispatch) => {
     fetch(URL + "/users", {
       method: "POST",
@@ -190,8 +189,30 @@ function signupUser(user) {
   }
 }
 
+function authenticateToken(token) {
+  return(dispatch) => {
+    fetch(URL + "/authorize",{
+      method: "POST",
+      headers: {
+        'Content-Type':'application/json',
+        'Accept':'application/json',
+        'Authorization':`Bearer ${localStorage.token}`
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (!data.error) {
+        localStorage.setItem('token', data.token)
+        dispatch(authenticatedUser(data.user))
+      } else {
+        dispatch(authenticationError(data.message))
+      }
+    })
+  }
+}
+
 export { fetchingAuditions, loadingAuditions, fetchedAuditions,
   fetchingCategories, loadingCategories, fetchedCategories, fetchingProjects,
   fetchedProjects, creatingAudition, deleteAudition, deletedAudition,
   fetchingCompanies, fetchedCompanies, signInAction, authenticatedUser,
-  logoutUser, signupUser }
+  logoutUser, signupUser, authenticateToken }
