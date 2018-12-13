@@ -4,6 +4,8 @@ import loadingReducer from './reducers/loadingReducer'
 import categoriesReducer from './reducers/categoriesReducer'
 import projectsReducer from './reducers/projectsReducer'
 import companiesReducer from './reducers/companiesReducer'
+import userReducer from './reducers/userReducer'
+import messagesReducer from './reducers/messageReducer'
 
 const rootReducer = combineReducers(
   {
@@ -11,7 +13,9 @@ const rootReducer = combineReducers(
     loading: loadingReducer,
     categories: categoriesReducer,
     projects: projectsReducer,
-    companies: companiesReducer
+    companies: companiesReducer,
+    currentUser: userReducer,
+    messages: messagesReducer
   }
 )
 

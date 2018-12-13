@@ -47,8 +47,8 @@ class AuditionForm extends Component {
       bring: this.state.bring,
       prepare: this.state.prepare,
       category_id: this.state.auditionCategory,
-      project_id: this.projectIsNew ? null : parseInt(this.state.selectedProject.value),
-      new_project_title: this.projectIsNew ? this.state.selectedProject.value : null,
+      project_id: !this.projectIsNew ? null : parseInt(this.state.selectedProject.value),
+      new_project_title: !this.projectIsNew ? this.state.selectedProject.value : null,
     };
 
     if (hasCompany && hasNewCompany) {
