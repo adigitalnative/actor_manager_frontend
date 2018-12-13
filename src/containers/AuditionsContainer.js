@@ -1,9 +1,10 @@
 import React, { Fragment, Component } from 'react'
-import { Header, Item } from 'semantic-ui-react'
+import { Header, Item, Grid } from 'semantic-ui-react'
 import Audition from '../components/Audition'
 import { connect } from 'react-redux'
-import {fetchingAuditions} from '../redux/actions'
+import { fetchingAuditions } from '../redux/actions'
 import LoadingSpinner from '../components/LoadingSpinner'
+import AuditionForm from '../components/AuditionForm'
 
 class AuditionsContainer extends Component {
 
@@ -14,13 +15,19 @@ class AuditionsContainer extends Component {
   render() {
     return (
       <Fragment>
-        <Header as="h2">Auditions</Header>
+        <Grid>
+          <Grid.Column>
+            <Header as="h2">Auditions</Header>
+          </Grid.Column>
+          <Grid.Column floated='right' width={4}>
+            <AuditionForm />
+          </Grid.Column>
+        </Grid>
         {this.props.loading ? <LoadingSpinner message="Loading your auditions..."/> : (
           <Item.Group divided>
             {this.props.auditions.map(audition => <Audition audition={audition} key={audition.id}/>)}
           </Item.Group>
         )}
-
       </Fragment>
     )
   }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Segment, Dimmer, Loader, Image } from 'semantic-ui-react'
+import { Loader } from 'semantic-ui-react'
 
 const LoadingSpinner = ({message}) => {
   return(

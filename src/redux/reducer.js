@@ -1,29 +1,17 @@
 import { combineReducers } from 'redux'
-
-const auditionsReducer = (state=[], action) => {
-  switch (action.type) {
-    case "FETCHED_AUDITIONS":
-      return action.auditions
-    default:
-      return state;
-  }
-}
-
-const loadingReducer = (state = false, action) => {
-  switch(action.type) {
-    case "LOADING_AUDITIONS":
-      return true;
-    case "FETCHED_AUDITIONS":
-      return false;
-    default:
-      return state
-  }
-}
+import auditionsReducer from './reducers/auditionsReducer'
+import loadingReducer from './reducers/loadingReducer'
+import categoriesReducer from './reducers/categoriesReducer'
+import projectsReducer from './reducers/projectsReducer'
+import companiesReducer from './reducers/companiesReducer'
 
 const rootReducer = combineReducers(
   {
     auditions: auditionsReducer,
-    loading: loadingReducer
+    loading: loadingReducer,
+    categories: categoriesReducer,
+    projects: projectsReducer,
+    companies: companiesReducer
   }
 )
 
