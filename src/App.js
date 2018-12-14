@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Container, Message } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react'
 import {Route, Redirect, withRouter } from 'react-router-dom'
 import {connect} from 'react-redux'
 
@@ -14,7 +14,7 @@ import SignupPage from './components/SignupPage'
 import LoadingSpinner from './components/LoadingSpinner'
 
 // import logo from './logo.svg';
-// import './App.css';
+import './App.css';
 
 class App extends Component {
 
@@ -38,12 +38,12 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <Nav />
+        {this.props.authenticated ? <Nav /> : null}
           <Route exact path="/" component={WelcomePage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/signup" component={SignupPage} />
           <Container>
             <Route exact path="/auditions" render={() => this.authorizeFor(AuditionsContainer, '/auditions')} />
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/signup" component={SignupPage} />
           </Container>
         <Footer />
       </Fragment>

@@ -1,5 +1,5 @@
-import React, { Fragment, Component } from 'react'
-import { Header, Item, Grid } from 'semantic-ui-react'
+import React, { Component } from 'react'
+import { Header, Item, Grid, Segment } from 'semantic-ui-react'
 import Audition from '../components/Audition'
 import { connect } from 'react-redux'
 import { fetchingAuditions } from '../redux/actions'
@@ -14,8 +14,8 @@ class AuditionsContainer extends Component {
 
   render() {
     return (
-      <Fragment>
-        <Grid>
+      <Segment>
+        <Grid stackable>
           <Grid.Column>
             <Header as="h2">Auditions</Header>
           </Grid.Column>
@@ -28,7 +28,7 @@ class AuditionsContainer extends Component {
             {this.props.auditions.map(audition => <Audition audition={audition} key={audition.id}/>)}
           </Item.Group>
         )}
-      </Fragment>
+      </Segment>
     )
   }
 }

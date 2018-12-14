@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Form, Button, Header } from 'semantic-ui-react'
+import { Form, Button, Header, Container, Segment } from 'semantic-ui-react'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signInAction } from '../redux/actions'
+import Nav from './Nav'
 
 class LoginPage extends Component {
   constructor() {
@@ -40,19 +41,25 @@ class LoginPage extends Component {
     let { redirectToReferrer } = this.state
 
     if (redirectToReferrer) return <Redirect to={from} />
+    if (this.props.currentUser) return <Redirect to='/auditions' />
 
     return(
       <div>
-        <Header as='h2'>Sign In</Header>
+        <Nav />
+          <Container>
+            <Segment>
+              <Header as='h2'>Sign In</Header>
 
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Group widths='equal'>
-            <Form.Input label="Email" type="text" name="email" onChange={this.handleChange}/>
-            <Form.Input label="Password" type="password" name="password"  onChange={this.handleChange}/>
-          </Form.Group>
-          <Button as={Link} to='/signup'>Sign Up</Button>
-          <Button type="submit" positive>Log In</Button>
-        </Form>
+              <Form onSubmit={this.handleSubmit}>
+                <Form.Group widths='equal'>
+                  <Form.Input label="Email" type="text" name="email" onChange={this.handleChange}/>
+                  <Form.Input label="Password" type="password" name="password"  onChange={this.handleChange}/>
+                </Form.Group>
+                <Button as={Link} to='/signup'>Sign Up</Button>
+                <Button type="submit" positive>Log In</Button>
+              </Form>
+            </Segment>
+          </Container>
       </div>
     )
   }
@@ -64,4 +71,10 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(LoginPage)
+const mapStateToProps = state => {
+  return {
+    currentUser: state.currentUser
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
