@@ -2,6 +2,7 @@ import React from 'react'
 import { Item, Grid, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { deleteAudition } from '../redux/actions'
+import EditAuditionForm from './EditAuditionForm'
 
 const Audition = ({audition, deleteAudition}) => {
 
@@ -23,7 +24,7 @@ const Audition = ({audition, deleteAudition}) => {
               </Grid.Column>
               <Grid.Column>
                 <Button.Group fluid size="mini">
-                  <Button>Edit</Button>
+                  <EditAuditionForm buttonText="Edit" audition={audition} />
                   <Button color="red" onClick={handleDeleteClick}>Delete</Button>
                 </Button.Group>
               </Grid.Column>

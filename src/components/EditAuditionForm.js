@@ -15,8 +15,6 @@ class AuditionForm extends Component {
       auditionCategory: null,
       selectedProject: [],
       modalOpen: false,
-      selectedCompany: [],
-      editingExisting: false
     }
   }
 
@@ -32,44 +30,59 @@ class AuditionForm extends Component {
     this.props.fetchingCategories()
     this.props.fetchingProjects()
     this.props.fetchingCompanies()
+
+    const auditionCategory = this.formattedCategoriesForSelect().find(category => category.text === this.props.audition.category).value
+    const selectedProject = this.formattedProjectsForRSelect().find(company => company.label === this.formattedCompanyNameFromProps(this.props.audition.project, this.props.audition.company))
+
+    this.setState({
+      bring: this.props.audition.bring,
+      prepare: this.props.audition.prepare,
+      auditionCategory: auditionCategory,
+      selectedProject: selectedProject
+      // for some reason this one thing isn't saving to state...
+    })
+
+    console.log("Target project", selectedProject)
+    console.log("Selected Project", this.state.selectedProject)
+
   }
 
   handleChange = (e, {name, value }) => {
     this.setState({ [name] : value })
   }
 
-  handleSubmit = event => {
-    event.preventDefault()
-
-    const hasCompany = this.state.selectedCompany !== []
-    const hasNewCompany = this.state.selectedCompany ? !!this.state.selectedCompany.__isNew__ : false
-
-    let audition = {
-      bring: this.state.bring,
-      prepare: this.state.prepare,
-      category_id: this.state.auditionCategory,
-      project_id: this.projectIsNew() ? null : parseInt(this.state.selectedProject.value),
-      new_project_title: this.projectIsNew() ? this.state.selectedProject.value : null,
-    };
-
-    if (hasCompany && hasNewCompany) {
-      audition.new_company_title = this.state.selectedCompany.value
-    } else if (hasCompany) {
-      audition.company_id = this.state.selectedCompany.value
-    }
-
-    this.props.createAudition(audition)
-
-    this.setState({
-      bring: "",
-      prepare: "",
-      auditionCategory: null,
-      selectedProject: [],
-      modalOpen: false,
-      selectedCompany: []
-    })
-    // push to history so it stays in the URL
-  }
+  // handleSubmit = event => {
+  //   event.preventDefault()
+  //
+  //   const hasCompany = this.state.selectedCompany !== []
+  //   const hasNewCompany = this.state.selectedCompany ? !!this.state.selectedCompany.__isNew__ : false
+  //
+  //   let audition = {
+  //     bring: this.state.bring,
+  //     prepare: this.state.prepare,
+  //     category_id: this.state.auditionCategory,
+  //     project_id: this.projectIsNew() ? null : parseInt(this.state.selectedProject.value),
+  //     new_project_title: this.projectIsNew() ? this.state.selectedProject.value : null,
+  //   };
+  //
+  //   if (hasCompany && hasNewCompany) {
+  //     audition.new_company_title = this.state.selectedCompany.value
+  //   } else if (hasCompany) {
+  //     audition.company_id = this.state.selectedCompany.value
+  //   }
+  //
+  //   this.props.createAudition(audition)
+  //
+  //   this.setState({
+  //     bring: "",
+  //     prepare: "",
+  //     auditionCategory: null,
+  //     selectedProject: [],
+  //     modalOpen: false,
+  //     selectedCompany: []
+  //   })
+  //   // push to history so it stays in the URL
+  // }
 
   formattedCategoriesForSelect = () => {
     return this.props.categories.map(category => {
@@ -81,11 +94,14 @@ class AuditionForm extends Component {
     })
   }
 
+  formattedCompanyName = project => project.company ? project.name + " (" + project.company.name + ")" : project.name
+  formattedCompanyNameFromProps = (project, company) => company ? project + " (" + company + ")" : project
+
   formattedProjectsForRSelect = () => {
     return this.props.projects.map(project => {
       return {
         value: String(project.id),
-        label: project.company ? project.name + " (" + project.company.name + ")" : project.name
+        label: this.formattedCompanyName(project)
       }
     })
   }
@@ -113,7 +129,7 @@ class AuditionForm extends Component {
     return(
       <Fragment>
       <Modal
-        trigger={<Button primary basic fluid size="small" onClick={this.handleOpen}>{this.props.buttonText}</Button>}
+        trigger={<Button onClick={this.handleOpen}>{this.props.buttonText}</Button>}
         centered={false}
         dimmer='blurring'
         open={this.state.modalOpen}
