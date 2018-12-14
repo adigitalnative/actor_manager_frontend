@@ -24,7 +24,8 @@ const Audition = ({audition, deleteAudition}) => {
               </Grid.Column>
               <Grid.Column>
                 <Button.Group fluid size="mini">
-                  <EditAuditionForm buttonText="Edit" audition={audition} />
+                  <Button color="blue">Report</Button>
+                  <Button color="grey" audition={audition}>Edit</Button>
                   <Button color="red" onClick={handleDeleteClick}>Delete</Button>
                 </Button.Group>
               </Grid.Column>
