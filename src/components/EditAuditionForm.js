@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Modal, Form, Button, Select } from 'semantic-ui-react'
 import CreatableSelect from 'react-select/lib/Creatable'
 import { connect } from 'react-redux'
-import { fetchingCategories, fetchingProjects, creatingAudition, fetchingCompanies } from '../redux/actions'
+import { fetchingCategories, fetchingProjects, updatingAudition, fetchingCompanies } from '../redux/actions'
 
 
 class AuditionForm extends Component {
@@ -15,6 +15,7 @@ class AuditionForm extends Component {
       auditionCategory: null,
       selectedProject: [],
       modalOpen: false,
+      selectedCompany: []
     }
   }
 
@@ -53,38 +54,30 @@ class AuditionForm extends Component {
     this.setState({ [name] : value })
   }
 
-  // handleSubmit = event => {
-  //   event.preventDefault()
-  //
-  //   const hasCompany = this.state.selectedCompany !== []
-  //   const hasNewCompany = this.state.selectedCompany ? !!this.state.selectedCompany.__isNew__ : false
-  //
-  //   let audition = {
-  //     bring: this.state.bring,
-  //     prepare: this.state.prepare,
-  //     category_id: this.state.auditionCategory,
-  //     project_id: this.projectIsNew() ? null : parseInt(this.state.selectedProject.value),
-  //     new_project_title: this.projectIsNew() ? this.state.selectedProject.value : null,
-  //   };
-  //
-  //   if (hasCompany && hasNewCompany) {
-  //     audition.new_company_title = this.state.selectedCompany.value
-  //   } else if (hasCompany) {
-  //     audition.company_id = this.state.selectedCompany.value
-  //   }
-  //
-  //   this.props.createAudition(audition)
-  //
-  //   this.setState({
-  //     bring: "",
-  //     prepare: "",
-  //     auditionCategory: null,
-  //     selectedProject: [],
-  //     modalOpen: false,
-  //     selectedCompany: []
-  //   })
-  //   // push to history so it stays in the URL
-  // }
+  handleSubmit = event => {
+    event.preventDefault()
+
+    const hasCompany = this.state.selectedCompany !== []
+    const hasNewCompany = this.state.selectedCompany ? !!this.state.selectedCompany.__isNew__ : false
+
+    let audition = {
+      bring: this.state.bring,
+      prepare: this.state.prepare,
+      category_id: this.state.auditionCategory,
+      id: this.props.audition.id
+      // project_id: this.projectIsNew() ? null : parseInt(this.state.selectedProject.value),
+      // new_project_title: this.projectIsNew() ? this.state.selectedProject.value : null,
+    };
+
+    // if (hasCompany && hasNewCompany) {
+    //   audition.new_company_title = this.state.selectedCompany.value
+    // } else if (hasCompany) {
+    //   audition.company_id = this.state.selectedCompany.value
+    // }
+
+    this.props.updateAudition(audition)
+    this.handleClose()
+  }
 
   formattedCategoriesForSelect = () => {
     return this.props.categories.map(category => {
@@ -177,7 +170,7 @@ const mapDispatchToProps = dispatch => {
     fetchingCategories: () => {dispatch(fetchingCategories())},
     fetchingProjects: () => {dispatch(fetchingProjects())},
     fetchingCompanies: () => {dispatch(fetchingCompanies())},
-    createAudition: audition => {dispatch(creatingAudition(audition))}
+    updateAudition: audition => {dispatch(updatingAudition(audition))}
   }
 }
 

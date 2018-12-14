@@ -108,6 +108,27 @@ function creatingAudition(audition) {
   }
 }
 
+function updatingAudition(audition) {
+  return(dispatch) => {
+    fetch(URL + '/auditions/' + audition.id, {
+      method: "PATCH",
+      headers: {
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${localStorage.token}`
+      },
+      body: JSON.stringify({audition: audition})
+    })
+    .then(response => response.json())
+    .then(audition => {
+      dispatch(updatedAudition(audition))
+    })
+  }
+}
+
+function updatedAudition(audition) {
+  return {type: "UPDATED_AUDITION", audition}
+}
+
 function deleteAudition(audition_id) {
   const str = URL + '/auditions/' + audition_id
   return(dispatch) => {
@@ -215,4 +236,4 @@ export { fetchingAuditions, loadingAuditions, fetchedAuditions,
   fetchingCategories, loadingCategories, fetchedCategories, fetchingProjects,
   fetchedProjects, creatingAudition, deleteAudition, deletedAudition,
   fetchingCompanies, fetchedCompanies, signInAction, authenticatedUser,
-  logoutUser, signupUser, authenticateToken }
+  logoutUser, signupUser, authenticateToken, updatedAudition, updatingAudition }

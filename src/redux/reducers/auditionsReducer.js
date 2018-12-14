@@ -6,6 +6,14 @@ const auditionsReducer = (state=[], action) => {
       return [...state, action.audition]
     case "DELETED_AUDITION":
       return state.filter(audition => audition.id !== action.audition.id)
+    case "UPDATED_AUDITION":
+      let newState = state.map(oldAudition => {
+        if (oldAudition.id === action.audition.id) {
+          return action.audition
+        }
+        return oldAudition
+      })
+      return newState;
     default:
       return state;
   }
