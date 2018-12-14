@@ -23,7 +23,13 @@ class AuditionForm extends Component {
     this.setState({modalOpen: true})
   }
 
-  handleClose = () => this.setState({modalOpen: false})
+  handleClose = () => this.setState({
+    modalOpen: false,
+    bring: this.props.audition.bring,
+    prepare: this.props.audition.prepare,
+    auditionCategory: this.formattedCategoriesForSelect().find(category => category.text === this.props.audition.category).value,
+    selectedProject: this.formattedProjectsForRSelect().find(company => company.label === this.formattedCompanyNameFromProps(this.props.audition.project, this.props.audition.company))
+  })
 
 
   componentDidMount() {
@@ -41,10 +47,6 @@ class AuditionForm extends Component {
       selectedProject: selectedProject
       // for some reason this one thing isn't saving to state...
     })
-
-    console.log("Target project", selectedProject)
-    console.log("Selected Project", this.state.selectedProject)
-
   }
 
   handleChange = (e, {name, value }) => {
@@ -128,42 +130,43 @@ class AuditionForm extends Component {
   render() {
     return(
       <Fragment>
-      <Modal
-        trigger={<Button onClick={this.handleOpen}>{this.props.buttonText}</Button>}
-        centered={false}
-        dimmer='blurring'
-        open={this.state.modalOpen}
-        onClose={this.handleClose}
-      >
-        <Modal.Header>Create an Audition</Modal.Header>
-        <Modal.Content>
-          <Form onSubmit={event => this.handleSubmit(event)}>
-            <label>Project</label>
-            <CreatableSelect
-              isClearable
-              onChange={this.handleCreatableChange}
-              options={this.formattedProjectsForRSelect()}
-            />
-            {this.projectIsNew() ? (
-              <div>
-                <label>Company</label>
-                <CreatableSelect isClearable onChange={this.handleCompanyCreatableChange} options={this.formattedCompaniesForRSelect()} />
-              </div>
-            ) : (
-              <div className="disabled field">
-                <label>Company</label>
-                <CreatableSelect isClearable onChange={this.handleCompanyCreatableChange} options={this.formattedCompaniesForRSelect()} />
-              </div>
-            )}
-            <Form.Field control={Select} label='Category' options={this.formattedCategoriesForSelect()} placeholder='Audition Category' value={this.state.auditionCategory} name='auditionCategory' onChange={this.handleChange}/>
-            <Form.Group widths="equal">
-              <Form.Input label="Bring" type="text" name="bring" onChange={this.handleChange} value={this.state.bring} placeholder="To Bring"/>
-              <Form.Input label="Prepare" type="text" name="prepare" onChange={this.handleChange} value={this.state.prepare} placeholder="To Prepare"/>
-            </Form.Group>
-            <Button type="submit">Save Audition</Button>
-          </Form>
-        </Modal.Content>
-      </Modal>
+        <Modal
+          trigger={<Button onClick={this.handleOpen}>{this.props.buttonText}</Button>}
+          centered={false}
+          dimmer='blurring'
+          open={this.state.modalOpen}
+          onClose={this.handleClose}
+        >
+          <Modal.Header>Create an Audition</Modal.Header>
+          <Modal.Content>
+            <Form onSubmit={event => this.handleSubmit(event)}>
+              <label>Project</label>
+              <CreatableSelect
+                isClearable
+                onChange={this.handleCreatableChange}
+                options={this.formattedProjectsForRSelect()}
+                value={this.state.selectedProject}
+              />
+              {this.projectIsNew() ? (
+                <div>
+                  <label>Company</label>
+                  <CreatableSelect isClearable onChange={this.handleCompanyCreatableChange} options={this.formattedCompaniesForRSelect()} />
+                </div>
+              ) : (
+                <div className="disabled field">
+                  <label>Company</label>
+                  <CreatableSelect isClearable onChange={this.handleCompanyCreatableChange} options={this.formattedCompaniesForRSelect()} />
+                </div>
+              )}
+              <Form.Field control={Select} label='Category' options={this.formattedCategoriesForSelect()} placeholder='Audition Category' value={this.state.auditionCategory} name='auditionCategory' onChange={this.handleChange}/>
+              <Form.Group widths="equal">
+                <Form.Input label="Bring" type="text" name="bring" onChange={this.handleChange} value={this.state.bring} placeholder="To Bring"/>
+                <Form.Input label="Prepare" type="text" name="prepare" onChange={this.handleChange} value={this.state.prepare} placeholder="To Prepare"/>
+              </Form.Group>
+              <Button type="submit">Save Audition</Button>
+            </Form>
+          </Modal.Content>
+        </Modal>
       </Fragment>
     )
   }
