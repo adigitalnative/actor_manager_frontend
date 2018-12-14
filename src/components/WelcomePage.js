@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Grid, Image } from 'semantic-ui-react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import logo from '../images/Logo_inverse_V1.png'
 import {connect} from 'react-redux'
 
