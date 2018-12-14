@@ -15,14 +15,20 @@ class AuditionReport extends Component {
     }
   }
 
-  componentDidMount() {
-    if (this.props.audition.report) {
-      this.setState({
-        notes: this.props.audition.report.notes,
-        auditors: this.props.audition.report.auditors,
-        people: this.props.audition.report.people
-      })
+  reportIsBlank = () => {
+    if (this.props.audition.report.notes === "" && this.props.report.auditors === "" && this.props.report.people === "") {
+      return true
+    } else {
+      return false
     }
+  }
+
+  componentDidMount() {
+    this.setState({
+      notes: this.props.audition.report.notes,
+      auditors: this.props.audition.report.auditors,
+      people: this.props.audition.report.people
+    })
 
   }
 
@@ -74,7 +80,7 @@ class AuditionReport extends Component {
           {this.auditionTitle()}
           {this.props.audition.company ? <Header.Subheader>{this.props.audition.company}</Header.Subheader> : null }
           </Header>
-          {this.props.audition.report ? (
+
             <Form>
             <Grid columns={3} divided stackable textAlign="center">
               <Grid.Row>
@@ -111,7 +117,6 @@ class AuditionReport extends Component {
                 </Grid.Row>
               </Grid>
             </Form>
-          ) : null}
         </Modal.Content>
         {this.state.displayFormFields ? (
           <Modal.Actions>
