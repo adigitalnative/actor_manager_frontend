@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Button, Modal, Header, Grid, Form } from 'semantic-ui-react'
+import { Button, Modal, Header, Grid, Form, Label } from 'semantic-ui-react'
+import Select from 'react-select'
 import { connect } from 'react-redux'
-import { updatingReport } from '../redux/actions'
+import { updatingReport, fetchingResultOptions } from '../redux/actions'
 
 class AuditionReport extends Component {
   constructor() {
@@ -11,28 +12,26 @@ class AuditionReport extends Component {
       displayFormFields: false,
       notes: "",
       auditors: "",
-      people: ""
-    }
-  }
-
-  reportIsBlank = () => {
-    if (this.props.audition.report.notes === "" && this.props.report.auditors === "" && this.props.report.people === "") {
-      return true
-    } else {
-      return false
+      people: "",
+      result: null
     }
   }
 
   componentDidMount() {
+    this.props.fetchingResultOptions()
     this.setState({
       notes: this.props.audition.report.notes,
       auditors: this.props.audition.report.auditors,
-      people: this.props.audition.report.people
+      people: this.props.audition.report.people,
     })
-
   }
 
-  handleOpen = () => this.setState({ modalOpen: true })
+  handleOpen = () => {
+    this.setState({
+      modalOpen: true,
+    })
+  }
+
   handleClose = () => this.setState({
     modalOpen: false,
     displayFormFields: false
@@ -45,7 +44,7 @@ class AuditionReport extends Component {
       displayFormFields: !this.state.displayFormFields,
       notes: this.props.audition.report.notes,
       auditors: this.props.audition.report.auditors,
-      people: this.props.audition.report.people
+      people: this.props.audition.report.people,
     })
   }
 
@@ -53,16 +52,62 @@ class AuditionReport extends Component {
     this.setState({ [name] : value })
   }
 
-  handleReportUpdate = () => {
+  handleSubmit = () => {
     const report = {
       notes: this.state.notes,
       auditors: this.state.auditors,
       people: this.state.people,
-      audition_id: this.props.audition.id
+      audition_id: this.props.audition.id,
+
+    }
+
+    const hasResult = !!this.state.result
+
+    if (hasResult) {
+      report.result_id = this.state.result.value
     }
     this.props.updateReport(report)
     this.toggleForm()
   }
+
+  resultCornerLabel = () => {
+    if (!!this.props.audition.report.result) {
+      if (this.props.audition.report.result.name === "Offered Role") {
+        return (
+          <Label as='a' color='blue' corner='right' icon="star"/>
+        )
+      } else if (this.props.audition.report.result.name === "Declined Role") {
+        return (
+          <Label as='a' color='grey' corner='right' icon="star"/>
+        )
+      }
+    }
+    if (!!this.props.audition.report.result && this.props.audition.report.result.name === "Offered Role") {
+      return (
+        <Label as='a' color='blue' corner='right' icon="star"/>
+      )
+    }
+  }
+
+  resultTitleLabel = () => {
+    if(!!this.props.audition.report.result) {
+      return <Label color="blue" size="mini">{this.props.audition.report.result.name}</Label>
+    }
+  }
+
+  formattedResultsForSelect = () => {
+    return this.props.resultOptions.map(resultOption => {
+      return {
+        key: resultOption.id,
+        label: resultOption.name,
+        value: resultOption.id
+      }
+    })
+  }
+
+  handleResultChange = (newValue: any, actionMeta: any) => {
+    this.setState({result: newValue})
+  };
 
   render() {
     return(
@@ -73,12 +118,16 @@ class AuditionReport extends Component {
         centered={false}
         closeIcon
       >
-        <Header>Audition Report</Header>
-        <Modal.Content>
 
+        {this.resultCornerLabel()}
+
+        <Header>Audition Report</Header>
+
+        <Modal.Content>
           <Header as='h3' textAlign='center'>
-          {this.auditionTitle()}
-          {this.props.audition.company ? <Header.Subheader>{this.props.audition.company}</Header.Subheader> : null }
+            {this.auditionTitle()}
+            {this.resultTitleLabel()}
+            {this.props.audition.company ? <Header.Subheader>{this.props.audition.company}</Header.Subheader> : null }
           </Header>
 
             <Form>
@@ -86,7 +135,7 @@ class AuditionReport extends Component {
               <Grid.Row>
                 <Grid.Column>
                     {this.state.displayFormFields ? (
-                      <Form.Input label="Notes" type="text" value={this.state.notes} name="notes" onChange={this.handleChange} />
+                      <Form.TextArea label="Notes" type="text" value={this.state.notes} name="notes" onChange={this.handleChange} />
                     ) : (
                       <div onClick={this.toggleForm}>
                         <Header as="h4">Notes</Header>
@@ -96,7 +145,7 @@ class AuditionReport extends Component {
                   </Grid.Column>
                   <Grid.Column>
                     {this.state.displayFormFields ? (
-                      <Form.Input label="Auditors" type="text" value={this.state.auditors} name="auditors" onChange={this.handleChange}/>
+                      <Form.TextArea label="Auditors" type="text" value={this.state.auditors} name="auditors" onChange={this.handleChange}/>
                     ) : (
                       <div onClick={this.toggleForm}>
                         <Header as="h4">Auditors</Header>
@@ -106,7 +155,7 @@ class AuditionReport extends Component {
                   </Grid.Column>
                   <Grid.Column>
                     {this.state.displayFormFields ? (
-                      <Form.Input label="People" type="text" value={this.state.people} name="people" onChange={this.handleChange}/>
+                      <Form.TextArea label="People" type="text" value={this.state.people} name="people" onChange={this.handleChange}/>
                     ) : (
                       <div onClick={this.toggleForm}>
                         <Header as="h4">People</Header>
@@ -116,12 +165,22 @@ class AuditionReport extends Component {
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
+              {this.state.displayFormFields ? (
+                <div>
+                  <Select
+                    isClearable
+                    isSearchable
+                    options={this.formattedResultsForSelect()}
+                    onChange={this.handleResultChange}
+                  />
+                </div>
+              ) : null}
             </Form>
         </Modal.Content>
         {this.state.displayFormFields ? (
           <Modal.Actions>
             <Button onClick={this.toggleForm}>Cancel</Button>
-            <Button color='green' onClick={this.handleReportUpdate}>Save</Button>
+            <Button color='green' onClick={this.handleSubmit}>Save</Button>
           </Modal.Actions>
         ) : null}
 
@@ -130,10 +189,26 @@ class AuditionReport extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+// <Form.Select
+//   label='Audition Result'
+//   options={this.formattedResultsForSelect()}
+//   placeholder='Were you...'
+//   // value={this.state.result ? this.state.result : null}
+//   name='result'
+//   onChange={this.handleChange}
+//   />
+
+const mapStateToProps = state => {
   return {
-    updateReport: report => dispatch(updatingReport(report))
+    resultOptions: state.resultOptions
   }
 }
 
-export default connect(null, mapDispatchToProps)(AuditionReport)
+const mapDispatchToProps = dispatch => {
+  return {
+    updateReport: report => dispatch(updatingReport(report)),
+    fetchingResultOptions: () => dispatch(fetchingResultOptions())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuditionReport)

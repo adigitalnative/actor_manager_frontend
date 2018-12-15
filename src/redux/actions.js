@@ -249,6 +249,26 @@ function updatingReport(report) {
   }
 }
 
+function fetchingResultOptions() {
+  return(dispatch) => {
+    fetch(URL + '/result_options', {
+      method: "GET",
+      headers: {
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${localStorage.token}`
+      }
+    })
+    .then(response => response.json())
+    .then(resultOptions => {
+      dispatch(updatedResultOptions(resultOptions))
+    })
+  }
+}
+
+function updatedResultOptions(resultOptions) {
+  return {type: "UPDATED_RESULT_OPTIONS", resultOptions}
+}
+
 // return(dispatch) => {
 //   fetch(URL + '/auditions/' + audition.id, {
 //     method: "PATCH",
@@ -269,4 +289,4 @@ export { fetchingAuditions, loadingAuditions, fetchedAuditions,
   fetchedProjects, creatingAudition, deleteAudition, deletedAudition,
   fetchingCompanies, fetchedCompanies, signInAction, authenticatedUser,
   logoutUser, signupUser, authenticateToken, updatedAudition, updatingAudition,
-  updatingReport }
+  updatingReport, fetchingResultOptions, updatedResultOptions }
