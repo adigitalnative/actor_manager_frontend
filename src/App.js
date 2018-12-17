@@ -39,12 +39,14 @@ class App extends Component {
     return (
       <Fragment>
         {this.props.authenticated ? <Nav /> : null}
+        <div style={{marginTop: '9em'}} >
           <Route exact path="/" component={WelcomePage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/signup" component={SignupPage} />
           <Container>
             <Route exact path="/auditions" render={() => this.authorizeFor(AuditionsContainer, '/auditions')} />
           </Container>
+          </div>
         <Footer />
       </Fragment>
     );

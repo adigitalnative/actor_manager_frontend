@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Modal, Form, Button, Select, Header } from 'semantic-ui-react'
-import CreatableSelect from 'react-select/lib/Creatable'
+// import CreatableSelect from 'react-select/lib/Creatable'
 import { connect } from 'react-redux'
 import { fetchingCategories, fetchingProjects, updatingAudition, fetchingCompanies } from '../redux/actions'
 
@@ -52,8 +52,8 @@ class EditAuditionForm extends Component {
   handleSubmit = event => {
     event.preventDefault()
 
-    const hasCompany = this.state.selectedCompany !== []
-    const hasNewCompany = this.state.selectedCompany ? !!this.state.selectedCompany.__isNew__ : false
+    // const hasCompany = this.state.selectedCompany !== []
+    // const hasNewCompany = this.state.selectedCompany ? !!this.state.selectedCompany.__isNew__ : false
 
     let audition = {
       bring: this.state.bring,

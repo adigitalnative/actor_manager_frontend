@@ -232,8 +232,61 @@ function authenticateToken(token) {
   }
 }
 
+function updatingReport(report) {
+  return(dispatch) => {
+    fetch(URL + '/auditions/' + report.audition_id + "/report", {
+      method: "PATCH",
+      headers: {
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${localStorage.token}`
+      },
+      body: JSON.stringify({ report: report })
+    })
+    .then(response => response.json())
+    .then(audition => {
+      dispatch(updatedAudition(audition))
+    })
+  }
+}
+
+function fetchingResultOptions() {
+  return(dispatch) => {
+    fetch(URL + '/result_options', {
+      method: "GET",
+      headers: {
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${localStorage.token}`
+      }
+    })
+    .then(response => response.json())
+    .then(resultOptions => {
+      dispatch(updatedResultOptions(resultOptions))
+    })
+  }
+}
+
+function updatedResultOptions(resultOptions) {
+  return {type: "UPDATED_RESULT_OPTIONS", resultOptions}
+}
+
+// return(dispatch) => {
+//   fetch(URL + '/auditions/' + audition.id, {
+//     method: "PATCH",
+//     headers: {
+//       'Content-Type':'application/json',
+//       'Authorization':`Bearer ${localStorage.token}`
+//     },
+//     body: JSON.stringify({audition: audition})
+//   })
+//   .then(response => response.json())
+//   .then(audition => {
+//     dispatch(updatedAudition(audition))
+//   })
+// }
+
 export { fetchingAuditions, loadingAuditions, fetchedAuditions,
   fetchingCategories, loadingCategories, fetchedCategories, fetchingProjects,
   fetchedProjects, creatingAudition, deleteAudition, deletedAudition,
   fetchingCompanies, fetchedCompanies, signInAction, authenticatedUser,
-  logoutUser, signupUser, authenticateToken, updatedAudition, updatingAudition }
+  logoutUser, signupUser, authenticateToken, updatedAudition, updatingAudition,
+  updatingReport, fetchingResultOptions, updatedResultOptions }
