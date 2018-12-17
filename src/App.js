@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Container } from 'semantic-ui-react'
-import {Route, Redirect, withRouter } from 'react-router-dom'
+import {Route, Redirect, Switch, withRouter } from 'react-router-dom'
 import {connect} from 'react-redux'
 
 import {authenticateToken} from './redux/actions'
@@ -12,6 +12,7 @@ import WelcomePage from './components/WelcomePage'
 import LoginPage from './components/LoginPage'
 import SignupPage from './components/SignupPage'
 import LoadingSpinner from './components/LoadingSpinner'
+import NotFoundPage from './components/NotFoundPage'
 
 // import logo from './logo.svg';
 import './App.css';
@@ -35,17 +36,20 @@ class App extends Component {
     }
   }
 
+
   render() {
     return (
       <Fragment>
         {this.props.authenticated ? <Nav /> : null}
         <div style={{marginTop: '9em'}} >
-          <Route exact path="/" component={WelcomePage} />
-          <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/signup" component={SignupPage} />
-          <Container>
+          <Switch>
+            <Route exact path="/" component={WelcomePage} />
+            <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/signup" component={SignupPage} />
             <Route exact path="/auditions" render={() => this.authorizeFor(AuditionsContainer, '/auditions')} />
-          </Container>
+            <Route render={() => this.authorizeFor(NotFoundPage, '/not_found')} />
+
+          </Switch>
           </div>
         <Footer />
       </Fragment>

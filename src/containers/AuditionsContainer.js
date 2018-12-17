@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Header, Item, Grid, Segment } from 'semantic-ui-react'
+import { Header, Item, Grid, Segment, Container } from 'semantic-ui-react'
 import Audition from '../components/Audition'
 import { connect } from 'react-redux'
 import { fetchingAuditions, fetchingResultOptions } from '../redux/actions'
@@ -15,21 +15,23 @@ class AuditionsContainer extends Component {
 
   render() {
     return (
-      <Segment>
-        <Grid stackable>
-          <Grid.Column>
-            <Header as="h2">Auditions</Header>
-          </Grid.Column>
-          <Grid.Column floated='right' width={4}>
-            <AuditionForm buttonText="Add Audition"/>
-          </Grid.Column>
-        </Grid>
-        {this.props.loading ? <LoadingSpinner message="Loading your auditions..."/> : (
-          <Item.Group divided>
-            {this.props.auditions.map(audition => <Audition audition={audition} key={audition.id}/>)}
-          </Item.Group>
-        )}
-      </Segment>
+      <Container>
+        <Segment>
+          <Grid stackable>
+            <Grid.Column>
+              <Header as="h2">Auditions</Header>
+            </Grid.Column>
+            <Grid.Column floated='right' width={4}>
+              <AuditionForm buttonText="Add Audition"/>
+            </Grid.Column>
+          </Grid>
+          {this.props.loading ? <LoadingSpinner message="Loading your auditions..."/> : (
+            <Item.Group divided>
+              {this.props.auditions.map(audition => <Audition audition={audition} key={audition.id}/>)}
+            </Item.Group>
+          )}
+        </Segment>
+      </Container>
     )
   }
 }
