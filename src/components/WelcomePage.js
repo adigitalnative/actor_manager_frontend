@@ -9,7 +9,7 @@ const backgroundImageDivStyle = {
 }
 
 const logoStyle = {
-  paddingTop: '5em',
+  paddingTop: '2em',
   paddingBottom: '2em'
 }
 

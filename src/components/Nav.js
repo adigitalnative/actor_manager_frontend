@@ -10,14 +10,16 @@ const Nav = props => {
     return (
       <Fragment>
         <Menu.Item name="auditions" as={Link} to='/auditions' />
-        <Menu.Item position="right">
-          <Button basic color="red" onClick={props.logout}>Sign Out</Button>
-        </Menu.Item>
+        <Menu.Menu position="right">
+          <Menu.Item>
+            <Button basic color="red" onClick={props.logout}>Sign Out</Button>
+          </Menu.Item>
+        </Menu.Menu>
       </Fragment>
     )
   }
   return(
-    <Menu>
+    <Menu fixed='top'>
       <Menu.Item>
         <Image src={logo_v1} size="tiny" as={Link} to='/'/>
       </Menu.Item>
