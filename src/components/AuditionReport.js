@@ -18,15 +18,12 @@ class AuditionReport extends Component {
   }
 
   componentDidMount() {
-    console.log("Report", this.props.audition.report)
     const result = this.props.audition.report.result ? (this.formattedResultsForSelect().find(result => result.value === this.props.audition.report.result.id)) : null
 
-    console.log("Result:", result)
-
     this.setState({
-      notes: this.props.audition.report.notes,
-      auditors: this.props.audition.report.auditors,
-      people: this.props.audition.report.people,
+      notes: this.props.audition.report.notes ? this.props.audition.report.notes : "",
+      auditors: this.props.audition.report.auditors ? this.props.audition.report.auditors : "",
+      people: this.props.audition.report.people ? this.props.audition.report.auditors : "",
       result: result
     })
   }
@@ -45,11 +42,14 @@ class AuditionReport extends Component {
   auditionTitle = () => this.props.audition.project + " | " + this.props.audition.category
 
   toggleForm = () => {
+    const result = this.props.audition.report.result ? (this.formattedResultsForSelect().find(result => result.value === this.props.audition.report.result.id)) : null
+
     this.setState({
       displayFormFields: !this.state.displayFormFields,
-      notes: this.props.audition.report.notes,
-      auditors: this.props.audition.report.auditors,
-      people: this.props.audition.report.people,
+      notes: this.props.audition.report.notes ? this.props.audition.report.notes : "",
+      auditors: this.props.audition.report.auditors ? this.props.audition.report.auditors : "",
+      people: this.props.audition.report.people ? this.props.audition.report.auditors : "",
+      result: result
     })
   }
 
