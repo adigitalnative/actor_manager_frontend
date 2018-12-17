@@ -18,11 +18,16 @@ class AuditionReport extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchingResultOptions()
+    console.log("Report", this.props.audition.report)
+    const result = this.props.audition.report.result ? (this.formattedResultsForSelect().find(result => result.value === this.props.audition.report.result.id)) : null
+
+    console.log("Result:", result)
+
     this.setState({
       notes: this.props.audition.report.notes,
       auditors: this.props.audition.report.auditors,
       people: this.props.audition.report.people,
+      result: result
     })
   }
 
@@ -58,13 +63,14 @@ class AuditionReport extends Component {
       auditors: this.state.auditors,
       people: this.state.people,
       audition_id: this.props.audition.id,
-
     }
 
     const hasResult = !!this.state.result
 
     if (hasResult) {
       report.result_id = this.state.result.value
+    } else {
+      report.result_id = null
     }
     this.props.updateReport(report)
     this.toggleForm()
@@ -170,6 +176,7 @@ class AuditionReport extends Component {
                   <Select
                     isClearable
                     isSearchable
+                    defaultValue={this.state.result}
                     options={this.formattedResultsForSelect()}
                     onChange={this.handleResultChange}
                   />
@@ -189,15 +196,6 @@ class AuditionReport extends Component {
   }
 }
 
-// <Form.Select
-//   label='Audition Result'
-//   options={this.formattedResultsForSelect()}
-//   placeholder='Were you...'
-//   // value={this.state.result ? this.state.result : null}
-//   name='result'
-//   onChange={this.handleChange}
-//   />
-
 const mapStateToProps = state => {
   return {
     resultOptions: state.resultOptions
@@ -207,7 +205,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     updateReport: report => dispatch(updatingReport(report)),
-    fetchingResultOptions: () => dispatch(fetchingResultOptions())
   }
 }
 
