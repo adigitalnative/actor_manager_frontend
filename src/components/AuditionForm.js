@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Modal, Form, Button, Select, Label } from 'semantic-ui-react'
 import CreatableSelect from 'react-select/lib/Creatable'
+import MultiSelect from 'react-select'
 import { connect } from 'react-redux'
 import { fetchingCategories, fetchingProjects, creatingAudition, fetchingCompanies } from '../redux/actions'
 
@@ -17,7 +18,8 @@ class AuditionForm extends Component {
       modalOpen: false,
       selectedCompany: [],
       editingExisting: false,
-      projectError: false
+      projectError: false,
+      peices: []
     }
   }
 
@@ -51,6 +53,7 @@ class AuditionForm extends Component {
       category_id: this.state.auditionCategory,
       project_id: this.projectIsNew() ? null : parseInt(this.state.selectedProject.value),
       new_project_title: this.projectIsNew() ? this.state.selectedProject.value : null,
+      book_item_ids: this.state.pieces.map(piece => piece.value)
     };
 
     if (hasCompany && hasNewCompany) {
@@ -76,6 +79,7 @@ class AuditionForm extends Component {
     }
 
 
+
     // push to history so it stays in the URL
   }
 
@@ -94,6 +98,15 @@ class AuditionForm extends Component {
       return {
         value: String(project.id),
         label: project.company ? project.name + " (" + project.company.name + ")" : project.name
+      }
+    })
+  }
+
+  formattedBookForSelect = () => {
+    return this.props.book.map(piece => {
+      return {
+        value: String(piece.id),
+        label: piece.display_title
       }
     })
   }
@@ -118,6 +131,12 @@ class AuditionForm extends Component {
   handleCompanyCreatableChange = (newValue: any, actionMeta: any) => {
     this.setState({selectedCompany: newValue})
   };
+
+  handlePiecesSelectChange = (newValue: any, actionMeta: any) => {
+    this.setState({
+      pieces: newValue
+    })
+  }
 
   projectIsNew = () => this.state.selectedProject ? !!this.state.selectedProject.__isNew__ : false
 
@@ -161,6 +180,7 @@ class AuditionForm extends Component {
               <Form.Input required label="Bring" type="text" name="bring" onChange={this.handleChange} value={this.state.bring} placeholder="To Bring"/>
               <Form.Input required label="Prepare" type="text" name="prepare" onChange={this.handleChange} value={this.state.prepare} placeholder="To Prepare"/>
             </Form.Group>
+            <MultiSelect isClearable isMulti options={this.formattedBookForSelect()} placeholder="Audition Pieces" onChange={this.handlePiecesSelectChange}/>
             <Button type="submit">Save Audition</Button>
           </Form>
         </Modal.Content>
@@ -183,7 +203,8 @@ const mapStateToProps = state => {
   return {
     categories: state.categories,
     projects: state.projects,
-    companies: state.companies
+    companies: state.companies,
+    book: state.book
   }
 }
 

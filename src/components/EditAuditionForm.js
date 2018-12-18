@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Modal, Form, Button, Select, Header } from 'semantic-ui-react'
+import MultiSelect from 'react-select'
 // import CreatableSelect from 'react-select/lib/Creatable'
 import { connect } from 'react-redux'
 import { fetchingCategories, fetchingProjects, updatingAudition, fetchingCompanies } from '../redux/actions'
@@ -15,7 +16,8 @@ class EditAuditionForm extends Component {
       auditionCategory: null,
       selectedProject: [],
       modalOpen: false,
-      selectedCompany: []
+      selectedCompany: [],
+      pieces: []
     }
   }
 
@@ -36,12 +38,17 @@ class EditAuditionForm extends Component {
 
     const auditionCategory = this.formattedCategoriesForSelect().find(category => category.text === this.props.audition.category).value
     const selectedProject = this.formattedProjectsForRSelect().find(company => company.label === this.formattedCompanyNameFromProps(this.props.audition.project, this.props.audition.company))
+    const selectedPieces = this.formattedBookForSelect().filter(bookItem => {
+      const pieces = this.props.audition.pieces.map(piece => piece.id)
+      return pieces.includes(parseInt(bookItem.value))
+    })
 
     this.setState({
       bring: this.props.audition.bring,
       prepare: this.props.audition.prepare,
       auditionCategory: auditionCategory,
-      selectedProject: selectedProject
+      selectedProject: selectedProject,
+      pieces: selectedPieces
     })
   }
 
@@ -60,6 +67,7 @@ class EditAuditionForm extends Component {
       prepare: this.state.prepare,
       category_id: this.state.auditionCategory,
       id: this.props.audition.id,
+      book_item_ids: this.state.pieces.map(piece => piece.value)
       // project_id: this.projectIsNew() ? null : parseInt(this.state.selectedProject.value),
       // new_project_title: this.projectIsNew() ? this.state.selectedProject.value : null,
     };
@@ -110,6 +118,15 @@ class EditAuditionForm extends Component {
     })
   }
 
+  formattedBookForSelect = () => {
+    return this.props.book.map(piece => {
+      return {
+        value: String(piece.id),
+        label: piece.display_title
+      }
+    })
+  }
+
   handleCreatableChange = (newValue: any, actionMeta: any) => {
     this.setState({selectedProject: newValue})
   };
@@ -117,6 +134,12 @@ class EditAuditionForm extends Component {
   handleCompanyCreatableChange = (newValue: any, actionMeta: any) => {
     this.setState({selectedCompany: newValue})
   };
+
+  handlePiecesSelectChange = (newValue: any, actionMeta: any) => {
+    this.setState({
+      pieces: newValue
+    })
+  }
 
   projectIsNew = () => this.state.selectedProject ? !!this.state.selectedProject.__isNew__ : false
 
@@ -144,6 +167,8 @@ class EditAuditionForm extends Component {
                 <Form.Input label="Bring" type="text" name="bring" onChange={this.handleChange} value={this.state.bring} placeholder="To Bring"/>
                 <Form.Input label="Prepare" type="text" name="prepare" onChange={this.handleChange} value={this.state.prepare} placeholder="To Prepare"/>
               </Form.Group>
+              <MultiSelect isClearable isMulti options={this.formattedBookForSelect()} placeholder="Audition Pieces" onChange={this.handlePiecesSelectChange} value={this.state.pieces}/>
+
               <Button type="submit">Save Audition</Button>
             </Form>
           </Modal.Content>
@@ -166,7 +191,8 @@ const mapStateToProps = state => {
   return {
     categories: state.categories,
     projects: state.projects,
-    companies: state.companies
+    companies: state.companies,
+    book: state.book
   }
 }
 
