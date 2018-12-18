@@ -12,7 +12,6 @@ const categoriesReducer = (state=[], action) => {
           return bookItem
         }
       })
-      return state;
     case "DELETED_BOOK":
       return state.filter(bookItem => bookItem.id !== action.bookItem.id)
     default:

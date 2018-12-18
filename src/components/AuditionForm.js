@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Modal, Form, Button, Select } from 'semantic-ui-react'
+import { Modal, Form, Button, Select, Label } from 'semantic-ui-react'
 import CreatableSelect from 'react-select/lib/Creatable'
 import { connect } from 'react-redux'
 import { fetchingCategories, fetchingProjects, creatingAudition, fetchingCompanies } from '../redux/actions'
@@ -16,7 +16,8 @@ class AuditionForm extends Component {
       selectedProject: [],
       modalOpen: false,
       selectedCompany: [],
-      editingExisting: false
+      editingExisting: false,
+      projectError: false
     }
   }
 
@@ -58,16 +59,23 @@ class AuditionForm extends Component {
       audition.company_id = this.state.selectedCompany.value
     }
 
-    this.props.createAudition(audition)
+    if (audition.project_id || audition.new_project_title) {
+      this.props.createAudition(audition)
+      this.setState({
+        bring: "",
+        prepare: "",
+        auditionCategory: null,
+        selectedProject: [],
+        modalOpen: false,
+        selectedCompany: []
+      })
+    } else {
+      this.setState({
+        projectError: true
+      })
+    }
 
-    this.setState({
-      bring: "",
-      prepare: "",
-      auditionCategory: null,
-      selectedProject: [],
-      modalOpen: false,
-      selectedCompany: []
-    })
+
     // push to history so it stays in the URL
   }
 
@@ -100,7 +108,11 @@ class AuditionForm extends Component {
   }
 
   handleCreatableChange = (newValue: any, actionMeta: any) => {
-    this.setState({selectedProject: newValue})
+    this.setState({
+      selectedProject: newValue,
+      projectError: false
+    })
+
   };
 
   handleCompanyCreatableChange = (newValue: any, actionMeta: any) => {
@@ -108,6 +120,9 @@ class AuditionForm extends Component {
   };
 
   projectIsNew = () => this.state.selectedProject ? !!this.state.selectedProject.__isNew__ : false
+
+  projectError = () => this.state.projectError ? (<Label pointing>You've got to be auditioning for SOMETHING...</Label>) : null
+
 
   render() {
     return(
@@ -128,6 +143,8 @@ class AuditionForm extends Component {
               onChange={this.handleCreatableChange}
               options={this.formattedProjectsForRSelect()}
             />
+            {this.projectError()}
+
             {this.projectIsNew() ? (
               <div>
                 <label>Company</label>
