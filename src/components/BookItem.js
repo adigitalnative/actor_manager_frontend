@@ -17,9 +17,9 @@ const BookItem = props => {
           {props.piece.title}
         </Card.Header>
         <Card.Meta>
-        {props.piece.role}
-        </Card.Meta>
         {props.piece.author}
+        </Card.Meta>
+        <p>{props.piece.role}</p>
       </Card.Content>
       <Card.Content extra textAlign="center">
         <Button disabled>View</Button>

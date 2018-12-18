@@ -17,7 +17,7 @@ const Audition = ({audition, deleteAudition}) => {
         <Fragment>
           <Header as="h4">Planned Pieces</Header>
           <ul>
-            {audition.pieces.map(piece => <li key={piece.id}>{piece.title}</li>)}
+            {audition.pieces.map(piece => <li key={piece.id}>{piece.display_title}</li>)}
           </ul>
       </Fragment>
     ) : null
