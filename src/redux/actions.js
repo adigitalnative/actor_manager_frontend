@@ -339,6 +339,28 @@ function updatedBookItem(bookItemData) {
   return { type: "UPDATED_BOOK", bookItemData }
 }
 
+function deletingBookItem(bookItemId) {
+  return(dispatch) => {
+    fetch(URL + '/book/' + bookItemId, {
+      method: "DELETE",
+      headers: {
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${localStorage.token}`
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if(!data.error) {
+        dispatch(deletedBookItem(data))
+      }
+    })
+  }
+}
+
+function deletedBookItem(bookItem) {
+  return { type: "DELETED_BOOK", bookItem }
+}
+
 // return(dispatch) => {
 //   fetch(URL + '/auditions/' + audition.id, {
 //     method: "PATCH",
@@ -360,4 +382,5 @@ export { fetchingAuditions, loadingAuditions, fetchedAuditions,
   fetchingCompanies, fetchedCompanies, signInAction, authenticatedUser,
   logoutUser, signupUser, authenticateToken, updatedAudition, updatingAudition,
   updatingReport, fetchingResultOptions, updatedResultOptions, fetchingBook, fetchedBook,
-  creatingBookItem, createdBookItem, updatingBookItem, updatedBookItem }
+  creatingBookItem, createdBookItem, updatingBookItem, updatedBookItem, deletingBookItem,
+  deletedBookItem }
