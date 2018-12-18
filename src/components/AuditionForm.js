@@ -122,7 +122,7 @@ class AuditionForm extends Component {
         <Modal.Header>Create an Audition</Modal.Header>
         <Modal.Content>
           <Form onSubmit={event => this.handleSubmit(event)}>
-            <label>Project</label>
+            <label>Project <span style={{color: 'red'}}>*</span></label>
             <CreatableSelect
               isClearable
               onChange={this.handleCreatableChange}
@@ -139,10 +139,10 @@ class AuditionForm extends Component {
                 <CreatableSelect isClearable onChange={this.handleCompanyCreatableChange} options={this.formattedCompaniesForRSelect()} />
               </div>
             )}
-            <Form.Field control={Select} label='Category' options={this.formattedCategoriesForSelect()} placeholder='Audition Category' value={this.state.auditionCategory} name='auditionCategory' onChange={this.handleChange}/>
+            <Form.Field required control={Select} label='Category' options={this.formattedCategoriesForSelect()} placeholder='Audition Category' value={this.state.auditionCategory} name='auditionCategory' onChange={this.handleChange}/>
             <Form.Group widths="equal">
-              <Form.Input label="Bring" type="text" name="bring" onChange={this.handleChange} value={this.state.bring} placeholder="To Bring"/>
-              <Form.Input label="Prepare" type="text" name="prepare" onChange={this.handleChange} value={this.state.prepare} placeholder="To Prepare"/>
+              <Form.Input required label="Bring" type="text" name="bring" onChange={this.handleChange} value={this.state.bring} placeholder="To Bring"/>
+              <Form.Input required label="Prepare" type="text" name="prepare" onChange={this.handleChange} value={this.state.prepare} placeholder="To Prepare"/>
             </Form.Group>
             <Button type="submit">Save Audition</Button>
           </Form>

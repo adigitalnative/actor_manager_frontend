@@ -7,6 +7,7 @@ import companiesReducer from './reducers/companiesReducer'
 import userReducer from './reducers/userReducer'
 import messagesReducer from './reducers/messageReducer'
 import resultOptionsReducer from './reducers/resultOptionsReducer'
+import bookReducer from './reducers/bookReducer'
 
 const rootReducer = combineReducers(
   {
@@ -17,7 +18,8 @@ const rootReducer = combineReducers(
     companies: companiesReducer,
     currentUser: userReducer,
     messages: messagesReducer,
-    resultOptions: resultOptionsReducer
+    resultOptions: resultOptionsReducer,
+    book: bookReducer
   }
 )
 

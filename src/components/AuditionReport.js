@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Button, Modal, Header, Grid, Form, Label } from 'semantic-ui-react'
 import Select from 'react-select'
 import { connect } from 'react-redux'
-import { updatingReport, fetchingResultOptions } from '../redux/actions'
+import { updatingReport } from '../redux/actions'
 
 class AuditionReport extends Component {
   constructor() {
