@@ -13,6 +13,7 @@ import SignupPage from './components/SignupPage'
 import LoadingSpinner from './components/LoadingSpinner'
 import NotFoundPage from './components/NotFoundPage'
 import BookContainer from './containers/BookContainer'
+import Dashboard from './containers/DashboardContainer'
 
 // import logo from './logo.svg';
 import './App.css';
@@ -48,6 +49,7 @@ class App extends Component {
             <Route exact path="/signup" component={SignupPage} />
             <Route exact path="/auditions" render={() => this.authorizeFor(AuditionsContainer, '/auditions')} />
             <Route exact path="/book" render={() => this.authorizeFor(BookContainer, '/book')} />
+            <Route exact path="/dashboard" render={() => this.authorizeFor(Dashboard, '/dashboard')} />
             <Route render={() => this.authorizeFor(NotFoundPage, '/not_found')} />
           </Switch>
           </div>

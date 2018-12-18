@@ -9,8 +9,9 @@ const Nav = props => {
   const renderUserLinks = () => {
     return (
       <Fragment>
-      <Menu.Item name="auditions" as={Link} to='/auditions' />
+        <Menu.Item name="auditions" as={Link} to='/auditions' />
         <Menu.Item name="yourBook" as={Link} to='/book' />
+        <Menu.Item name="dashboard" as={Link} to='/dashboard' />
         <Menu.Menu position="right">
           <Menu.Item>
             <Button basic color="red" onClick={props.logout}>Sign Out</Button>

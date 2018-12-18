@@ -12,16 +12,18 @@ const Audition = ({audition, deleteAudition}) => {
   }
 
   const renderPlannedPieces = () => {
-    return (
-      audition.pieces.length > 0 ? (
+    if (audition.pieces && audition.pieces.length > 0) {
+      return(
         <Fragment>
           <Header as="h4">Planned Pieces</Header>
           <ul>
             {audition.pieces.map(piece => <li key={piece.id}>{piece.display_title}</li>)}
           </ul>
-      </Fragment>
-    ) : null
-    )
+        </Fragment>
+      )
+    } else {
+      return null
+    }
   }
 
   return(
@@ -37,7 +39,7 @@ const Audition = ({audition, deleteAudition}) => {
                 <p><b>Bring:</b> {audition.bring}</p>
               </Grid.Column>
               <Grid.Column>
-                {renderPlannedPieces()}
+              {renderPlannedPieces()}
 
                 <Button.Group fluid size="mini">
                   <AuditionReport audition={audition} />
