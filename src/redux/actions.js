@@ -269,6 +269,76 @@ function updatedResultOptions(resultOptions) {
   return {type: "UPDATED_RESULT_OPTIONS", resultOptions}
 }
 
+function fetchingBook() {
+  return(dispatch) => {
+    fetch(URL + '/book', {
+      method: 'GET',
+      headers: {
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${localStorage.token}`
+      }
+    })
+    .then(response => response.json())
+    .then(bookData => {
+      dispatch(fetchedBook(bookData))
+    })
+  }
+}
+
+function fetchedBook(bookData) {
+  return { type: "FETCHED_BOOK", bookData }
+}
+
+function creatingBookItem(bookItem) {
+  return(dispatch) => {
+    fetch(URL + '/book', {
+      method: "POST",
+      headers: {
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${localStorage.token}`
+      },
+      body: JSON.stringify({
+        book_item: bookItem
+      })
+    })
+    .then(response => response.json())
+    .then(bookItemData => {
+      if (!bookItemData.error) {
+        dispatch(createdBookItem(bookItemData))
+      }
+    })
+  }
+}
+
+function createdBookItem(bookItemData) {
+  return { type: "CREATED_BOOK", bookItemData }
+}
+
+function updatingBookItem(bookItem) {
+  return(dispatch) => {
+    fetch(URL + '/book/' + bookItem.id, {
+      method: "PATCH",
+      headers: {
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${localStorage.token}`
+      },
+      body: JSON.stringify({
+        book_item: bookItem
+      })
+    })
+    .then(response => response.json())
+    .then(bookItemData => {
+      if(!bookItemData.error) {
+        dispatch(updatedBookItem(bookItemData))
+      }
+    })
+  }
+}
+
+function updatedBookItem(bookItemData) {
+  return { type: "UPDATED_BOOK", bookItemData }
+}
+
 // return(dispatch) => {
 //   fetch(URL + '/auditions/' + audition.id, {
 //     method: "PATCH",
@@ -289,4 +359,5 @@ export { fetchingAuditions, loadingAuditions, fetchedAuditions,
   fetchedProjects, creatingAudition, deleteAudition, deletedAudition,
   fetchingCompanies, fetchedCompanies, signInAction, authenticatedUser,
   logoutUser, signupUser, authenticateToken, updatedAudition, updatingAudition,
-  updatingReport, fetchingResultOptions, updatedResultOptions }
+  updatingReport, fetchingResultOptions, updatedResultOptions, fetchingBook, fetchedBook,
+  creatingBookItem, createdBookItem, updatingBookItem, updatedBookItem }

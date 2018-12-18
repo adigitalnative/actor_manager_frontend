@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { Container } from 'semantic-ui-react'
 import {Route, Redirect, Switch, withRouter } from 'react-router-dom'
 import {connect} from 'react-redux'
 
@@ -13,6 +12,7 @@ import LoginPage from './components/LoginPage'
 import SignupPage from './components/SignupPage'
 import LoadingSpinner from './components/LoadingSpinner'
 import NotFoundPage from './components/NotFoundPage'
+import BookContainer from './containers/BookContainer'
 
 // import logo from './logo.svg';
 import './App.css';
@@ -47,8 +47,8 @@ class App extends Component {
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/signup" component={SignupPage} />
             <Route exact path="/auditions" render={() => this.authorizeFor(AuditionsContainer, '/auditions')} />
+            <Route exact path="/book" render={() => this.authorizeFor(BookContainer, '/book')} />
             <Route render={() => this.authorizeFor(NotFoundPage, '/not_found')} />
-
           </Switch>
           </div>
         <Footer />
