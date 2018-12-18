@@ -19,7 +19,7 @@ class AuditionForm extends Component {
       selectedCompany: [],
       editingExisting: false,
       projectError: false,
-      peices: []
+      pieces: []
     }
   }
 
