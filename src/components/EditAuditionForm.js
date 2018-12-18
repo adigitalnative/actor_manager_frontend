@@ -3,7 +3,7 @@ import { Modal, Form, Button, Select, Header } from 'semantic-ui-react'
 import MultiSelect from 'react-select'
 // import CreatableSelect from 'react-select/lib/Creatable'
 import { connect } from 'react-redux'
-import { fetchingCategories, fetchingProjects, updatingAudition, fetchingCompanies } from '../redux/actions'
+import { updatingAudition } from '../redux/actions'
 
 
 class EditAuditionForm extends Component {
@@ -22,7 +22,7 @@ class EditAuditionForm extends Component {
   }
 
   handleOpen = () => {
-    this.props.fetchingProjects()
+    // this.props.fetchingProjects()
     this.setState({modalOpen: true})
   }
 
@@ -32,11 +32,12 @@ class EditAuditionForm extends Component {
 
 
   componentDidMount() {
-    this.props.fetchingCategories()
-    this.props.fetchingProjects()
-    this.props.fetchingCompanies()
-
-    const auditionCategory = this.formattedCategoriesForSelect().find(category => category.text === this.props.audition.category).value
+    let auditionCategory
+    if (this.formattedCategoriesForSelect().length > 0) {
+      auditionCategory = this.formattedCategoriesForSelect().find(category => category.text === this.props.audition.category).value
+    } else {
+      auditionCategory = null
+    }
     const selectedProject = this.formattedProjectsForRSelect().find(company => company.label === this.formattedCompanyNameFromProps(this.props.audition.project, this.props.audition.company))
     const selectedPieces = this.formattedBookForSelect().filter(bookItem => {
       const pieces = this.props.audition.pieces.map(piece => piece.id)
@@ -180,9 +181,6 @@ class EditAuditionForm extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchingCategories: () => {dispatch(fetchingCategories())},
-    fetchingProjects: () => {dispatch(fetchingProjects())},
-    fetchingCompanies: () => {dispatch(fetchingCompanies())},
     updateAudition: audition => {dispatch(updatingAudition(audition))}
   }
 }
