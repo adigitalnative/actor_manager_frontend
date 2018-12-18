@@ -1,38 +1,14 @@
 import React, {Component} from 'react'
-import { Container, Segment, Header, Card, Grid, Button } from 'semantic-ui-react'
+import { Container, Segment, Header, Card, Grid } from 'semantic-ui-react'
 import BookItem from '../components/BookItem'
 import NewBookItemForm from '../components/NewBookItemForm'
 import { fetchingBook } from '../redux/actions.js'
 import { connect } from 'react-redux'
 
 class BookContainer extends Component {
-  placeholderBookData = {
-    book: [
-      {
-        title: "Harry Potter and the Sorcerer's Stone",
-        role: "Hermione",
-        author: "J.K. Rowling",
-        id: 1
-      },
-      {
-        title: "Rabbit Hole",
-        role: "Izzy",
-        author: "David Lindsay Abaire",
-        id: 2
-      },
-      {
-        title: "Henry VI",
-        role: "Prologue",
-        author: "Shakespeare",
-        id: 3
-      },
-    ]
-  }
-
   componentDidMount() {
     this.props.fetchingBook()
   }
-
 
   render() {
     return (
@@ -53,7 +29,6 @@ class BookContainer extends Component {
       </Container>
     )
   }
-
 }
 
 const mapDispatchToProps = dispatch => {

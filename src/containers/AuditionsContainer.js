@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Header, Item, Grid, Segment, Container } from 'semantic-ui-react'
 import Audition from '../components/Audition'
 import { connect } from 'react-redux'
-import { fetchingAuditions, fetchingResultOptions } from '../redux/actions'
+import { fetchingAuditions, fetchingResultOptions, fetchingBook } from '../redux/actions'
 import LoadingSpinner from '../components/LoadingSpinner'
 import AuditionForm from '../components/AuditionForm'
 
@@ -11,6 +11,7 @@ class AuditionsContainer extends Component {
   componentDidMount() {
     this.props.fetchingAuditions()
     this.props.fetchingResultOptions()
+    this.props.fetchingBook()
   }
 
   render() {
@@ -39,7 +40,8 @@ class AuditionsContainer extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     fetchingAuditions: () => {dispatch(fetchingAuditions())},
-    fetchingResultOptions: () => {dispatch(fetchingResultOptions())}
+    fetchingResultOptions: () => {dispatch(fetchingResultOptions())},
+    fetchingBook: () => {dispatch(fetchingBook())}
   }
 }
 
