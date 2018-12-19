@@ -8,12 +8,12 @@ const AuditionsBigList = props => {
   console.log(props.auditions)
 
   const hasReport = audition => {
-    return !!audition.report.auditors || !!audition.report.notes || !!audition.report.people || !!audition.report.result
+    return !!audition.report.auditors || !!audition.report.notes || !!audition.report.people
   }
 
   const castingStatus = audition => {
-    if (audition.report.result) {
-      switch(audition.report.result.name) {
+    if (audition.result) {
+      switch(audition.result.name) {
         case "Offered Role":
           return "cast"
         case "Declined Role":
@@ -33,7 +33,7 @@ const AuditionsBigList = props => {
         return(<Icon name="star" color="blue" />)
       case "declined":
         return (
-          <Icon name="star" color="gray" />
+          <Icon name="star" color="grey" />
         )
       default:
         return null
