@@ -53,7 +53,6 @@ class App extends Component {
             <Route render={() => this.authorizeFor(NotFoundPage, '/not_found')} />
           </Switch>
           </div>
-        <Footer />
       </Fragment>
     );
   }
