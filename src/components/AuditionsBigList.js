@@ -5,8 +5,6 @@ import { Table, Header, Icon } from 'semantic-ui-react'
 
 const AuditionsBigList = props => {
 
-  console.log(props.auditions)
-
   const hasReport = audition => {
     return !!audition.report.auditors || !!audition.report.notes || !!audition.report.people
   }
