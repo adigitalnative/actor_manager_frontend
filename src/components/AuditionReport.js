@@ -42,7 +42,7 @@ class AuditionReport extends Component {
   auditionTitle = () => this.props.audition.project + " | " + this.props.audition.category
 
   toggleForm = () => {
-    const result = this.props.audition.report.result ? (this.formattedResultsForSelect().find(result => result.value === this.props.audition.report.result.id)) : null
+    const result = this.props.audition.result ? (this.formattedResultsForSelect().find(result => result.value === this.props.audition.result.id)) : null
 
     this.setState({
       displayFormFields: !this.state.displayFormFields,

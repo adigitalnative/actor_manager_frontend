@@ -35,6 +35,7 @@ const Audition = ({audition, deleteAudition}) => {
           <Grid columns={2}>
             <Grid.Row>
               <Grid.Column>
+                <p>{audition.dateTime}</p>
                 <p><b>Prepare:</b> {audition.prepare}</p>
                 <p><b>Bring:</b> {audition.bring}</p>
               </Grid.Column>

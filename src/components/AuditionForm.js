@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react'
 import { Modal, Form, Button, Select, Label } from 'semantic-ui-react'
 import CreatableSelect from 'react-select/lib/Creatable'
 import MultiSelect from 'react-select'
+import { DateTimeInput } from 'semantic-ui-calendar-react'
+
 import { connect } from 'react-redux'
 import { fetchingCategories, fetchingProjects, creatingAudition, fetchingCompanies } from '../redux/actions'
 
@@ -19,7 +21,8 @@ class AuditionForm extends Component {
       selectedCompany: [],
       editingExisting: false,
       projectError: false,
-      pieces: []
+      pieces: [],
+      dateTime: ""
     }
   }
 
@@ -53,7 +56,8 @@ class AuditionForm extends Component {
       category_id: this.state.auditionCategory,
       project_id: this.projectIsNew() ? null : parseInt(this.state.selectedProject.value),
       new_project_title: this.projectIsNew() ? this.state.selectedProject.value : null,
-      book_item_ids: this.state.pieces.map(piece => piece.value)
+      book_item_ids: this.state.pieces.map(piece => piece.value),
+      date_and_time: this.state.dateTime
     };
 
     if (hasCompany && hasNewCompany) {
@@ -70,7 +74,8 @@ class AuditionForm extends Component {
         auditionCategory: null,
         selectedProject: [],
         modalOpen: false,
-        selectedCompany: []
+        selectedCompany: [],
+        dateTime: ""
       })
     } else {
       this.setState({
@@ -78,9 +83,6 @@ class AuditionForm extends Component {
       })
     }
 
-
-
-    // push to history so it stays in the URL
   }
 
   formattedCategoriesForSelect = () => {
@@ -175,7 +177,18 @@ class AuditionForm extends Component {
                 <CreatableSelect isClearable onChange={this.handleCompanyCreatableChange} options={this.formattedCompaniesForRSelect()} />
               </div>
             )}
-            <Form.Field required control={Select} label='Category' options={this.formattedCategoriesForSelect()} placeholder='Audition Category' value={this.state.auditionCategory} name='auditionCategory' onChange={this.handleChange}/>
+            <Form.Group widths="equal">
+              <Form.Field required control={Select} label='Category' options={this.formattedCategoriesForSelect()} placeholder='Audition Category' value={this.state.auditionCategory} name='auditionCategory' onChange={this.handleChange}/>
+              <DateTimeInput
+                name="dateTime"
+                placeholder="Date Time"
+                value={this.state.dateTime}
+                iconPosition="left"
+                onChange={this.handleChange}
+                label="Date & Time"
+                dateTimeFormat="ddd, MMM DD YYYY HH:mm"
+              />
+            </Form.Group>
             <Form.Group widths="equal">
               <Form.Input required label="Bring" type="text" name="bring" onChange={this.handleChange} value={this.state.bring} placeholder="To Bring"/>
               <Form.Input required label="Prepare" type="text" name="prepare" onChange={this.handleChange} value={this.state.prepare} placeholder="To Prepare"/>

@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { Modal, Form, Button, Select, Header } from 'semantic-ui-react'
 import MultiSelect from 'react-select'
+import { DateTimeInput } from 'semantic-ui-calendar-react'
+
 // import CreatableSelect from 'react-select/lib/Creatable'
 import { connect } from 'react-redux'
 import { updatingAudition } from '../redux/actions'
@@ -17,7 +19,8 @@ class EditAuditionForm extends Component {
       selectedProject: [],
       modalOpen: false,
       selectedCompany: [],
-      pieces: []
+      pieces: [],
+      dateTime: ""
     }
   }
 
@@ -49,7 +52,8 @@ class EditAuditionForm extends Component {
       prepare: this.props.audition.prepare,
       auditionCategory: auditionCategory,
       selectedProject: selectedProject,
-      pieces: selectedPieces
+      pieces: selectedPieces,
+      dateTime: this.props.audition.dateTime
     })
   }
 
@@ -68,7 +72,9 @@ class EditAuditionForm extends Component {
       prepare: this.state.prepare,
       category_id: this.state.auditionCategory,
       id: this.props.audition.id,
-      book_item_ids: this.state.pieces.map(piece => piece.value)
+      book_item_ids: this.state.pieces.map(piece => piece.value),
+      date_and_time: this.state.dateTime
+
       // project_id: this.projectIsNew() ? null : parseInt(this.state.selectedProject.value),
       // new_project_title: this.projectIsNew() ? this.state.selectedProject.value : null,
     };
@@ -163,7 +169,18 @@ class EditAuditionForm extends Component {
           <Modal.Content>
             <Form onSubmit={event => this.handleSubmit(event)}>
               {this.projectHeader()}
-              <Form.Field control={Select} label='Category' options={this.formattedCategoriesForSelect()} placeholder='Audition Category' value={this.state.auditionCategory} name='auditionCategory' onChange={this.handleChange}/>
+              <Form.Group widths="equal">
+                <Form.Field control={Select} label='Category' options={this.formattedCategoriesForSelect()} placeholder='Audition Category' value={this.state.auditionCategory} name='auditionCategory' onChange={this.handleChange}/>
+                <DateTimeInput
+                  name="dateTime"
+                  placeholder="Date Time"
+                  value={this.state.dateTime}
+                  iconPosition="left"
+                  onChange={this.handleChange}
+                  label="Date & Time"
+                  dateTimeFormat="ddd, MMM DD YYYY HH:mm"
+                />
+              </Form.Group>
               <Form.Group widths="equal">
                 <Form.Input label="Bring" type="text" name="bring" onChange={this.handleChange} value={this.state.bring} placeholder="To Bring"/>
                 <Form.Input label="Prepare" type="text" name="prepare" onChange={this.handleChange} value={this.state.prepare} placeholder="To Prepare"/>
