@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container, Segment, Header, Divider } from 'semantic-ui-react'
 import DashboardProjectsList from '../components/DashboardProjectsList'
+import DashboardStats from '../components/DashboardStats'
 import { fetchingDashboardData } from '../redux/actions/dashboard.js'
 
 class Dashboard extends Component {
@@ -18,7 +19,7 @@ class Dashboard extends Component {
             Dashboard
           </Header>
           <Divider />
-
+          <DashboardStats />
           <DashboardProjectsList />
         </Segment>
       </Container>
