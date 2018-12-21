@@ -1,29 +1,6 @@
+import {updatedAudition} from './actions/auditionActions'
+
 const URL = 'http://localhost:3001/api/v1'
-// const URL = 'http://10.113.110.102:3001/api/v1'
-
-function fetchingAuditions() {
-  return(dispatch) => {
-    dispatch(loadingAuditions())
-    fetch(URL + '/auditions',{
-      headers: {
-        'Accept':'application/json',
-        'Authorization':`Bearer ${localStorage.token}`
-      }
-    })
-    .then(response => response.json())
-    .then(auditions => {
-      dispatch(fetchedAuditions(auditions))
-    })
-  }
-}
-
-function loadingAuditions() {
-  return {type: "LOADING_AUDITIONS"}
-}
-
-function fetchedAuditions(auditions) {
-  return {type: "FETCHED_AUDITIONS", auditions}
-}
 
 function fetchingCategories() {
   return(dispatch) => {
@@ -87,68 +64,6 @@ function fetchedCompanies(companies) {
   return {type: "FETCHED_COMPANIES", companies}
 }
 
-function addedAudition(audition) {
-  return {type: "ADDED_AUDITION", audition}
-}
-
-function creatingAudition(audition) {
-  return(dispatch) => {
-    fetch(URL + '/auditions', {
-      method: "POST",
-      headers: {
-        'Content-Type':'application/json',
-        'Authorization':`Bearer ${localStorage.token}`
-      },
-      body: JSON.stringify({audition: audition})
-    })
-    .then(response => response.json())
-    .then(audition => {
-      dispatch(addedAudition(audition))
-    })
-  }
-}
-
-function updatingAudition(audition) {
-  return(dispatch) => {
-    fetch(URL + '/auditions/' + audition.id, {
-      method: "PATCH",
-      headers: {
-        'Content-Type':'application/json',
-        'Authorization':`Bearer ${localStorage.token}`
-      },
-      body: JSON.stringify({audition: audition})
-    })
-    .then(response => response.json())
-    .then(audition => {
-      dispatch(updatedAudition(audition))
-    })
-  }
-}
-
-function updatedAudition(audition) {
-  return {type: "UPDATED_AUDITION", audition}
-}
-
-function deleteAudition(audition_id) {
-  const str = URL + '/auditions/' + audition_id
-  return(dispatch) => {
-    fetch(str, {
-      method: "DELETE",
-      headers: {
-        'Accept':'application/json',
-        'Authorization':`Bearer ${localStorage.token}`
-      }
-    })
-    .then(response => response.json())
-    .then(audition => {
-      dispatch(deletedAudition(audition))
-    })
-  }
-}
-
-function deletedAudition(audition) {
-  return {type: "DELETED_AUDITION", audition}
-}
 
 function signInAction(user, history) {
   return(dispatch) => {
@@ -361,26 +276,9 @@ function deletedBookItem(bookItem) {
   return { type: "DELETED_BOOK", bookItem }
 }
 
-// return(dispatch) => {
-//   fetch(URL + '/auditions/' + audition.id, {
-//     method: "PATCH",
-//     headers: {
-//       'Content-Type':'application/json',
-//       'Authorization':`Bearer ${localStorage.token}`
-//     },
-//     body: JSON.stringify({audition: audition})
-//   })
-//   .then(response => response.json())
-//   .then(audition => {
-//     dispatch(updatedAudition(audition))
-//   })
-// }
-
-export { fetchingAuditions, loadingAuditions, fetchedAuditions,
-  fetchingCategories, loadingCategories, fetchedCategories, fetchingProjects,
-  fetchedProjects, creatingAudition, deleteAudition, deletedAudition,
-  fetchingCompanies, fetchedCompanies, signInAction, authenticatedUser,
-  logoutUser, signupUser, authenticateToken, updatedAudition, updatingAudition,
+export { fetchingCategories, loadingCategories, fetchedCategories, fetchingProjects,
+  fetchedProjects, fetchingCompanies, fetchedCompanies, signInAction, authenticatedUser,
+  logoutUser, signupUser, authenticateToken,
   updatingReport, fetchingResultOptions, updatedResultOptions, fetchingBook, fetchedBook,
   creatingBookItem, createdBookItem, updatingBookItem, updatedBookItem, deletingBookItem,
   deletedBookItem }

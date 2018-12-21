@@ -5,7 +5,8 @@ import MultiSelect from 'react-select'
 import { DateTimeInput } from 'semantic-ui-calendar-react'
 
 import { connect } from 'react-redux'
-import { fetchingCategories, fetchingProjects, creatingAudition, fetchingCompanies } from '../redux/actions'
+import { fetchingCategories, fetchingProjects, fetchingCompanies } from '../redux/actions'
+import { creatingAudition } from '../redux/actions/auditionActions'
 
 
 class AuditionForm extends Component {

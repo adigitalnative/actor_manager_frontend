@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Item, Grid, Button, Header } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { deleteAudition } from '../redux/actions'
+import { deleteAudition } from '../redux/actions/auditionActions'
 import EditAuditionForm from './EditAuditionForm'
 import AuditionReport from './AuditionReport'
 

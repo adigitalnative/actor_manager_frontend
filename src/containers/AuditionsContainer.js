@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { Header, Item, Grid, Segment, Container } from 'semantic-ui-react'
 import Audition from '../components/Audition'
 import { connect } from 'react-redux'
-import { fetchingAuditions, fetchingResultOptions, fetchingBook,
+import { fetchingResultOptions, fetchingBook,
   fetchingCategories, fetchingProjects, fetchingCompanies } from '../redux/actions'
+import { fetchingAuditions } from '../redux/actions/auditionActions'
 import LoadingSpinner from '../components/LoadingSpinner'
 import AuditionForm from '../components/AuditionForm'
 
