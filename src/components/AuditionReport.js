@@ -48,7 +48,7 @@ class AuditionReport extends Component {
       displayFormFields: !this.state.displayFormFields,
       notes: this.props.audition.report.notes ? this.props.audition.report.notes : "",
       auditors: this.props.audition.report.auditors ? this.props.audition.report.auditors : "",
-      people: this.props.audition.report.people ? this.props.audition.report.auditors : "",
+      people: this.props.audition.report.people ? this.props.audition.report.people : "",
       result: result
     })
   }
