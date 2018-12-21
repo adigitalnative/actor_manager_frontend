@@ -3,9 +3,10 @@ import { Header, Item, Grid, Segment, Container } from 'semantic-ui-react'
 import Audition from '../components/Audition'
 import { connect } from 'react-redux'
 import { fetchingResultOptions, fetchingBook,
-  fetchingProjects, fetchingCompanies } from '../redux/actions'
+  fetchingCompanies } from '../redux/actions'
 import { fetchingAuditions } from '../redux/actions/auditionActions'
 import { fetchingCategories } from '../redux/actions/categoryActions'
+import { fetchingProjects } from '../redux/actions/projectActions'
 import LoadingSpinner from '../components/LoadingSpinner'
 import AuditionForm from '../components/AuditionForm'
 
