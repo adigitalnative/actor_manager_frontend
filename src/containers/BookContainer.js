@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Container, Segment, Header, Card, Grid } from 'semantic-ui-react'
 import BookItem from '../components/BookItem'
 import NewBookItemForm from '../components/NewBookItemForm'
-import { fetchingBook } from '../redux/actions.js'
+import { fetchingBook } from '../redux/actions/bookActions'
 import { connect } from 'react-redux'
 
 class BookContainer extends Component {

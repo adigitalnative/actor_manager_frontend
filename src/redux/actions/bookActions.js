@@ -1,8 +1,8 @@
-const URL = 'http://localhost:3001/api/v1'
+import { baseUrl } from './settings.js'
 
 function fetchingBook() {
   return(dispatch) => {
-    fetch(URL + '/book', {
+    fetch(baseUrl() + '/book', {
       method: 'GET',
       headers: {
         'Content-Type':'application/json',
@@ -22,7 +22,7 @@ function fetchedBook(bookData) {
 
 function creatingBookItem(bookItem) {
   return(dispatch) => {
-    fetch(URL + '/book', {
+    fetch(baseUrl() + '/book', {
       method: "POST",
       headers: {
         'Content-Type':'application/json',
@@ -47,7 +47,7 @@ function createdBookItem(bookItemData) {
 
 function updatingBookItem(bookItem) {
   return(dispatch) => {
-    fetch(URL + '/book/' + bookItem.id, {
+    fetch(baseUrl() + '/book/' + bookItem.id, {
       method: "PATCH",
       headers: {
         'Content-Type':'application/json',
@@ -72,7 +72,7 @@ function updatedBookItem(bookItemData) {
 
 function deletingBookItem(bookItemId) {
   return(dispatch) => {
-    fetch(URL + '/book/' + bookItemId, {
+    fetch(baseUrl() + '/book/' + bookItemId, {
       method: "DELETE",
       headers: {
         'Content-Type':'application/json',
@@ -92,7 +92,4 @@ function deletedBookItem(bookItem) {
   return { type: "DELETED_BOOK", bookItem }
 }
 
-export {
-   fetchingBook, fetchedBook,
-  creatingBookItem, createdBookItem, updatingBookItem, updatedBookItem, deletingBookItem,
-  deletedBookItem }
+export {fetchingBook, creatingBookItem, updatingBookItem, deletingBookItem}

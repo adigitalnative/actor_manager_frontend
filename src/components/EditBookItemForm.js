@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {Modal, Button, Form} from 'semantic-ui-react'
-import { updatingBookItem } from '../redux/actions'
+import { updatingBookItem } from '../redux/actions/bookActions'
 
 class EditBookItemForm extends Component {
   constructor() {

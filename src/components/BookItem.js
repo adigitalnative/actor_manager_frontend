@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Button } from 'semantic-ui-react'
 import EditBookItemForm from './EditBookItemForm'
 import { connect } from 'react-redux'
-import { deletingBookItem } from '../redux/actions.js'
+import { deletingBookItem } from '../redux/actions/bookActions'
 
 const BookItem = props => {
 
