@@ -2,26 +2,6 @@ import {updatedAudition} from './actions/auditionActions'
 
 const URL = 'http://localhost:3001/api/v1'
 
-function fetchingCompanies() {
-  return(dispatch) => {
-    fetch(URL + '/companies',{
-      headers: {
-        'Accept':'application/json',
-        'Authorization':`Bearer ${localStorage.token}`
-      }
-    })
-    .then(response => response.json())
-    .then(companies => {
-      dispatch(fetchedCompanies(companies))
-    })
-  }
-}
-
-function fetchedCompanies(companies) {
-  return {type: "FETCHED_COMPANIES", companies}
-}
-
-
 function signInAction(user, history) {
   return(dispatch) => {
     // SHould have a try/catch block here?
@@ -233,7 +213,7 @@ function deletedBookItem(bookItem) {
   return { type: "DELETED_BOOK", bookItem }
 }
 
-export { fetchingCompanies, fetchedCompanies, signInAction, authenticatedUser,
+export { signInAction, authenticatedUser,
   logoutUser, signupUser, authenticateToken,
   updatingReport, fetchingResultOptions, updatedResultOptions, fetchingBook, fetchedBook,
   creatingBookItem, createdBookItem, updatingBookItem, updatedBookItem, deletingBookItem,
