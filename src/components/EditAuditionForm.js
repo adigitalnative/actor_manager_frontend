@@ -5,7 +5,7 @@ import { DateTimeInput } from 'semantic-ui-calendar-react'
 
 // import CreatableSelect from 'react-select/lib/Creatable'
 import { connect } from 'react-redux'
-import { updatingAudition } from '../redux/actions'
+import { updatingAudition } from '../redux/actions/auditionActions'
 
 
 class EditAuditionForm extends Component {
