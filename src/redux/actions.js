@@ -1,26 +1,5 @@
 const URL = 'http://localhost:3001/api/v1'
 
-
-function fetchingResultOptions() {
-  return(dispatch) => {
-    fetch(URL + '/result_options', {
-      method: "GET",
-      headers: {
-        'Content-Type':'application/json',
-        'Authorization':`Bearer ${localStorage.token}`
-      }
-    })
-    .then(response => response.json())
-    .then(resultOptions => {
-      dispatch(updatedResultOptions(resultOptions))
-    })
-  }
-}
-
-function updatedResultOptions(resultOptions) {
-  return {type: "UPDATED_RESULT_OPTIONS", resultOptions}
-}
-
 function fetchingBook() {
   return(dispatch) => {
     fetch(URL + '/book', {
@@ -114,6 +93,6 @@ function deletedBookItem(bookItem) {
 }
 
 export {
-  fetchingResultOptions, updatedResultOptions, fetchingBook, fetchedBook,
+   fetchingBook, fetchedBook,
   creatingBookItem, createdBookItem, updatingBookItem, updatedBookItem, deletingBookItem,
   deletedBookItem }
