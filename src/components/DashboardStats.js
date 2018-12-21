@@ -17,6 +17,14 @@ const DashboardStats = props => {
         <Statistic.Value>{props.dashboard.percent_booked} %</Statistic.Value>
         <Statistic.Label>Projects Booked</Statistic.Label>
       </Statistic>
+      <Statistic>
+        <Statistic.Value>{props.dashboard.percent_reported} %</Statistic.Value>
+        <Statistic.Label>Projects Reported</Statistic.Label>
+      </Statistic>
+      <Statistic>
+        <Statistic.Value>{props.dashboard.potential_bookings}</Statistic.Value>
+        <Statistic.Label>Potential Bookings</Statistic.Label>
+      </Statistic>
     </Statistic.Group>
   )
 }
