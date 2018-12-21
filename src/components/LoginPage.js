@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Form, Button, Header, Container, Segment } from 'semantic-ui-react'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { signInAction } from '../redux/actions'
+import { signInAction } from '../redux/actions/authActions'
 import Nav from './Nav'
 
 class LoginPage extends Component {

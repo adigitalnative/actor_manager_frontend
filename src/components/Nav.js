@@ -3,7 +3,7 @@ import { Menu, Button, Image } from 'semantic-ui-react'
 import logo_v1 from '../images/Logo_V1.png'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { logoutUser } from '../redux/actions'
+import { logoutUser } from '../redux/actions/authActions'
 
 const Nav = props => {
   const renderUserLinks = () => {

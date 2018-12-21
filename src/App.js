@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import {Route, Redirect, Switch, withRouter } from 'react-router-dom'
 import {connect} from 'react-redux'
 
-import {authenticateToken} from './redux/actions'
+import { authenticateToken } from './redux/actions/authActions'
 
 import Nav from './components/Nav'
 import Footer from './components/Footer'

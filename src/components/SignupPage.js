@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Form, Button, Header, Container, Segment } from 'semantic-ui-react'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { signupUser } from '../redux/actions'
+import { signupUser } from '../redux/actions/authActions'
 import Nav from './Nav'
 
 class SignupPage extends Component {
@@ -41,7 +41,7 @@ class SignupPage extends Component {
 
     if (redirectToReferrer) return <Redirect to={from} />
     if (this.props.currentUser) return <Redirect to='/auditions' />
-    
+
 
     return(
       <div>
