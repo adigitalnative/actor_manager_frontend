@@ -2,29 +2,6 @@ import {updatedAudition} from './actions/auditionActions'
 
 const URL = 'http://localhost:3001/api/v1'
 
-function fetchingCategories() {
-  return(dispatch) => {
-    dispatch(loadingCategories())
-    fetch(URL + '/categories',{
-      headers: {
-        'Accept':'application/json',
-        'Authorization':`Bearer ${localStorage.token}`
-      }
-    })
-    .then(response => response.json())
-    .then(categories => {
-      dispatch(fetchedCategories(categories))
-    })
-  }
-}
-
-function fetchedCategories(categories) {
-  return {type: "FETCHED_CATEGORIES", categories}
-}
-
-function loadingCategories() {
-  return {type: "LOADING_CATEGORIES"}
-}
 
 function fetchingProjects() {
   return(dispatch) => {
@@ -276,7 +253,7 @@ function deletedBookItem(bookItem) {
   return { type: "DELETED_BOOK", bookItem }
 }
 
-export { fetchingCategories, loadingCategories, fetchedCategories, fetchingProjects,
+export { fetchingProjects,
   fetchedProjects, fetchingCompanies, fetchedCompanies, signInAction, authenticatedUser,
   logoutUser, signupUser, authenticateToken,
   updatingReport, fetchingResultOptions, updatedResultOptions, fetchingBook, fetchedBook,
