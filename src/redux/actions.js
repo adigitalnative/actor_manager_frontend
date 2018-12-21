@@ -1,23 +1,5 @@
-import {updatedAudition} from './actions/auditionActions'
-
 const URL = 'http://localhost:3001/api/v1'
 
-function updatingReport(report) {
-  return(dispatch) => {
-    fetch(URL + '/auditions/' + report.audition_id + "/report", {
-      method: "PATCH",
-      headers: {
-        'Content-Type':'application/json',
-        'Authorization':`Bearer ${localStorage.token}`
-      },
-      body: JSON.stringify({ report: report })
-    })
-    .then(response => response.json())
-    .then(audition => {
-      dispatch(updatedAudition(audition))
-    })
-  }
-}
 
 function fetchingResultOptions() {
   return(dispatch) => {
@@ -131,7 +113,7 @@ function deletedBookItem(bookItem) {
   return { type: "DELETED_BOOK", bookItem }
 }
 
-export { 
-  updatingReport, fetchingResultOptions, updatedResultOptions, fetchingBook, fetchedBook,
+export {
+  fetchingResultOptions, updatedResultOptions, fetchingBook, fetchedBook,
   creatingBookItem, createdBookItem, updatingBookItem, updatedBookItem, deletingBookItem,
   deletedBookItem }
