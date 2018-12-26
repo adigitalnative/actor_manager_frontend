@@ -14,6 +14,7 @@ import LoadingSpinner from './components/LoadingSpinner'
 import NotFoundPage from './components/NotFoundPage'
 import BookContainer from './containers/BookContainer'
 import Dashboard from './containers/DashboardContainer'
+import SettingsPage from './components/SettingsPage'
 
 // import logo from './logo.svg';
 import './App.css';
@@ -50,6 +51,7 @@ class App extends Component {
             <Route exact path="/auditions" render={() => this.authorizeFor(AuditionsContainer, '/auditions')} />
             <Route exact path="/book" render={() => this.authorizeFor(BookContainer, '/book')} />
             <Route exact path="/dashboard" render={() => this.authorizeFor(Dashboard, '/dashboard')} />
+            <Route exact path="/settings" render={() => this.authorizeFor(SettingsPage, '/settings')} />
             <Route render={() => this.authorizeFor(NotFoundPage, '/not_found')} />
           </Switch>
           </div>

@@ -13,6 +13,7 @@ const Nav = props => {
         <Menu.Item name="yourBook" as={Link} to='/book' />
         <Menu.Item name="dashboard" as={Link} to='/dashboard' />
         <Menu.Menu position="right">
+          <Menu.Item name="Settings" as={Link} to='/settings'/>
           <Menu.Item>
             <Button basic color="red" onClick={props.logout}>Sign Out</Button>
           </Menu.Item>
