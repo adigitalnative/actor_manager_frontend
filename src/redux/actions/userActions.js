@@ -1,18 +1,19 @@
 import { baseUrl } from './settings.js'
 
 function updateUser(user) {
+  console.log("Action user:", user)
   return(dispatch) => {
-    fetch(baseUrl() + '/users',{
+    fetch(baseUrl() + '/users', {
       method: "PATCH",
       headers: {
-        'Accept':'application/json',
-        'Authorization':`Bearer ${localStorage.token}`
+        'Content-Type':'application/json',
+        'Authorization' : `Bearer ${localStorage.token}`
       },
-      body: JSON.stringify({user: user})
+      body: JSON.stringify({ user: user })
     })
     .then(response => response.json())
-    .then(companies => {
-      dispatch(updatedUser(companies))
+    .then(user => {
+      dispatch(updatedUser(user))
     })
   }
 }

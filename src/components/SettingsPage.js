@@ -28,10 +28,11 @@ class SettingsPage extends Component {
 
   handleSubmit = () => {
     const user = {
-      first_name: this.state.first_name,
-      last_name: this.state.last_name
+      first_name: this.state.firstName,
+      last_name: this.state.lastName
     }
 
+    // console.log("User", user)
     this.props.updateUser(user)
   }
 
