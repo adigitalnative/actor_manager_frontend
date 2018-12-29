@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Table, Icon, Label } from 'semantic-ui-react'
+import { Table, Label } from 'semantic-ui-react'
 
 class DashboardProjectRow extends Component {
   constructor() {
@@ -13,17 +13,19 @@ class DashboardProjectRow extends Component {
     return project.company ? project.company.name : ""
   }
 
-  shouldBeDisabled = project => project.result && project.result.name === "Not Cast" ? true : false
+  hasAuditions = () => this.props.project.auditions.length > 0 ? true : false
 
   castStatus = project => {
     if (project.result) {
       switch(project.result.name) {
         case "Offered Role":
-          return(<Icon name="star" color="blue" />)
+          return <Label color="blue">Offered Role</Label>
+        case "Accepted Role":
+          return <Label color="green">Accepted Role</Label>
         case "Declined Role":
-          return(<Icon name="star" color="grey" />)
+          return <Label color="grey">Declined Role</Label>
         case "Not Cast":
-          return ""
+          return <Label>Not Cast</Label>
         default:
           return ""
       }
@@ -68,7 +70,7 @@ class DashboardProjectRow extends Component {
           key={this.props.project.id}
           onClick={this.toggleAuditions}
           active={this.state.displayAuditions}
-          disabled={this.shouldBeDisabled(this.props.project)}
+          disabled={!this.hasAuditions()}
         >
           <Table.Cell>{this.props.project.name}</Table.Cell>
           <Table.Cell>{this.company(this.props.project)}</Table.Cell>
