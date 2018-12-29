@@ -71,18 +71,18 @@ class AuditionReport extends Component {
   }
 
   resultCornerLabel = () => {
-    if (!!this.props.audition.report.result) {
-      if (this.props.audition.report.result.name === "Offered Role") {
+    if (!!this.props.audition.result) {
+      if (this.props.audition.result.name === "Offered Role" || this.props.audition.result.name === "Accepted Role") {
         return (
           <Label as='a' color='blue' corner='right' icon="star"/>
         )
-      } else if (this.props.audition.report.result.name === "Declined Role") {
+      } else if (this.props.audition.result.name === "Declined Role") {
         return (
           <Label as='a' color='grey' corner='right' icon="star"/>
         )
       }
     }
-    if (!!this.props.audition.report.result && this.props.audition.report.result.name === "Offered Role") {
+    if (!!this.props.audition.result && this.props.audition.result.name === "Offered Role") {
       return (
         <Label as='a' color='blue' corner='right' icon="star"/>
       )
@@ -90,8 +90,8 @@ class AuditionReport extends Component {
   }
 
   resultTitleLabel = () => {
-    if(!!this.props.audition.report.result) {
-      return <Label color="blue" size="mini">{this.props.audition.report.result.name}</Label>
+    if(!!this.props.audition.result) {
+      return <Label color="blue" size="mini">{this.props.audition.result.name}</Label>
     }
   }
 
