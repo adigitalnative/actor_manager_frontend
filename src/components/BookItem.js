@@ -10,6 +10,10 @@ const BookItem = props => {
     props.deletingBookItem(props.piece.id)
   }
 
+  const checkPreparedSides = () => {
+    return props.piece.title === "Prepared Sides"
+  }
+
   return(
     <Card>
       <Card.Content>
@@ -21,11 +25,13 @@ const BookItem = props => {
         </Card.Meta>
         <p>{props.piece.role}</p>
       </Card.Content>
-      <Card.Content extra textAlign="center">
-        <Button disabled>View</Button>
-        <EditBookItemForm piece={props.piece}>Edit</EditBookItemForm>
-        <Button negative onClick={handleDeletePiece}>Delete</Button>
-      </Card.Content>
+      {checkPreparedSides() ? null : (
+        <Card.Content extra textAlign="center">
+          <Button disabled>View</Button>
+          <EditBookItemForm piece={props.piece}>Edit</EditBookItemForm>
+          <Button negative onClick={handleDeletePiece}>Delete</Button>
+        </Card.Content>
+      )}
     </Card>
   )
 }
