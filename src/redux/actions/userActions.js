@@ -1,7 +1,6 @@
 import { baseUrl } from './settings.js'
 
 function updateUser(user) {
-  console.log("Action user:", user)
   return(dispatch) => {
     fetch(baseUrl() + '/users', {
       method: "PATCH",

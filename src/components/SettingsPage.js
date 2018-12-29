@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Container, Segment, Header, Divider, Form, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { statesOptions } from '../redux/actions/settings.js'
 
 import { updateUser } from '../redux/actions/userActions.js'
 
@@ -11,14 +12,15 @@ class SettingsPage extends Component {
     this.state={
       firstName: "",
       lastName: "",
-      auditionStates: "" // This may look different before we are done.
+      auditionStates: []
     }
   }
 
   componentDidMount() {
     this.setState({
       firstName: this.props.user.first_name,
-      lastName: this.props.user.last_name
+      lastName: this.props.user.last_name,
+      auditionStates: this.props.user.states.map(state => state.name)
     })
   }
 
@@ -29,10 +31,10 @@ class SettingsPage extends Component {
   handleSubmit = () => {
     const user = {
       first_name: this.state.firstName,
-      last_name: this.state.lastName
+      last_name: this.state.lastName,
+      audition_states: this.state.auditionStates
     }
 
-    // console.log("User", user)
     this.props.updateUser(user)
   }
 
@@ -51,7 +53,16 @@ class SettingsPage extends Component {
               <Form.Input required label="Last name" name="lastName" placeholder="Last Name" onChange={this.handleChange} value={this.state.lastName} />
             </Form.Group>
 
-            <Form.Input label="States to search" name="auditionStates" placeholder="States to search for auditions" onChange={this.handleChange} value={this.state.auditionStates} />
+            <Form.Dropdown
+              multiple search selection
+              placeholder="states"
+              label="Audition Search States"
+              options={statesOptions()}
+              name="auditionStates"
+              onChange={this.handleChange}
+              value={this.state.auditionStates}
+            />
+
             <Button.Group fluid>
               <Button color="red" as={Link} to="/dashboard">Cancel</Button>
               <Button onClick={this.handleSubmit}>Save</Button>
