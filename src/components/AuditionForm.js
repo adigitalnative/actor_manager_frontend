@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import { Modal, Form, Button, Select, Label } from 'semantic-ui-react'
+import { Modal, Form, Button, Select, Label, Dropdown } from 'semantic-ui-react'
 import CreatableSelect from 'react-select/lib/Creatable'
-import MultiSelect from 'react-select'
 import { DateTimeInput } from 'semantic-ui-calendar-react'
 
 import { connect } from 'react-redux'
@@ -9,8 +8,6 @@ import { fetchingCompanies } from '../redux/actions/companyActions'
 import { creatingAudition } from '../redux/actions/auditionActions'
 import { fetchingCategories } from '../redux/actions/categoryActions'
 import { fetchingProjects } from '../redux/actions/projectActions'
-
-
 
 class AuditionForm extends Component {
 
@@ -60,7 +57,7 @@ class AuditionForm extends Component {
       category_id: this.state.auditionCategory,
       project_id: this.projectIsNew() ? null : parseInt(this.state.selectedProject.value),
       new_project_title: this.projectIsNew() ? this.state.selectedProject.value : null,
-      book_item_ids: this.state.pieces.map(piece => piece.value),
+      book_item_ids: this.state.pieces,
       date_and_time: this.state.dateTime
     };
 
@@ -79,7 +76,8 @@ class AuditionForm extends Component {
         selectedProject: [],
         modalOpen: false,
         selectedCompany: [],
-        dateTime: ""
+        dateTime: "",
+        pieces: null
       })
     } else {
       this.setState({
@@ -112,7 +110,8 @@ class AuditionForm extends Component {
     return this.props.book.map(piece => {
       return {
         value: String(piece.id),
-        label: piece.display_title
+        text: piece.display_title,
+        key: piece.display_title
       }
     })
   }
@@ -137,12 +136,6 @@ class AuditionForm extends Component {
   handleCompanyCreatableChange = (newValue: any, actionMeta: any) => {
     this.setState({selectedCompany: newValue})
   };
-
-  handlePiecesSelectChange = (newValue: any, actionMeta: any) => {
-    this.setState({
-      pieces: newValue
-    })
-  }
 
   projectIsNew = () => this.state.selectedProject ? !!this.state.selectedProject.__isNew__ : false
 
@@ -197,7 +190,16 @@ class AuditionForm extends Component {
               <Form.Input required label="Bring" type="text" name="bring" onChange={this.handleChange} value={this.state.bring} placeholder="To Bring"/>
               <Form.Input required label="Prepare" type="text" name="prepare" onChange={this.handleChange} value={this.state.prepare} placeholder="To Prepare"/>
             </Form.Group>
-            <MultiSelect isClearable isMulti options={this.formattedBookForSelect()} placeholder="Audition Pieces" onChange={this.handlePiecesSelectChange}/>
+            <Dropdown
+              placeholder="Audition Pieces"
+              selection
+              fluid
+              multiple
+              search
+              onChange={this.handleChange}
+              name="pieces"
+              options={this.formattedBookForSelect()}
+            />
             <Button type="submit">Save Audition</Button>
           </Form>
         </Modal.Content>
