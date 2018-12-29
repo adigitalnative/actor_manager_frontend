@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Button, Modal, Header, Grid, Form, Label } from 'semantic-ui-react'
-import Select from 'react-select'
+import { Button, Modal, Header, Grid, Form, Label, Dropdown } from 'semantic-ui-react'
+// import Select from 'react-select'
 import { connect } from 'react-redux'
 import { updatingReport } from '../redux/actions/reportActions'
 
@@ -13,18 +13,18 @@ class AuditionReport extends Component {
       notes: "",
       auditors: "",
       people: "",
-      result: null
+      projectResult: null
     }
   }
 
   componentDidMount() {
-    const result = this.props.audition.report.result ? (this.formattedResultsForSelect().find(result => result.value === this.props.audition.report.result.id)) : null
+    const projectResult = this.props.audition.result ? this.props.audition.result.id : null
 
     this.setState({
       notes: this.props.audition.report.notes ? this.props.audition.report.notes : "",
       auditors: this.props.audition.report.auditors ? this.props.audition.report.auditors : "",
       people: this.props.audition.report.people ? this.props.audition.report.auditors : "",
-      result: result
+      projectResult: projectResult
     })
   }
 
@@ -42,14 +42,15 @@ class AuditionReport extends Component {
   auditionTitle = () => this.props.audition.project + " | " + this.props.audition.category
 
   toggleForm = () => {
-    const result = this.props.audition.result ? (this.formattedResultsForSelect().find(result => result.value === this.props.audition.result.id)) : null
+    const projectResult = this.props.audition.result ? this.props.audition.result.id : null
+
 
     this.setState({
       displayFormFields: !this.state.displayFormFields,
       notes: this.props.audition.report.notes ? this.props.audition.report.notes : "",
       auditors: this.props.audition.report.auditors ? this.props.audition.report.auditors : "",
       people: this.props.audition.report.people ? this.props.audition.report.people : "",
-      result: result
+      projectResult: projectResult
     })
   }
 
@@ -63,14 +64,7 @@ class AuditionReport extends Component {
       auditors: this.state.auditors,
       people: this.state.people,
       audition_id: this.props.audition.id,
-    }
-
-    const hasResult = !!this.state.result
-
-    if (hasResult) {
-      report.result_id = this.state.result.value
-    } else {
-      report.result_id = null
+      result_id: this.state.projectResult
     }
     this.props.updateReport(report)
     this.toggleForm()
@@ -105,15 +99,15 @@ class AuditionReport extends Component {
     return this.props.resultOptions.map(resultOption => {
       return {
         key: resultOption.id,
-        label: resultOption.name,
+        text: resultOption.name,
         value: resultOption.id
       }
     })
   }
 
-  handleResultChange = (newValue: any, actionMeta: any) => {
-    this.setState({result: newValue})
-  };
+  // handleResultChange = (newValue: any, actionMeta: any) => {
+  //   this.setState({result: newValue})
+  // };
 
   render() {
     return(
@@ -173,12 +167,15 @@ class AuditionReport extends Component {
               </Grid>
               {this.state.displayFormFields ? (
                 <div>
-                  <Select
-                    isClearable
-                    isSearchable
-                    defaultValue={this.state.result}
+                  <Dropdown
+                    clearable
+                    placeholder="Audition result"
+                    fluid
+                    selection
+                    name="projectResult"
                     options={this.formattedResultsForSelect()}
-                    onChange={this.handleResultChange}
+                    onChange={this.handleChange}
+                    value={this.state.projectResult}
                   />
                 </div>
               ) : null}
@@ -195,6 +192,14 @@ class AuditionReport extends Component {
     )
   }
 }
+
+// <Select
+//   isClearable
+//   isSearchable
+//   defaultValue={this.state.result}
+//   options={this.formattedResultsForSelect()}
+//   onChange={this.handleResultChange}
+// />
 
 const mapStateToProps = state => {
   return {
