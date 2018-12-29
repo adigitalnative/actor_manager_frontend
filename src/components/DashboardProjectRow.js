@@ -13,6 +13,8 @@ class DashboardProjectRow extends Component {
     return project.company ? project.company.name : ""
   }
 
+  shouldBeDisabled = project => project.result && project.result.name === "Not Cast" ? true : false
+
   castStatus = project => {
     if (project.result) {
       switch(project.result.name) {
@@ -62,7 +64,12 @@ class DashboardProjectRow extends Component {
   render() {
     return(
       <Fragment>
-        <Table.Row key={this.props.project.id} onClick={this.toggleAuditions} active={this.state.displayAuditions}>
+        <Table.Row
+          key={this.props.project.id}
+          onClick={this.toggleAuditions}
+          active={this.state.displayAuditions}
+          disabled={this.shouldBeDisabled(this.props.project)}
+        >
           <Table.Cell>{this.props.project.name}</Table.Cell>
           <Table.Cell>{this.company(this.props.project)}</Table.Cell>
           <Table.Cell>{this.castStatus(this.props.project)}</Table.Cell>
