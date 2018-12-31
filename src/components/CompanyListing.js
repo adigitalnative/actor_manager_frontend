@@ -51,7 +51,7 @@ class CompanyListing extends Component {
 
   renderForm = () => (
     <Table.Row>
-      <Table.HeaderCell>
+      <Table.HeaderCell colSpan='2'>
         <Form>
           <Form.Input placeholder="Company" type="text" value={this.state.name} name="name" onChange={this.handleChange} />
         </Form>
@@ -67,7 +67,7 @@ class CompanyListing extends Component {
 
   renderListing = () => (
     <Table.Row>
-      <Table.HeaderCell>{this.props.company.name}</Table.HeaderCell>
+      <Table.HeaderCell colSpan='2'>{this.props.company.name}</Table.HeaderCell>
       <Table.HeaderCell><Button size="small" fluid onClick={this.toggleForm}>Edit</Button></Table.HeaderCell>
     </Table.Row>
   )
@@ -79,7 +79,7 @@ class CompanyListing extends Component {
         <Table.Header>
           {this.state.showForm ? this.renderForm() : this.renderListing()}
         </Table.Header>
-        {this.props.company.projects.map(project => <CompanyListingProjectListing project={project} key={project.id} />)}
+        {this.props.company.projects.map(project => <CompanyListingProjectListing project={project} key={project.id} resultOptions={this.props.resultOptions} />)}
       </Fragment>
     )
   }

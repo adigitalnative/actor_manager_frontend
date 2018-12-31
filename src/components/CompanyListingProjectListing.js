@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table, Button, Form } from 'semantic-ui-react'
+import { Table, Button, Form, Dropdown, Label } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { updateProject } from '../redux/actions/projectActions'
 
@@ -8,13 +8,15 @@ class CompanyListingProjectListing extends Component {
     super()
     this.state={
       name: "",
-      showForm: false
+      showForm: false,
+      projectResult: null
     }
   }
 
   componentDidMount() {
     this.setState({
-      name: this.props.project.name
+      name: this.props.project.name,
+      projectResult: this.props.project.result.id
     })
   }
 
@@ -25,7 +27,8 @@ class CompanyListingProjectListing extends Component {
   handleSubmit = () => {
     const project = {
       name: this.state.name,
-      id: this.props.project.id
+      id: this.props.project.id,
+      result_id: this.state.projectResult
     }
 
     this.props.updateProject(project)
@@ -34,6 +37,34 @@ class CompanyListingProjectListing extends Component {
 
   handleChange = (e, {name, value }) => {
     this.setState({ [name] : value })
+  }
+
+  formattedResultsForSelect = () => {
+    return this.props.resultOptions.map(resultOption => {
+      return {
+        key: resultOption.id,
+        text: resultOption.name,
+        value: resultOption.id
+      }
+    })
+  }
+
+  castStatus = project => {
+    if (project.result) {
+      switch(project.result.name) {
+        case "Offered Role":
+          return <Label color="blue">Offered Role</Label>
+        case "Accepted Role":
+          return <Label color="green">Accepted Role</Label>
+        case "Declined Role":
+          return <Label color="grey">Declined Role</Label>
+        case "Not Cast":
+          return <Label>Not Cast</Label>
+        default:
+          return ""
+      }
+    }
+    return null
   }
 
   renderForm = () => {
@@ -49,6 +80,19 @@ class CompanyListingProjectListing extends Component {
             </Form>
           </Table.Cell>
           <Table.Cell>
+            <Dropdown
+              clearable
+              placeholder="Audition result"
+              fluid
+              selection
+              name="projectResult"
+              options={this.formattedResultsForSelect()}
+              onChange={this.handleChange}
+              value={this.state.projectResult}
+            />
+          </Table.Cell>
+          <Table.Cell>
+
             <Button.Group fluid size="mini">
               <Button onClick={this.toggleForm}>Cancel</Button>
               <Button onClick={this.handleSubmit}>Submit</Button>
@@ -62,6 +106,7 @@ class CompanyListingProjectListing extends Component {
     return(
       <Table.Row>
         <Table.Cell>{this.props.project.name}</Table.Cell>
+        <Table.Cell>{this.castStatus(this.props.project)}</Table.Cell>
         <Table.Cell>
           <Button.Group fluid size="mini">
             <Button onClick={this.toggleForm}>Edit</Button>
