@@ -41,16 +41,16 @@ class DashboardProjectRow extends Component {
 
   renderAuditions = () => {
     return(
-      <Fragment>
+      <Table.Body>
         {this.props.project.auditions.map(audition => (
           <Table.Row key={audition.id}>
-            <Table.Cell>{audition.date}</Table.Cell>
+            <Table.Cell>{audition.date ? audition.date : <i>Not Yet Scheduled</i>}</Table.Cell>
             <Table.Cell>{audition.category}</Table.Cell>
             <Table.Cell>{this.hasReport(audition) ? <Label>Reported</Label> : <Label color="red">Needs Report</Label> }</Table.Cell>
           </Table.Row>
         ))}
 
-      </Fragment>
+      </Table.Body>
     )
   }
 
@@ -66,20 +66,40 @@ class DashboardProjectRow extends Component {
   render() {
     return(
       <Fragment>
-        <Table.Row
-          key={this.props.project.id}
-          onClick={this.toggleAuditions}
-          active={this.state.displayAuditions}
-          disabled={!this.hasAuditions()}
-        >
-          <Table.Cell>{this.props.project.name}</Table.Cell>
-          <Table.Cell>{this.company(this.props.project)}</Table.Cell>
-          <Table.Cell>{this.castStatus(this.props.project)}</Table.Cell>
-        </Table.Row>
+        <Table.Header>
+          <Table.Row
+            key={this.props.project.id}
+            onClick={this.toggleAuditions}
+            active={this.state.displayAuditions}
+            disabled={!this.hasAuditions()}
+          >
+            <Table.HeaderCell>{this.props.project.name}</Table.HeaderCell>
+            <Table.HeaderCell>{this.company(this.props.project)}</Table.HeaderCell>
+            <Table.HeaderCell>{this.castStatus(this.props.project)}</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
         {this.state.displayAuditions ? this.renderAuditions() : null }
       </Fragment>
     )
   }
+
+  // render() {
+  //   return(
+  //     <Fragment>
+  //       <Table.Row
+  //         key={this.props.project.id}
+  //         onClick={this.toggleAuditions}
+  //         active={this.state.displayAuditions}
+  //         disabled={!this.hasAuditions()}
+  //       >
+  //         <Table.Cell>{this.props.project.name}</Table.Cell>
+  //         <Table.Cell>{this.company(this.props.project)}</Table.Cell>
+  //         <Table.Cell>{this.castStatus(this.props.project)}</Table.Cell>
+  //       </Table.Row>
+  //       {this.state.displayAuditions ? this.renderAuditions() : null }
+  //     </Fragment>
+  //   )
+  // }
 }
 
 export default DashboardProjectRow

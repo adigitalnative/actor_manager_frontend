@@ -16,9 +16,9 @@ class Dashboard extends Component {
       <Container>
         <Segment>
           <Header as="h2" textAlign="center">
-            Dashboard
+            Audition Dashboard
           </Header>
-          <Divider />
+
           <DashboardStats />
           <DashboardProjectsList />
         </Segment>

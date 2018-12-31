@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Table, Header } from 'semantic-ui-react'
+import { Table, Header, Divider } from 'semantic-ui-react'
 import DashboardProjectRow from './DashboardProjectRow'
 
 const DashboardProjectsList = props => {
@@ -15,18 +15,9 @@ const DashboardProjectsList = props => {
 
   return(
     <Fragment>
-      <Header as='h3'>Auditions</Header>
+      <Divider horizontal>Projects & Auditions</Divider>
       <Table celled>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Project</Table.HeaderCell>
-            <Table.HeaderCell>Company</Table.HeaderCell>
-            <Table.HeaderCell>Cast</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {projects().map(project => <DashboardProjectRow project={project} key={project.id}/>)}
-        </Table.Body>
+        {projects().map(project => <DashboardProjectRow project={project} key={project.id}/>)}
       </Table>
     </Fragment>
   )
