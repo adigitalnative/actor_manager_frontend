@@ -15,6 +15,7 @@ import NotFoundPage from './components/NotFoundPage'
 import BookContainer from './containers/BookContainer'
 import Dashboard from './containers/DashboardContainer'
 import SettingsPage from './components/SettingsPage'
+import CompaniesProjectsContainer from './containers/CompaniesProjectsContainer'
 
 // import logo from './logo.svg';
 import './App.css';
@@ -52,6 +53,7 @@ class App extends Component {
             <Route exact path="/book" render={() => this.authorizeFor(BookContainer, '/book')} />
             <Route exact path="/dashboard" render={() => this.authorizeFor(Dashboard, '/dashboard')} />
             <Route exact path="/settings" render={() => this.authorizeFor(SettingsPage, '/settings')} />
+            <Route exact path="/companies_and_projects" render={() => this.authorizeFor(CompaniesProjectsContainer, '/companies_and_projects')} />
             <Route render={() => this.authorizeFor(NotFoundPage, '/not_found')} />
           </Switch>
           </div>
