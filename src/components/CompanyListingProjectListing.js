@@ -14,7 +14,6 @@ class CompanyListingProjectListing extends Component {
   }
 
   componentDidMount() {
-    // Here do the set result if it exists otherwise leave null thing
     const projectResult = this.props.project.result ? this.props.project.result.id : null
     this.setState({
       name: this.props.project.name,
@@ -96,8 +95,8 @@ class CompanyListingProjectListing extends Component {
           <Table.Cell>
 
             <Button.Group fluid size="mini">
-              <Button onClick={this.toggleForm}>Cancel</Button>
-              <Button onClick={this.handleSubmit}>Submit</Button>
+              <Button onClick={this.toggleForm} color="grey">Cancel</Button>
+              <Button onClick={this.handleSubmit} color="blue">Submit</Button>
             </Button.Group>
           </Table.Cell>
         </Table.Row>
@@ -111,7 +110,7 @@ class CompanyListingProjectListing extends Component {
         <Table.Cell>{this.castStatus(this.props.project)}</Table.Cell>
         <Table.Cell>
           <Button.Group fluid size="mini">
-            <Button onClick={this.toggleForm}>Edit</Button>
+            <Button onClick={this.toggleForm}>Edit Project</Button>
           </Button.Group>
         </Table.Cell>
       </Table.Row>

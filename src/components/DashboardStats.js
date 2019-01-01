@@ -6,7 +6,7 @@ const DashboardStats = props => {
 
   return (
     <Fragment>
-      <Divider horizontal>Stats</Divider>
+      <Divider horizontal>Your Stats</Divider>
       <Grid columns={5} textAlign='center'>
         <Grid.Row verticalAlign="bottom">
           <Grid.Column>

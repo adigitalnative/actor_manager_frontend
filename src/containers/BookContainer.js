@@ -22,7 +22,7 @@ class BookContainer extends Component {
               <NewBookItemForm />
             </Grid.Column>
           </Grid>
-          <Card.Group>
+          <Card.Group itemsPerRow={3}>
             {this.props.book.map(piece => <BookItem piece={piece} key={piece.id} />)}
           </Card.Group>
         </Segment>

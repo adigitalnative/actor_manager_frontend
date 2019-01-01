@@ -58,8 +58,8 @@ class CompanyListing extends Component {
       </Table.HeaderCell>
       <Table.HeaderCell>
         <Button.Group fluid size="small">
-          <Button onClick={this.cancelEdit}>Cancel</Button>
-          <Button onClick={this.handleSubmit}>Submit</Button>
+          <Button onClick={this.cancelEdit} color="grey">Cancel</Button>
+          <Button onClick={this.handleSubmit} color="blue">Submit</Button>
         </Button.Group>
       </Table.HeaderCell>
     </Table.Row>
@@ -68,7 +68,7 @@ class CompanyListing extends Component {
   renderListing = () => (
     <Table.Row>
       <Table.HeaderCell colSpan='2'>{this.props.company.name}</Table.HeaderCell>
-      <Table.HeaderCell><Button size="small" fluid onClick={this.toggleForm}>Edit</Button></Table.HeaderCell>
+      <Table.HeaderCell><Button size="small" fluid onClick={this.toggleForm}>Edit Company</Button></Table.HeaderCell>
     </Table.Row>
   )
 
