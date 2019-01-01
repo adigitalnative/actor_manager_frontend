@@ -1,5 +1,7 @@
 import React from 'react'
 import { Segment, Container, Grid, Header, List, Divider } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+import MailChimpForm from './MailChimpForm'
 
 const Footer = () => {
   return(
@@ -10,8 +12,7 @@ const Footer = () => {
           <Header inverted as='h4' content='About Actio' />
           <List link inverted>
             <List.Item as='a'>Support</List.Item>
-            <List.Item as='a'>History</List.Item>
-            <List.Item as='a'>Roadmap</List.Item>
+            <List.Item as={Link} to="/roadmap">Roadmap</List.Item>
             <List.Item as='a'>Have a suggestion?</List.Item>
           </List>
         </Grid.Column>
@@ -37,7 +38,7 @@ const Footer = () => {
           <p>
             Sign up for the Actio newsletter and be the first to find out when we update the platform!
           </p>
-          <p>(Mailchimp form entry here)</p>
+          <MailChimpForm />
         </Grid.Column>
       </Grid>
 
@@ -49,10 +50,7 @@ const Footer = () => {
         <List.Item as='a' href='#'>
           Contact Us
         </List.Item>
-        <List.Item as='a' href='#'>
-          Terms and Conditions
-        </List.Item>
-        <List.Item as='a' href='#'>
+        <List.Item as={Link} to="/privacy">
           Privacy Policy
         </List.Item>
       </List>

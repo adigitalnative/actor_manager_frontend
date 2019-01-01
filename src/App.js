@@ -16,6 +16,7 @@ import BookContainer from './containers/BookContainer'
 import Dashboard from './containers/DashboardContainer'
 import SettingsPage from './components/SettingsPage'
 import CompaniesProjectsContainer from './containers/CompaniesProjectsContainer'
+import {RoadmapPage, PrivacyPolicyPage } from './components/StaticPages'
 
 // import logo from './logo.svg';
 import './App.css';
@@ -53,6 +54,8 @@ class App extends Component {
             <Route exact path="/" component={WelcomePage} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/signup" component={SignupPage} />
+            <Route exact path="/roadmap" component={RoadmapPage} />
+            <Route exact path="/privacy" component={PrivacyPolicyPage} />
             <Route exact path="/auditions" render={() => this.authorizeFor(AuditionsContainer, '/auditions')} />
             <Route exact path="/book" render={() => this.authorizeFor(BookContainer, '/book')} />
             <Route exact path="/dashboard" render={() => this.authorizeFor(Dashboard, '/dashboard')} />
