@@ -21,6 +21,11 @@ import CompaniesProjectsContainer from './containers/CompaniesProjectsContainer'
 import './App.css';
 
 class App extends Component {
+  componentDidMount() {
+    if(localStorage.token) {
+      this.props.authenticate(localStorage.token)
+    }
+  }
 
   authorizeFor = (Component, path) => {
 
@@ -38,7 +43,6 @@ class App extends Component {
       }
     }
   }
-
 
   render() {
     return (
