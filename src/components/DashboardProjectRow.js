@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Table, Label, Modal, Button, Form, Dropdown } from 'semantic-ui-react'
+import { Table, Label, Button, Dropdown } from 'semantic-ui-react'
 import DashboardAuditionReportModal from './DashboardAuditionReportModal'
 import { connect } from 'react-redux'
 import { updateProjectFromDashboard } from '../redux/actions/projectActions'

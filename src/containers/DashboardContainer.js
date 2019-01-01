@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Segment, Header, Divider } from 'semantic-ui-react'
+import { Container, Segment, Header } from 'semantic-ui-react'
 import DashboardProjectsList from '../components/DashboardProjectsList'
 import DashboardStats from '../components/DashboardStats'
 import { fetchingDashboardData } from '../redux/actions/dashboard.js'

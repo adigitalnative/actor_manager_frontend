@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react'
-import { Modal, Label, Button, Divider, Form } from 'semantic-ui-react'
+import { Modal, Button, Divider, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { updateReportFromDashboard } from '../redux/actions/reportActions'
 

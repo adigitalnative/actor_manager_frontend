@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Table, Header, Divider } from 'semantic-ui-react'
+import { Table, Divider } from 'semantic-ui-react'
 import DashboardProjectRow from './DashboardProjectRow'
 import { fetchingResultOptions } from '../redux/actions/resultActions'
 

@@ -17,7 +17,7 @@ class CompaniesProjectsContainer extends Component {
     return(
       <Container>
         <Segment>
-          <Header as='h2' textAlign="centered">Companies & Projects</Header>
+          <Header as='h2' textAlign="center">Companies & Projects</Header>
           <Divider />
           <Table celled>
             {this.props.companies.map(company => <CompanyListing company={company} key={company.id} resultOptions={this.props.resultOptions} />)}
