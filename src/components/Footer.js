@@ -7,30 +7,29 @@ const Footer = () => {
     <Container textAlign='center'>
       <Grid divided inverted stackable>
         <Grid.Column width={3}>
-          <Header inverted as='h4' content='Group 1' />
+          <Header inverted as='h4' content='About Actio' />
           <List link inverted>
-            <List.Item as='a'>Link One</List.Item>
-            <List.Item as='a'>Link Two</List.Item>
-            <List.Item as='a'>Link Three</List.Item>
-            <List.Item as='a'>Link Four</List.Item>
+            <List.Item as='a'>Support</List.Item>
+            <List.Item as='a'>History</List.Item>
+            <List.Item as='a'>Roadmap</List.Item>
+            <List.Item as='a'>Have a suggestion?</List.Item>
           </List>
         </Grid.Column>
         <Grid.Column width={3}>
-          <Header inverted as='h4' content='Group 2' />
+          <Header inverted as='h4' content='The Native Foundry' />
           <List link inverted>
-            <List.Item as='a'>Link One</List.Item>
-            <List.Item as='a'>Link Two</List.Item>
-            <List.Item as='a'>Link Three</List.Item>
-            <List.Item as='a'>Link Four</List.Item>
+            <List.Item as='a' href="http://nativefoundry.com">The Foundry</List.Item>
+            <List.Item as='a' href="http://www.jacquelinechenault.com">The Actor</List.Item>
+            <List.Item as='a' href="http://www.flatironschool.com">Flatiron School</List.Item>
           </List>
         </Grid.Column>
         <Grid.Column width={3}>
-          <Header inverted as='h4' content='Group 3' />
+          <Header inverted as='h4' content='Resources' />
           <List link inverted>
-            <List.Item as='a'>Link One</List.Item>
-            <List.Item as='a'>Link Two</List.Item>
-            <List.Item as='a'>Link Three</List.Item>
-            <List.Item as='a'>Link Four</List.Item>
+            <List.Item as='a' href="http://www.actorsequity.com">Actor's Equity</List.Item>
+            <List.Item as='a' href="http://www.playbill.com">Playbill</List.Item>
+            <List.Item as='a' href="http://www.backstage.com">Backstage</List.Item>
+            <List.Item as='a' href="http://actorscenter.org">Actor's Center [DC]</List.Item>
           </List>
         </Grid.Column>
         <Grid.Column width={7}>
