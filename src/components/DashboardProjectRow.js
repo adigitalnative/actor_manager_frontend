@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import { Table, Label } from 'semantic-ui-react'
+import { Table, Label, Modal, Button } from 'semantic-ui-react'
+import DashboardAuditionReportModal from './DashboardAuditionReportModal'
 
 class DashboardProjectRow extends Component {
   constructor() {
@@ -46,7 +47,9 @@ class DashboardProjectRow extends Component {
           <Table.Row key={audition.id}>
             <Table.Cell>{audition.date ? audition.date : <i>Not Yet Scheduled</i>}</Table.Cell>
             <Table.Cell>{audition.category}</Table.Cell>
-            <Table.Cell>{this.hasReport(audition) ? <Label>Reported</Label> : <Label color="red">Needs Report</Label> }</Table.Cell>
+            <Table.Cell>
+              <DashboardAuditionReportModal audition={audition} />
+            </Table.Cell>
           </Table.Row>
         ))}
 

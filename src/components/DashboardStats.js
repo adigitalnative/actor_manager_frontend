@@ -1,33 +1,47 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Statistic, Divider} from 'semantic-ui-react'
+import { Statistic, Divider, Grid } from 'semantic-ui-react'
 
 const DashboardStats = props => {
+
   return (
     <Fragment>
       <Divider horizontal>Stats</Divider>
-      <Statistic.Group>
-        <Statistic>
-          <Statistic.Value>{props.dashboard.project_count}</Statistic.Value>
-          <Statistic.Label>Projects</Statistic.Label>
-        </Statistic>
-        <Statistic>
-          <Statistic.Value>{props.dashboard.audition_count}</Statistic.Value>
-          <Statistic.Label>Auditions</Statistic.Label>
-        </Statistic>
-        <Statistic>
-          <Statistic.Value>{props.dashboard.percent_booked} %</Statistic.Value>
-          <Statistic.Label>Projects Booked</Statistic.Label>
-        </Statistic>
-        <Statistic>
-          <Statistic.Value>{props.dashboard.percent_reported} %</Statistic.Value>
-          <Statistic.Label>Projects Reported</Statistic.Label>
-        </Statistic>
-        <Statistic>
-          <Statistic.Value>{props.dashboard.potential_bookings}</Statistic.Value>
-          <Statistic.Label>Potential Bookings</Statistic.Label>
-        </Statistic>
-      </Statistic.Group>
+      <Grid columns={5} textAlign='center'>
+        <Grid.Row verticalAlign="bottom">
+          <Grid.Column>
+            <Statistic size="small">
+              <Statistic.Value>{props.dashboard.project_count}</Statistic.Value>
+              <Statistic.Label>Total Projects</Statistic.Label>
+            </Statistic>
+          </Grid.Column>
+          <Grid.Column>
+            <Statistic size="small">
+              <Statistic.Value>{props.dashboard.audition_count}</Statistic.Value>
+              <Statistic.Label>Total Auditions</Statistic.Label>
+            </Statistic>
+          </Grid.Column>
+          <Grid.Column>
+            <Statistic color="green">
+              <Statistic.Value>{props.dashboard.percent_booked} %</Statistic.Value>
+              <Statistic.Label>Projects Booked</Statistic.Label>
+            </Statistic>
+          </Grid.Column>
+          <Grid.Column>
+            <Statistic size="small">
+              <Statistic.Value>{props.dashboard.percent_reported} %</Statistic.Value>
+              <Statistic.Label>Auditions Reported</Statistic.Label>
+            </Statistic>
+          </Grid.Column>
+          <Grid.Column>
+            <Statistic size="small">
+              <Statistic.Value>{props.dashboard.potential_bookings}</Statistic.Value>
+              <Statistic.Label>Open Projects</Statistic.Label>
+            </Statistic>
+          </Grid.Column>
+
+        </Grid.Row>
+      </Grid>
     </Fragment>
   )
 }

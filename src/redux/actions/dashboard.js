@@ -23,4 +23,8 @@ function fetchedDashboardData(dashboardData) {
   return { type: "FETCHED_DASHBOARD", dashboardData }
 }
 
-export { fetchingDashboardData }
+function updatedDashboard(dashboardData) {
+  return { type: "UPDATED_DASHBOARD", dashboardData }
+}
+
+export { fetchingDashboardData, updatedDashboard }

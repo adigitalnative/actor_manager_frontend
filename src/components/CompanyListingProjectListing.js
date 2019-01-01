@@ -14,9 +14,11 @@ class CompanyListingProjectListing extends Component {
   }
 
   componentDidMount() {
+    // Here do the set result if it exists otherwise leave null thing
+    const projectResult = this.props.project.result ? this.props.project.result.id : null
     this.setState({
       name: this.props.project.name,
-      projectResult: this.props.project.result.id
+      projectResult: projectResult
     })
   }
 
