@@ -79,7 +79,6 @@ class DashboardProjectRow extends Component {
       <Table.Row
         key={this.props.project.id}
         active={this.state.displayAuditions}
-        disabled={!this.hasAuditions()}
       >
         <Table.HeaderCell>{this.castStatus(this.props.project)}</Table.HeaderCell>
         <Table.HeaderCell>{this.props.project.name}</Table.HeaderCell>
@@ -87,7 +86,9 @@ class DashboardProjectRow extends Component {
         <Table.HeaderCell>
           <Button.Group size="small" fluid basic>
             <Button onClick={this.toggleForm}>Update Status</Button>
-            <Button onClick={this.toggleAuditions}>{this.state.displayAuditions ? "Hide Auditions" : "List Auditions"}</Button>
+            {this.props.project.auditions.length > 0 ? (
+              <Button onClick={this.toggleAuditions}>{this.state.displayAuditions ? "Hide Auditions" : "List Auditions"}</Button>
+            ) : null}
           </Button.Group>
         </Table.HeaderCell>
       </Table.Row>
