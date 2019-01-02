@@ -18,8 +18,6 @@ class AuditionsContainer extends Component {
     this.props.fetchingAuditions()
     this.props.fetchingResultOptions()
     this.props.fetchingBook()
-
-
     this.props.fetchingCategories()
     this.props.fetchingProjects()
     this.props.fetchingCompanies()

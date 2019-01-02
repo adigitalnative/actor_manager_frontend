@@ -28,18 +28,10 @@ class AuditionForm extends Component {
   }
 
   handleOpen = () => {
-    this.props.fetchingProjects()
     this.setState({modalOpen: true})
   }
 
   handleClose = () => this.setState({modalOpen: false})
-
-
-  componentDidMount() {
-    this.props.fetchingCategories()
-    this.props.fetchingProjects()
-    this.props.fetchingCompanies()
-  }
 
   handleChange = (e, {name, value }) => {
     this.setState({ [name] : value })
@@ -211,9 +203,6 @@ class AuditionForm extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchingCategories: () => {dispatch(fetchingCategories())},
-    fetchingProjects: () => {dispatch(fetchingProjects())},
-    fetchingCompanies: () => {dispatch(fetchingCompanies())},
     createAudition: audition => {dispatch(creatingAudition(audition))}
   }
 }

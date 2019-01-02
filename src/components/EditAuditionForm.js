@@ -212,23 +212,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditAuditionForm)
-
-
-// Saving more complicated form inputs to figure out later
-// <label>Project</label>
-// <CreatableSelect
-//   isClearable
-//   onChange={this.handleCreatableChange}
-//   options={this.formattedProjectsForRSelect()}
-// />
-// {this.projectIsNew() ? (
-//   <div>
-//     <label>Company</label>
-//     <CreatableSelect isClearable onChange={this.handleCompanyCreatableChange} options={this.formattedCompaniesForRSelect()} />
-//   </div>
-// ) : (
-//   <div className="disabled field">
-//     <label>Company</label>
-//     <CreatableSelect isClearable onChange={this.handleCompanyCreatableChange} options={this.formattedCompaniesForRSelect()} />
-//   </div>
-// )}
