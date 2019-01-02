@@ -45,6 +45,23 @@ function creatingAudition(audition) {
   }
 }
 
+function createAuditionFromOpportunity(audition) {
+  return(dispatch) => {
+    fetch(baseUrl() + '/auditions', {
+      method: "POST",
+      headers: {
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${localStorage.token}`
+      },
+      body: JSON.stringify({audition: audition})
+    })
+    .then(response => response.json())
+    .then(audition => {
+      dispatch(addedAudition(audition))
+    })
+  }
+}
+
 function updatingAudition(audition) {
   return(dispatch) => {
     fetch(baseUrl() + '/auditions/' + audition.id, {
@@ -88,4 +105,4 @@ function deletedAudition(audition) {
 }
 
 
-export { fetchingAuditions, loadingAuditions, creatingAudition, updatingAudition, deleteAudition, updatedAudition }
+export { fetchingAuditions, loadingAuditions, creatingAudition, updatingAudition, deleteAudition, updatedAudition, createAuditionFromOpportunity }

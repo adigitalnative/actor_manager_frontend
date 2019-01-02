@@ -3,6 +3,11 @@ import { Container, Segment, Header, Grid, Button, Card } from 'semantic-ui-reac
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchOpportunities } from '../redux/actions/opportunityActions'
+import { fetchingCompanies } from '../redux/actions/companyActions'
+import { fetchingCategories } from '../redux/actions/categoryActions'
+import { fetchingProjects } from '../redux/actions/projectActions'
+import { fetchingBook } from '../redux/actions/bookActions'
+
 import Opportunity from '../components/Opportunity'
 
 class OpportunitiesContainer extends Component {
@@ -15,6 +20,11 @@ class OpportunitiesContainer extends Component {
 
   componentDidMount() {
     this.props.fetchOpportunities()
+    this.props.fetchingCompanies()
+    this.props.fetchingProjects()
+    this.props.fetchingCategories()
+    this.props.fetchingBook()
+
   }
 
   filteredOpportunities = () => (
@@ -56,7 +66,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchOpportunities: () => {dispatch(fetchOpportunities())}
+    fetchOpportunities: () => {dispatch(fetchOpportunities())},
+    fetchingCategories: () => {dispatch(fetchingCategories())},
+    fetchingProjects: () => {dispatch(fetchingProjects())},
+    fetchingCompanies: () => {dispatch(fetchingCompanies())},
+    fetchingBook: () => {dispatch(fetchingBook())},
+
   }
 }
 

@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Card, Button, Label } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { archiveLead } from '../redux/actions/opportunityActions'
+import LeadAuditionForm from './LeadAuditionForm'
 
 class Opportunity extends Component {
 
@@ -24,8 +25,14 @@ class Opportunity extends Component {
         </Card.Content>
         <Card.Content extra>
           <div className="ui three buttons">
-            <Button basic color="blue" size="mini" href={this.props.lead.opportunity.url} target="_blank">View</Button>
-            <Button basic color="green" size="mini">Create Audition</Button>
+            {this.props.lead.archived ? (
+              null
+            ) : (
+              <Fragment>
+                <Button basic color="blue" size="mini" href={this.props.lead.opportunity.url} target="_blank">View Posting</Button>
+                <LeadAuditionForm lead={this.props.lead}/>
+              </Fragment>
+            )}
             <Button basic color="red" size="mini" onClick={this.handleArchive}>{this.props.lead.archived ? "Show" : "Archive"}</Button>
           </div>
         </Card.Content>
