@@ -190,7 +190,7 @@ class LeadAuditionForm extends Component {
                 <Iframe
                   url={this.props.lead.opportunity.url}
                   width='95%'
-                  height='450px'
+                  height='100%'
                 />
               </Grid.Column>
               <Grid.Column>
