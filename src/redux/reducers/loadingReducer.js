@@ -18,6 +18,8 @@ const loadingReducer = (state = false, action) => {
       return true
     case "ADDED_AUDITION":
       return false
+    case "FINISHED_LOADING":
+      return false
     default:
       return state
   }

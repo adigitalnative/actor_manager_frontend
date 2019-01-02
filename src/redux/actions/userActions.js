@@ -26,4 +26,8 @@ function updatedUser(user) {
   return {type: "UPDATED_USER", user}
 }
 
-export { updateUser, loadingUser }
+function finishedLoading() {
+  return {type: "FINISHED_LOADING"}
+}
+
+export { updateUser, loadingUser, finishedLoading }

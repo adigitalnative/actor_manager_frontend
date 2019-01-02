@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { statesOptions } from '../redux/actions/settings.js'
 
-import { updateUser } from '../redux/actions/userActions.js'
+import { updateUser, finishedLoading } from '../redux/actions/userActions.js'
 
 class SettingsPage extends Component {
   constructor() {
@@ -22,6 +22,7 @@ class SettingsPage extends Component {
       lastName: this.props.user.last_name,
       auditionStates: this.props.user.states.map(state => state.name)
     })
+    this.props.finishedLoading()
   }
 
   handleChange = (e, {name, value }) => {
@@ -83,7 +84,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateUser: user => {dispatch(updateUser(user))}
+    updateUser: user => {dispatch(updateUser(user))},
+    finishedLoading: () => {dispatch(finishedLoading())}
   }
 }
 
