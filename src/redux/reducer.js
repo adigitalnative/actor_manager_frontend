@@ -9,6 +9,7 @@ import messagesReducer from './reducers/messageReducer'
 import resultOptionsReducer from './reducers/resultOptionsReducer'
 import bookReducer from './reducers/bookReducer'
 import dashboardReducer from './reducers/dashboardReducer'
+import opportunitiesReducer from './reducers/opportunitiesReducer'
 
 const rootReducer = combineReducers(
   {
@@ -21,7 +22,8 @@ const rootReducer = combineReducers(
     messages: messagesReducer,
     resultOptions: resultOptionsReducer,
     book: bookReducer,
-    dashboard: dashboardReducer
+    dashboard: dashboardReducer,
+    opportunities: opportunitiesReducer
   }
 )
 

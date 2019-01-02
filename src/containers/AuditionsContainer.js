@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Header, Item, Grid, Segment, Container } from 'semantic-ui-react'
+import { Header, Item, Grid, Segment, Container, Button } from 'semantic-ui-react'
 import Audition from '../components/Audition'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { fetchingBook } from '../redux/actions/bookActions'
 import { fetchingAuditions } from '../redux/actions/auditionActions'
 import { fetchingCategories } from '../redux/actions/categoryActions'
@@ -33,6 +34,7 @@ class AuditionsContainer extends Component {
               <Header as="h2">Auditions</Header>
             </Grid.Column>
             <Grid.Column floated='right' width={4}>
+              <Button as={Link} to='/opportunities' fluid basic color="grey">Opportunities</Button>
               <AuditionForm buttonText="Add Audition"/>
             </Grid.Column>
           </Grid>

@@ -17,6 +17,7 @@ import Dashboard from './containers/DashboardContainer'
 import SettingsPage from './components/SettingsPage'
 import CompaniesProjectsContainer from './containers/CompaniesProjectsContainer'
 import {RoadmapPage, PrivacyPolicyPage } from './components/StaticPages'
+import OpportunitiesContainer from './containers/OpportunitiesContainer'
 
 // import logo from './logo.svg';
 import './App.css';
@@ -49,7 +50,7 @@ class App extends Component {
     return (
       <Fragment>
         {this.props.authenticated ? <Nav /> : null}
-        <div style={{marginTop: '9em'}} >
+        <div style={{marginTop: '9em', minHeight: '70vh'}} >
           <Switch>
             <Route exact path="/" component={WelcomePage} />
             <Route exact path="/login" component={LoginPage} />
@@ -61,6 +62,7 @@ class App extends Component {
             <Route exact path="/dashboard" render={() => this.authorizeFor(Dashboard, '/dashboard')} />
             <Route exact path="/settings" render={() => this.authorizeFor(SettingsPage, '/settings')} />
             <Route exact path="/companies_and_projects" render={() => this.authorizeFor(CompaniesProjectsContainer, '/companies_and_projects')} />
+            <Route exact path="/opportunities" render={() => this.authorizeFor(OpportunitiesContainer, '/opportunities')} />
             <Route render={() => this.authorizeFor(NotFoundPage, '/not_found')} />
           </Switch>
           </div>
