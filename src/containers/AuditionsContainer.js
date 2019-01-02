@@ -36,11 +36,10 @@ class AuditionsContainer extends Component {
               <AuditionForm buttonText="Add Audition"/>
             </Grid.Column>
           </Grid>
-          {this.props.loading ? <LoadingSpinner message="Loading your auditions..."/> : (
-            <Item.Group divided>
-              {this.props.auditions.map(audition => <Audition audition={audition} key={audition.id}/>)}
-            </Item.Group>
-          )}
+          <Item.Group divided>
+            {this.props.auditions.map(audition => <Audition audition={audition} key={audition.id}/>)}
+            {this.props.loading ? <LoadingSpinner message="Loading your auditions..." /> : null}
+          </Item.Group>
         </Segment>
       </Container>
     )
