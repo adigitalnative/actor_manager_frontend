@@ -2,6 +2,7 @@ import { baseUrl } from './settings.js'
 
 function updateUser(user) {
   return(dispatch) => {
+    dispatch(loadingUser())
     fetch(baseUrl() + '/users', {
       method: "PATCH",
       headers: {
@@ -15,6 +16,10 @@ function updateUser(user) {
       dispatch(updatedUser(user))
     })
   }
+}
+
+function loadingUser() {
+  return {type: "LOADING_USER"}
 }
 
 function updatedUser(user) {

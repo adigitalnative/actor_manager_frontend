@@ -47,7 +47,7 @@ class SettingsPage extends Component {
           </Header>
           <Divider />
 
-          <Form>
+          <Form loading={this.props.loading}>
             <Form.Group widths="equal">
               <Form.Input required label="First name" name="firstName" placeholder="First Name" onChange={this.handleChange} value={this.state.firstName} />
               <Form.Input required label="Last name" name="lastName" placeholder="Last Name" onChange={this.handleChange} value={this.state.lastName} />
@@ -76,7 +76,8 @@ class SettingsPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.currentUser
+    user: state.currentUser,
+    loading: state.loading
   }
 }
 
