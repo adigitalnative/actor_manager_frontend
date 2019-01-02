@@ -30,7 +30,7 @@ class Opportunity extends Component {
             ) : (
               <Fragment>
                 <Button basic color="blue" size="mini" href={this.props.lead.opportunity.url} target="_blank">View Posting</Button>
-                <LeadAuditionForm lead={this.props.lead}/>
+                {this.props.lead.audition ? null : <LeadAuditionForm lead={this.props.lead}/>}
               </Fragment>
             )}
             <Button basic color="red" size="mini" onClick={this.handleArchive}>{this.props.lead.archived ? "Show" : "Archive"}</Button>
