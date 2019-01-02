@@ -7,6 +7,8 @@ import { fetchingCompanies } from '../redux/actions/companyActions'
 import { fetchingCategories } from '../redux/actions/categoryActions'
 import { fetchingProjects } from '../redux/actions/projectActions'
 import { fetchingBook } from '../redux/actions/bookActions'
+import LoadingSpinner from '../components/LoadingSpinner'
+
 
 import Opportunity from '../components/Opportunity'
 
@@ -51,6 +53,8 @@ class OpportunitiesContainer extends Component {
 
           <Card.Group>
             {this.filteredOpportunities().map(lead => <Opportunity lead={lead} key={lead.id} />)}
+
+            {this.props.loading ? <LoadingSpinner message="Loading your opportunities..." /> : null}
           </Card.Group>
         </Segment>
       </Container>
@@ -60,7 +64,8 @@ class OpportunitiesContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    opportunities: state.opportunities
+    opportunities: state.opportunities,
+    loading: state.loading
   }
 }
 
@@ -71,7 +76,6 @@ const mapDispatchToProps = dispatch => {
     fetchingProjects: () => {dispatch(fetchingProjects())},
     fetchingCompanies: () => {dispatch(fetchingCompanies())},
     fetchingBook: () => {dispatch(fetchingBook())},
-
   }
 }
 

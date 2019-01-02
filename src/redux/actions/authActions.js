@@ -1,4 +1,5 @@
-import { baseUrl } from './settings.js'
+import { baseUrl } from './settings'
+import { loadingUser } from './userActions'
 
 function signInAction(user, history) {
   return(dispatch) => {
@@ -62,6 +63,7 @@ function signupUser(user) {
 
 function authenticateToken(token) {
   return(dispatch) => {
+    dispatch(loadingUser())
     fetch(baseUrl() + "/authorize",{
       method: "POST",
       headers: {

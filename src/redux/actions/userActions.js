@@ -26,4 +26,4 @@ function updatedUser(user) {
   return {type: "UPDATED_USER", user}
 }
 
-export { updateUser }
+export { updateUser, loadingUser }

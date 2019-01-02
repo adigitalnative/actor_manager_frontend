@@ -20,6 +20,10 @@ function loadingAuditions() {
   return {type: "LOADING_AUDITIONS"}
 }
 
+function savingAudition() {
+  return {type: "SAVING_AUDITION"}
+}
+
 function fetchedAuditions(auditions) {
   return {type: "FETCHED_AUDITIONS", auditions}
 }
@@ -47,6 +51,7 @@ function creatingAudition(audition) {
 
 function createAuditionFromOpportunity(audition) {
   return(dispatch) => {
+    dispatch(savingAudition())
     fetch(baseUrl() + '/auditions', {
       method: "POST",
       headers: {

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import { Button, Modal, Grid, Form, Dropdown, Select } from 'semantic-ui-react'
 import Iframe from 'react-iframe'
 import { DateTimeInput } from 'semantic-ui-calendar-react'
@@ -72,6 +72,7 @@ class LeadAuditionForm extends Component {
 
     // console.log(audition)
     this.props.createAudition(audition)
+
   }
 
   companyOptions = () => {
@@ -125,7 +126,11 @@ class LeadAuditionForm extends Component {
 
   renderProjectDropdown = () => {
     if (this.state.selectedCompany) {
-      return <Dropdown
+      return (
+        <Fragment>
+        <label><strong>Company *</strong></label>
+
+        <Dropdown
                 placeholder="Choose or create project"
                 name="selectedProject"
                 options={this.projectOptions()}
@@ -139,6 +144,8 @@ class LeadAuditionForm extends Component {
                 onChange={this.handleChange}
                 required
               />
+        </Fragment>
+      )
     }
     return <Form.Input placeholder="Project" label="Project" disabled required/>
   }
@@ -187,7 +194,8 @@ class LeadAuditionForm extends Component {
                 />
               </Grid.Column>
               <Grid.Column>
-                <Form>
+                <Form loading={this.props.loading}>
+                  <label><strong>Company *</strong></label>
                   <Dropdown
                     placeholder="Choose or create company"
                     name="selectedCompany"
@@ -247,7 +255,8 @@ const mapStateToProps = state => {
     categories: state.categories,
     projects: state.projects,
     companies: state.companies,
-    book: state.book
+    book: state.book,
+    loading: state.loading
   }
 }
 
