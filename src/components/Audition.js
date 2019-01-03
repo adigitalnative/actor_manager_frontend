@@ -41,16 +41,22 @@ const Audition = ({audition, deleteAudition}) => {
               </Grid.Column>
               <Grid.Column>
               {renderPlannedPieces()}
-
-                <Button.Group fluid size="mini">
-                  <AuditionReport audition={audition} />
-                  <EditAuditionForm buttonText="Edit" audition={audition} />
-                  <Button color="red" onClick={handleDeleteClick}>Delete</Button>
-                </Button.Group>
               </Grid.Column>
             </Grid.Row>
           </Grid>
         </Item.Description>
+        <Item.Extra>
+          <Grid columns={2}>
+            <Grid.Column></Grid.Column>
+            <Grid.Column>
+              <Button.Group fluid size="mini">
+                <AuditionReport audition={audition} />
+                <EditAuditionForm buttonText="Edit" audition={audition} />
+                <Button color="red" onClick={handleDeleteClick}>Delete</Button>
+              </Button.Group>
+            </Grid.Column>
+          </Grid>
+        </Item.Extra>
       </Item.Content>
     </Item>
   )
