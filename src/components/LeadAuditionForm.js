@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react'
-import { Button, Modal, Grid, Form, Dropdown, Select } from 'semantic-ui-react'
+import { Button, Modal, Grid, Form, Dropdown, Select, Message } from 'semantic-ui-react'
 import Iframe from 'react-iframe'
 import { DateTimeInput } from 'semantic-ui-calendar-react'
 
@@ -23,7 +23,8 @@ class LeadAuditionForm extends Component {
       editingExisting: false,
       projectError: false,
       pieces: [],
-      dateTime: ""
+      dateTime: "",
+      error: ""
     }
   }
 
@@ -70,8 +71,13 @@ class LeadAuditionForm extends Component {
       audition.new_project_title = this.state.newProject
     }
 
+    if (audition.project_id || (audition.company_id && audition.new_project_title) || (audition.new_company_title && audition.new_project_title)) {
+      this.props.createAudition(audition)
+    } else {
+      this.setState({error: "Must have company and project to save"})
+    }
+
     // console.log(audition)
-    this.props.createAudition(audition)
 
   }
 
@@ -194,6 +200,7 @@ class LeadAuditionForm extends Component {
                 />
               </Grid.Column>
               <Grid.Column>
+              {this.state.error ? <Message>{this.state.error}</Message> : null}
                 <Form loading={this.props.loading}>
                   <label><strong>Company *</strong></label>
                   <Dropdown
