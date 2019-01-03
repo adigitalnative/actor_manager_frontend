@@ -24,7 +24,8 @@ class LeadAuditionForm extends Component {
       projectError: false,
       pieces: [],
       dateTime: "",
-      error: ""
+      error: "",
+      modalOpen: false
     }
   }
 
@@ -35,6 +36,9 @@ class LeadAuditionForm extends Component {
     // if (matching_company) { this.setState({ selectedCompany: matching_company.id})}
     // // Set selectedCompany to the company's id
   }
+
+  handleOpen = () => this.setState({ modalOpen: true })
+  handleClose = () => this.setState({ modalOpen: false })
 
   handleChange = (e, { name, value }) => {
     this.setState({ [name] : value })
@@ -73,6 +77,7 @@ class LeadAuditionForm extends Component {
 
     if (audition.project_id || (audition.company_id && audition.new_project_title) || (audition.new_company_title && audition.new_project_title)) {
       this.props.createAudition(audition)
+      this.handleClose()
     } else {
       this.setState({error: "Must have company and project to save"})
     }
@@ -183,9 +188,19 @@ class LeadAuditionForm extends Component {
   render() {
     return(
       <Modal
-        trigger={<Button basic color="green"
-        size="mini">Create Audition</Button>}
+        trigger={
+          <Button
+            basic
+            color="green"
+            size="mini"
+            onClick={this.handleOpen}
+          >
+            Create Audition
+          </Button>
+        }
         centered={false}
+        open={this.state.modalOpen}
+        onClose={this.handleClose}
       >
         <Modal.Header>Build Audition from Opportunity:</Modal.Header>
         <Modal.Content>
