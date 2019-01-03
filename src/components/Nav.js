@@ -10,6 +10,7 @@ const Nav = props => {
     return (
       <Fragment>
         <Menu.Item name="auditions" as={Link} to='/auditions' />
+        <Menu.Item name="opportunities" as={Link} to='/opportunities' />
         <Menu.Item name="yourBook" as={Link} to='/book' />
         <Menu.Item name="dashboard" as={Link} to='/dashboard' />
         <Menu.Item as={Link} to='/companies_and_projects'>Companies & Projects</Menu.Item>
