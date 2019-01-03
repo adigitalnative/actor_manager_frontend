@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Header, Item, Grid, Segment, Container, Button } from 'semantic-ui-react'
+import { Header, Item, Grid, Segment, Container, Button, Form, Input, Divider } from 'semantic-ui-react'
 import Audition from '../components/Audition'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -29,23 +29,55 @@ class AuditionsContainer extends Component {
     this.props.fetchingCompanies()
   }
 
+  hasAuditions = () => !!(this.props.auditions.count > 0)
+
+  filteredAuditions = () => {
+    if (this.state.searchString !== "") {
+      return this.props.auditions.filter(audition => {
+        if (
+          (audition.project.toLowerCase().indexOf(this.state.searchString.toLowerCase()) > -1) ||
+          (audition.company.toLowerCase().indexOf(this.state.searchString.toLowerCase()) > -1) ||
+          (audition.category.toLowerCase().indexOf(this.state.searchString.toLowerCase()) > -1)
+        ) {
+          return true
+        } else {
+          return false
+        }
+      })
+    }
+    return this.props.auditions
+  }
+
+  handleChange = (e, {name, value }) => {
+    this.setState({ [name] : value })
+  }
+
   render() {
     return (
       <Container>
         <Segment>
           <Grid stackable>
             <Grid.Column width={10}>
-              <Header as="h2">Your Auditions</Header>
+              <Header as="h1" textAlign='center' style={{paddingTop: '1em'}}>Your Auditions</Header>
             </Grid.Column>
             <Grid.Column width={6}>
+
               <Button.Group fluid>
                 <Button as={Link} to='/opportunities' basic color="grey">Opportunities</Button>
                 <AuditionForm buttonText="Add Audition"/>
               </Button.Group>
+              <Form style={{ paddingTop:'1em' }}>
+                <Form.Field >
+                  <label>Search Auditions</label>
+                  <Input placeholder="Search by Project, Company, or Category" onChange={this.handleChange} name="searchString" value={this.state.searchString}/>
+                </Form.Field>
+              </Form >
             </Grid.Column>
           </Grid>
+          <Divider/>
+
           <Item.Group divided>
-            {this.props.auditions.map(audition => <Audition audition={audition} key={audition.id}/>)}
+            {this.filteredAuditions().map(audition => <Audition audition={audition} key={audition.id}/>)}
             {this.props.loading ? <LoadingSpinner message="Loading your auditions..." /> : null}
           </Item.Group>
         </Segment>
