@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Form } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-// import { subscribeUser } from '../redux/actions/subscriberActions.js'
+import { subscribeUser } from '../redux/actions/subscriberActions.js'
 
 class MailChimpForm extends Component {
   constructor() {
@@ -15,29 +15,40 @@ class MailChimpForm extends Component {
     this.setState({ [name] : value })
   }
 
+  handleSubmit = () => {
+    this.props.subscribeUser(this.state.email)
+  }
+
   render() {
-    return(
-      <Form size="mini" inverted>
-        <Form.Input label="Email" placeholder="Your email..." name="email" required onChange={this.handleChange} />
-        <Form.Button type="submit" size="tiny" fluid>Sign Up</Form.Button>
-      </Form>
-    )
+    if (this.props.subscribed) {
+      return (
+        <p>Thanks for signing up!</p>
+      )
+    } else {
+      return(
+        <Form size="mini" inverted>
+          <Form.Input label="Email" placeholder="Your email..." name="email" required onChange={this.handleChange} />
+          <Form.Button type="submit" size="tiny" fluid onClick={this.handleSubmit}>Sign Up</Form.Button>
+        </Form>
+      )
+    }
   }
 }
 
 const mapStateToProps = state => {
   return {
-    subscribeMessage: state.subscribeMessage
+    subscribeMessage: state.subscribeMessage,
+    subscribed: state.subscribed
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    // subscribeUser: subscriber => {dispatch(subscribeUser(subscriber))}
+    subscribeUser: subscriber => {dispatch(subscribeUser(subscriber))}
   }
 }
 
-export default MailChimpForm
+export default connect(mapStateToProps, mapDispatchToProps)(MailChimpForm)
 
 // Raw form from MailChimp
 

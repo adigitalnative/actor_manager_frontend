@@ -10,6 +10,7 @@ import resultOptionsReducer from './reducers/resultOptionsReducer'
 import bookReducer from './reducers/bookReducer'
 import dashboardReducer from './reducers/dashboardReducer'
 import opportunitiesReducer from './reducers/opportunitiesReducer'
+import subscriberReducer from './reducers/subscriberReducer'
 
 const rootReducer = combineReducers(
   {
@@ -23,7 +24,8 @@ const rootReducer = combineReducers(
     resultOptions: resultOptionsReducer,
     book: bookReducer,
     dashboard: dashboardReducer,
-    opportunities: opportunitiesReducer
+    opportunities: opportunitiesReducer,
+    subscribed: subscriberReducer
   }
 )
 
