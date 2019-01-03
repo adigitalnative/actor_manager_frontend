@@ -27,7 +27,7 @@ const Footer = () => {
         <Grid.Column width={3}>
           <Header inverted as='h4' content='Resources' />
           <List link inverted>
-            <List.Item as='a' href="http://www.actorsequity.com">Actor's Equity</List.Item>
+            <List.Item as='a' href="https://www.actorsequity.org/">Actor's Equity</List.Item>
             <List.Item as='a' href="http://www.playbill.com">Playbill</List.Item>
             <List.Item as='a' href="http://www.backstage.com">Backstage</List.Item>
             <List.Item as='a' href="http://actorscenter.org">Actor's Center [DC]</List.Item>
