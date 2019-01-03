@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react'
-import { Item, Grid, Button, Header } from 'semantic-ui-react'
+import { Item, Grid, Button, Header, Modal } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { deleteAudition } from '../redux/actions/auditionActions'
 import EditAuditionForm from './EditAuditionForm'
 import AuditionReport from './AuditionReport'
+import Iframe from 'react-iframe'
+
 
 const Audition = ({audition, deleteAudition}) => {
 
@@ -24,6 +26,27 @@ const Audition = ({audition, deleteAudition}) => {
     } else {
       return null
     }
+  }
+
+  const renderPostListing = () => {
+    return (
+      <Modal
+        trigger={<Button size="mini" fluid basic color='blue'>View Original Post</Button>}
+        centered={false}
+        size='large'
+        basic
+        closeIcon
+      >
+        <Modal.Content>
+          <Iframe
+            url={audition.url}
+            width='95%'
+            height='80vh'
+          />
+          <p>&nbsp;</p>
+        </Modal.Content>
+      </Modal>
+    )
   }
 
   return(
@@ -47,7 +70,9 @@ const Audition = ({audition, deleteAudition}) => {
         </Item.Description>
         <Item.Extra>
           <Grid columns={2}>
-            <Grid.Column></Grid.Column>
+            <Grid.Column>
+              {audition.url ? renderPostListing() : null }
+            </Grid.Column>
             <Grid.Column>
               <Button.Group fluid size="mini">
                 <AuditionReport audition={audition} />
