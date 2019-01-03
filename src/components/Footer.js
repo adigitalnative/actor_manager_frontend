@@ -11,9 +11,9 @@ const Footer = () => {
         <Grid.Column width={3}>
           <Header inverted as='h4' content='About Actio' />
           <List link inverted>
-            <List.Item as='a'>Support</List.Item>
+            <List.Item>Support</List.Item>
             <List.Item as={Link} to="/roadmap">Roadmap</List.Item>
-            <List.Item as='a'>Have a suggestion?</List.Item>
+            <List.Item>Have a suggestion?</List.Item>
           </List>
         </Grid.Column>
         <Grid.Column width={3}>
@@ -44,10 +44,10 @@ const Footer = () => {
 
       <Divider inverted section />
       <List horizontal inverted divided link size='small'>
-        <List.Item as='a' href='#'>
+        <List.Item>
           Site Map
         </List.Item>
-        <List.Item as='a' href='#'>
+        <List.Item >
           Contact Us
         </List.Item>
         <List.Item as={Link} to="/privacy">
