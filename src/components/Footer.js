@@ -19,18 +19,18 @@ const Footer = () => {
         <Grid.Column width={3}>
           <Header inverted as='h4' content='The Native Foundry' />
           <List link inverted>
-            <List.Item as='a' href="http://nativefoundry.com">The Foundry</List.Item>
-            <List.Item as='a' href="http://www.jacquelinechenault.com">The Actor</List.Item>
-            <List.Item as='a' href="http://www.flatironschool.com">Flatiron School</List.Item>
+            <List.Item as='a' href="http://nativefoundry.com" target='_blank'>The Foundry</List.Item>
+            <List.Item as='a' href="http://www.jacquelinechenault.com" target='_blank'>The Actor</List.Item>
+            <List.Item as='a' href="http://www.flatironschool.com" target='_blank'>Flatiron School</List.Item>
           </List>
         </Grid.Column>
         <Grid.Column width={3}>
           <Header inverted as='h4' content='Resources' />
           <List link inverted>
-            <List.Item as='a' href="https://www.actorsequity.org/">Actor's Equity</List.Item>
-            <List.Item as='a' href="http://www.playbill.com">Playbill</List.Item>
-            <List.Item as='a' href="http://www.backstage.com">Backstage</List.Item>
-            <List.Item as='a' href="http://actorscenter.org">Actor's Center [DC]</List.Item>
+            <List.Item as='a' href="https://www.actorsequity.org/" target='_blank'>Actor's Equity</List.Item>
+            <List.Item as='a' href="http://www.playbill.com" target='_blank'>Playbill</List.Item>
+            <List.Item as='a' href="http://www.backstage.com" target='_blank'>Backstage</List.Item>
+            <List.Item as='a' href="http://actorscenter.org" target='_blank'>Actor's Center [DC]</List.Item>
           </List>
         </Grid.Column>
         <Grid.Column width={7}>
