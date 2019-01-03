@@ -27,7 +27,6 @@ const BookItem = props => {
       </Card.Content>
       {checkPreparedSides() ? null : (
         <Card.Content extra textAlign="center">
-          <Button disabled>View</Button>
           <EditBookItemForm piece={props.piece}>Edit</EditBookItemForm>
           <Button negative onClick={handleDeletePiece}>Delete</Button>
         </Card.Content>
