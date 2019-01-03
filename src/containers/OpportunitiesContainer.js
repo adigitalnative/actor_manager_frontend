@@ -51,7 +51,7 @@ class OpportunitiesContainer extends Component {
             </Grid.Column>
           </Grid>
 
-          <Card.Group>
+          <Card.Group itemsPerRow={3}>
             {this.filteredOpportunities().map(lead => <Opportunity lead={lead} key={lead.id} />)}
 
             {this.props.loading ? <LoadingSpinner message="Loading your opportunities..." /> : null}
