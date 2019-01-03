@@ -13,6 +13,12 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import AuditionForm from '../components/AuditionForm'
 
 class AuditionsContainer extends Component {
+  constructor() {
+    super()
+    this.state={
+      searchString: ""
+    }
+  }
 
   componentDidMount() {
     this.props.fetchingAuditions()
@@ -28,12 +34,14 @@ class AuditionsContainer extends Component {
       <Container>
         <Segment>
           <Grid stackable>
-            <Grid.Column>
-              <Header as="h2">Auditions</Header>
+            <Grid.Column width={10}>
+              <Header as="h2">Your Auditions</Header>
             </Grid.Column>
-            <Grid.Column floated='right' width={4}>
-              <Button as={Link} to='/opportunities' fluid basic color="grey">Opportunities</Button>
-              <AuditionForm buttonText="Add Audition"/>
+            <Grid.Column width={6}>
+              <Button.Group fluid>
+                <Button as={Link} to='/opportunities' basic color="grey">Opportunities</Button>
+                <AuditionForm buttonText="Add Audition"/>
+              </Button.Group>
             </Grid.Column>
           </Grid>
           <Item.Group divided>

@@ -42,20 +42,23 @@ class OpportunitiesContainer extends Component {
       <Container>
         <Segment>
           <Grid stackable>
-            <Grid.Column width={12}>
+            <Grid.Column width={10}>
               <Header as="h2">Your Opportunities</Header>
             </Grid.Column>
-            <Grid.Column floated='right' width={4}>
-              <Button as={Link} to='/auditions' fluid basic color="blue">Auditions</Button>
-              <Button fluid basic color="grey" onClick={this.toggleArchived}>{this.state.showArchived ? "Hide Archived Opportunities" : "Show Archived Opportunities"}</Button>
+            <Grid.Column floated='right' width={6}>
+              <Button.Group fluid>
+                <Button as={Link} to='/auditions' basic color="blue">Auditions</Button>
+                <Button basic color="grey" onClick={this.toggleArchived}>{this.state.showArchived ? "Hide Archived Opportunities" : "Show Archived Opportunities"}</Button>
+              </Button.Group>
             </Grid.Column>
           </Grid>
+          <div style={{minHeight: '12px'}}>
+            <Card.Group itemsPerRow={3}>
+              {this.filteredOpportunities().map(lead => <Opportunity lead={lead} key={lead.id} />)}
 
-          <Card.Group itemsPerRow={3}>
-            {this.filteredOpportunities().map(lead => <Opportunity lead={lead} key={lead.id} />)}
-
-            {this.props.loading ? <LoadingSpinner message="Loading your opportunities..." /> : null}
-          </Card.Group>
+              {this.props.loading ? <LoadingSpinner message="Loading your opportunities..." /> : null}
+            </Card.Group>
+          </div>
         </Segment>
       </Container>
     )

@@ -138,7 +138,7 @@ class AuditionForm extends Component {
     return(
       <Fragment>
       <Modal
-        trigger={<Button primary basic fluid size="small" onClick={this.handleOpen}>{this.props.buttonText}</Button>}
+        trigger={<Button primary basic onClick={this.handleOpen}>{this.props.buttonText}</Button>}
         centered={false}
         dimmer='blurring'
         open={this.state.modalOpen}
