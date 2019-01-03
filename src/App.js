@@ -18,6 +18,7 @@ import SettingsPage from './components/SettingsPage'
 import CompaniesProjectsContainer from './containers/CompaniesProjectsContainer'
 import {RoadmapPage, PrivacyPolicyPage } from './components/StaticPages'
 import OpportunitiesContainer from './containers/OpportunitiesContainer'
+import MobileView from './components/mobileView'
 
 // import logo from './logo.svg';
 import './App.css';
@@ -57,6 +58,7 @@ class App extends Component {
             <Route exact path="/signup" component={SignupPage} />
             <Route exact path="/roadmap" component={RoadmapPage} />
             <Route exact path="/privacy" component={PrivacyPolicyPage} />
+            <Route exact path="/mobile" component={MobileView} />
             <Route exact path="/auditions" render={() => this.authorizeFor(AuditionsContainer, '/auditions')} />
             <Route exact path="/book" render={() => this.authorizeFor(BookContainer, '/book')} />
             <Route exact path="/dashboard" render={() => this.authorizeFor(Dashboard, '/dashboard')} />
