@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Segment, Header, Grid, Button, Card } from 'semantic-ui-react'
+import { Container, Segment, Header, Grid, Button, Card, Message } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchOpportunities } from '../redux/actions/opportunityActions'
@@ -55,7 +55,14 @@ class OpportunitiesContainer extends Component {
           <div style={{minHeight: '12px'}}>
             <Card.Group itemsPerRow={3}>
               {this.filteredOpportunities().map(lead => <Opportunity lead={lead} key={lead.id} />)}
-
+              {this.filteredOpportunities().length === 0 ? (
+                <Message style={{margin: '1em', width: '100%'}}>
+                  <Message.Header>You don't have any opportunities to display!</Message.Header>
+                  <p>If you haven't already, head on over to your <Link to='/settings'>settings</Link> and add a state or two to search.</p>
+                  <p>(We've heard there are good pickings over in DC, MD, VA, NY, CA, and IL...)</p>
+                  <p>Otherwise, it looks like you've archived all your opportunities. Keep prepping those monologues, because the next audition is always around the corner!</p>
+                </Message>
+              ) : null}
               {this.props.loading ? <LoadingSpinner message="Loading your opportunities..." /> : null}
             </Card.Group>
           </div>
