@@ -139,7 +139,7 @@ class LeadAuditionForm extends Component {
     if (this.state.selectedCompany) {
       return (
         <Fragment>
-        <label><strong>Company *</strong></label>
+        <label><strong>Project *</strong></label>
 
         <Dropdown
                 placeholder="Choose or create project"
