@@ -4,10 +4,7 @@ import CreatableSelect from 'react-select/lib/Creatable'
 import { DateTimeInput } from 'semantic-ui-calendar-react'
 
 import { connect } from 'react-redux'
-import { fetchingCompanies } from '../redux/actions/companyActions'
 import { creatingAudition } from '../redux/actions/auditionActions'
-import { fetchingCategories } from '../redux/actions/categoryActions'
-import { fetchingProjects } from '../redux/actions/projectActions'
 
 class AuditionForm extends Component {
 
