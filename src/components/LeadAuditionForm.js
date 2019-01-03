@@ -139,7 +139,7 @@ class LeadAuditionForm extends Component {
     if (this.state.selectedCompany) {
       return (
         <Fragment>
-        <label><strong>Project *</strong></label>
+        <label><strong>Project <span style={{color: 'red'}}>*</span></strong></label>
 
         <Dropdown
                 placeholder="Choose or create project"
@@ -201,6 +201,7 @@ class LeadAuditionForm extends Component {
         centered={false}
         open={this.state.modalOpen}
         onClose={this.handleClose}
+        size='large'
       >
         <Modal.Header>Build Audition from Opportunity:</Modal.Header>
         <Modal.Content>
@@ -217,7 +218,7 @@ class LeadAuditionForm extends Component {
               <Grid.Column>
               {this.state.error ? <Message>{this.state.error}</Message> : null}
                 <Form loading={this.props.loading}>
-                  <label><strong>Company *</strong></label>
+                  <label><strong>Company <span style={{color: 'red'}}>*</span></strong></label>
                   <Dropdown
                     placeholder="Choose or create company"
                     name="selectedCompany"
@@ -245,6 +246,7 @@ class LeadAuditionForm extends Component {
                   />
                   <Form.Input required label="Bring" type="text" name="bring" onChange={this.handleChange} value={this.state.bring} placeholder="To Bring"/>
                   <Form.Input required label="Prepare" type="text" name="prepare" onChange={this.handleChange} value={this.state.prepare} placeholder="To Prepare"/>
+                  <label><strong>Audition Pieces</strong></label>
                   <Dropdown
                     placeholder="Audition Pieces"
                     selection

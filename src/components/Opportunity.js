@@ -1,13 +1,36 @@
 import React, { Component, Fragment } from 'react'
-import { Card, Button, Label } from 'semantic-ui-react'
+import { Card, Button, Label, Modal } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { archiveLead } from '../redux/actions/opportunityActions'
 import LeadAuditionForm from './LeadAuditionForm'
+import Iframe from 'react-iframe'
+
 
 class Opportunity extends Component {
 
   handleArchive = () => {
     this.props.archiveLead(this.props.lead)
+  }
+
+  renderPostListing = () => {
+    return (
+      <Modal
+        trigger={<Button size="mini" fluid basic color='blue'>View Post</Button>}
+        centered={false}
+        size='large'
+        basic
+        closeIcon
+      >
+        <Modal.Content>
+          <Iframe
+            url={this.props.lead.opportunity.url}
+            width='95%'
+            height='80vh'
+          />
+          <p>&nbsp;</p>
+        </Modal.Content>
+      </Modal>
+    )
   }
 
   render() {
@@ -29,7 +52,7 @@ class Opportunity extends Component {
               null
             ) : (
               <Fragment>
-                <Button basic color="blue" size="mini" href={this.props.lead.opportunity.url} target="_blank">View Posting</Button>
+                {this.renderPostListing()}
                 {this.props.lead.audition ? null : <LeadAuditionForm lead={this.props.lead}/>}
               </Fragment>
             )}
