@@ -1,6 +1,7 @@
 # Actio: Actor Career Management
+## An audition sourcing and tracking app for actors
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It has the standard create-react-app defaults
+The app uses React & Redux, with the defaults that come from using create-react-app.
 
 ## Available Scripts
 
@@ -42,8 +43,6 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## Credits
 
