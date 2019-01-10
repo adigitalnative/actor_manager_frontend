@@ -1,10 +1,6 @@
 function baseUrl() {
-<<<<<<< Updated upstream
-  return 'http://localhost:3001/api/v1'
-=======
   // return 'http://localhost:3001/api/v1' //Localhost version
   return 'https://nf-actio-backend.herokuapp.com/api/v1'
->>>>>>> Stashed changes
 }
 
 function statesOptions() {
