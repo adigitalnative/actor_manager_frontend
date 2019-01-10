@@ -1,11 +1,6 @@
 function baseUrl() {
-<<<<<<< HEAD
   // return 'http://localhost:3001/api/v1' //Localhost version
   return 'https://nf-actio-backend.herokuapp.com/api/v1'
-=======
-  // return 'http://localhost:3001/api/v1'
-  return 'http://4a886453.ngrok.io/api/v1'
->>>>>>> Switch to publically available domain for backend
 }
 
 function statesOptions() {
