@@ -3,6 +3,10 @@
 
 The app uses React & Redux, with the defaults that come from using create-react-app.
 
+## Live version
+
+To view a live version of the site, visit https://nf-actio-frontend.herokuapp.com/
+
 ## Available Scripts
 
 In the project directory, you can run:
