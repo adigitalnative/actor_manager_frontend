@@ -1,6 +1,15 @@
 function baseUrl() {
+  // Set to the main API URL (endpoints are added where needed)
+
   // return 'http://localhost:3001/api/v1' //Localhost version
-  return 'https://nf-actio-backend.herokuapp.com/api/v1'
+  return 'https://nf-actio-backend.herokuapp.com/api/v1' // Deployed Version
+}
+
+function urlPrefix() {
+  // Set this to http:// or https:// to match encryption status of frontend
+  // Note that an HTTPS site cannot display HTTP sites inside an iFrame
+
+  return 'https://'
 }
 
 function statesOptions() {
@@ -61,4 +70,4 @@ function statesOptions() {
   )
 }
 
-export { baseUrl, statesOptions }
+export { baseUrl, statesOptions, urlPrefix }

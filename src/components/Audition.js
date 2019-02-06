@@ -5,6 +5,7 @@ import { deleteAudition } from '../redux/actions/auditionActions'
 import EditAuditionForm from './EditAuditionForm'
 import AuditionReport from './AuditionReport'
 import Iframe from 'react-iframe'
+import { urlPrefix } from '../redux/actions/settings'
 
 
 const Audition = ({audition, deleteAudition}) => {
@@ -39,7 +40,7 @@ const Audition = ({audition, deleteAudition}) => {
       >
         <Modal.Content>
           <Iframe
-            url={audition.url}
+            url={urlPrefix() + audition.url}
             width='95%'
             height='80vh'
           />

@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { archiveLead } from '../redux/actions/opportunityActions'
 import LeadAuditionForm from './LeadAuditionForm'
 import Iframe from 'react-iframe'
+import { urlPrefix } from '../redux/actions/settings'
+
 
 
 class Opportunity extends Component {
@@ -23,7 +25,7 @@ class Opportunity extends Component {
       >
         <Modal.Content>
           <Iframe
-            url={this.props.lead.opportunity.url}
+            url={urlPrefix() + this.props.lead.opportunity.url}
             width='95%'
             height='80vh'
           />
